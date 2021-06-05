@@ -7,11 +7,10 @@
 <br>
 
 [![NPM version](http://img.shields.io/npm/v/react-native-big-list.svg?style=for-the-badge)](http://npmjs.org/package/react-native-big-list)
-
-<!--[![Package Quality](https://npm.packagequality.com/shield/react-native-big-list.svg?style=for-the-badge)](https://packagequality.com/#?package=react-native-big-list)-->
-
 [![js-prittier-style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=for-the-badge)](https://prettier.io/)
 [![Compatibility](https://img.shields.io/badge/platform-android%20%7C%20ios%20%7C%20Web%20%7C%20expo-blue.svg?style=for-the-badge)](http://npmjs.org/package/react-native-big-list)
+
+<!--[![Package Quality](https://npm.packagequality.com/shield/react-native-big-list.svg?style=for-the-badge)](https://packagequality.com/#?package=react-native-big-list)-->
 
 </div>
 
@@ -29,7 +28,7 @@ Exists some alternatives like `react-native-largelist` and `recyclerlistview`.
 
 The `react-native-largelist` isn't compatible with web/expo, have a weird list item recycles (because it never has blank items), need data restructure and have some issues when trying to more data process (eg: 100,000 items) because it would freeze the CPU.
 
-The `recyclerlistview` is very performant but unfortunately suffers from an empty frame on mount, weird scroll positions when trying to scroll to an element on mount, and the implementation of sticky headers conflicts with` Animated`.
+The `recyclerlistview` is very performant but unfortunately suffers from an empty frame on mount, weird scroll positions when trying to scroll to an element on mount, and the implementation of sticky headers conflicts with `Animated`.
 
 #### How it works?
 
@@ -47,8 +46,6 @@ Install the library from npm or yarn just running one of the following command l
 | npm                                        | yarn                             |
 | ------------------------------------------ | -------------------------------- |
 | `npm install react-native-big-list --save` | `yarn add react-native-big-list` |
-
-[![NPM](https://nodei.co/npm/react-native-big-list.png?mini=true)](https://nodei.co/npm/react-native-big-list/)
 
 ## 💻 Usage
 
@@ -181,7 +178,7 @@ Big list have the same properties of the [ScrollView](https://reactnative.dev/do
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | ------------------------------------------ |
 | `data`                                     | For simplicity, data is a plain array containing the items to render.                                                                                        | Array           | `[]`                                       |
 | `sections`                                 | For simplicity, sections is a plain array containing another plain array with the items (section items) to render. If specified `data` prop will be ignored. | Array           | `[]`                                       |
-| `renderItem({ item, index/section, row })` | Takes an item from data and renders it into the list.                                                                                                        | Function        |
+| `renderItem({ item, index/section, row })` | Takes an item from data and renders it into the list.                                                                                                        | Function        |                                            |
 | `renderHeader()`                           | Rendered at the top of all the items.                                                                                                                        | Function        |                                            |
 | `renderFooter()`                           | Rendered at the bottom of all the items.                                                                                                                     | Function        |                                            |
 | `renderActionSheetScrollViewWrapper()`     | Wrap the entire list into an accessory component.                                                                                                            | Function        |                                            |
