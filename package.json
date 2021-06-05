@@ -1,0 +1,86 @@
+{
+  "name": "react-native-big-list",
+  "version": "1.0.0",
+  "description": "A big and fast list implementation for react-native with a recycler API focused on performance and ram usage while processing thousand items on the list.",
+  "keywords": [
+    "react-native-big-list",
+    "react",
+    "react-native",
+    "javascript",
+    "ui-lib",
+    "rn",
+    "big-list",
+    "fast-list",
+    "scroll-list",
+    "large-list",
+    "biglist",
+    "fastlist",
+    "scrolllist",
+    "largelist",
+    "fast",
+    "scroll",
+    "large",
+    "bigdata",
+    "big",
+    "massive",
+    "list",
+    "performance"
+  ],
+  "main": "./lib/index.js",
+  "author": "Marco Cesarato <cesarato.developer@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/marcocesarato/react-native-big-list/issues"
+  },
+  "homepage": "https://github.com/marcocesarato/react-native-big-list#readme",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "lint": "eslint --ignore-path .gitignore \"**/*.{js,jsx,ts,tsx}\"",
+    "prettify": "prettier --write \"./**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format": "yarpm run prettify && yarpm run lint --fix",
+    "release": "standard-version"
+  },
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^2.0.0",
+    "eslint": "^7.28.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-native": "^3.11.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.0",
+    "standard-version": "^9.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx}": [
+      "eslint --ignore-path .gitignore . --fix"
+    ],
+    "**/*.{ts,tsx,js,jsx,json}": [
+      "prettier --write ."
+    ]
+  },
+  "peerDependencies": {
+    "@types/react": "*",
+    "@types/react-native": "*",
+    "react": "*",
+    "react-native": "*"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "yarpm": "^1.1.1"
+  },
+  "bit": {
+    "env": {},
+    "packageManager": "npm"
+  }
+}
