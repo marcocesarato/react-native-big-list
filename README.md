@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="React Native Big List" src="assets/logo.png" width="1050"/>
+<img alt="React Native Big List" src="assets/logo.png" />
 
 ### If this project has helped you out, please support us with a star 🌟
 
