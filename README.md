@@ -7,19 +7,36 @@
 <br>
 
 [![NPM version](http://img.shields.io/npm/v/react-native-big-list.svg?style=for-the-badge)](http://npmjs.org/package/react-native-big-list)
-[![Package Quality](https://npm.packagequality.com/shield/react-native-big-list.svg?style=for-the-badge)](https://packagequality.com/#?package=react-native-big-list)
+
+<!--[![Package Quality](https://npm.packagequality.com/shield/react-native-big-list.svg?style=for-the-badge)](https://packagequality.com/#?package=react-native-big-list)-->
+
 [![js-prittier-style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=for-the-badge)](https://prettier.io/)
-[![Compatibility](https://img.shields.io/badge/platform-android%20%7C%20ios%20%7C%20expo-blue.svg?style=for-the-badge)](http://npmjs.org/package/react-native-big-list)
+[![Compatibility](https://img.shields.io/badge/platform-android%20%7C%20ios%20%7C%20Web%20%7C%20expo-blue.svg?style=for-the-badge)](http://npmjs.org/package/react-native-big-list)
 
 </div>
 
 ## 📘 Description
 
-**Author:** Marco Cesarato
+#### What is this?
 
-**Github:** https://github.com/marcocesarato/react-native-big-list
+This is a high performance list view for React Native with support for complex layouts.
+This is a fast list implementation for big list rendering on React Native and it works with a recycler focused on performance and memory usage and so it permits processing thousands items on the list.
 
-A big and fast list implementation for react-native with a recycler API focused on performance and ram usage while processing thousand items on the list.
+#### Why another list library?
+
+React Native's FlatList is great but when it comes to big lists it has some flaws.
+Exists some alternatives like `react-native-largelist` and `recyclerlistview`.
+
+The `react-native-largelist` isn't compatible with web/expo, have a weird list item recycles (because it never has blank items), need data restructure and have some issues when trying to more data process (eg: 100,000 items) because it would freeze the CPU.
+
+The `recyclerlistview` is very performant but unfortunately suffers from an empty frame on mount, weird scroll positions when trying to scroll to an element on mount, and the implementation of sticky headers conflicts with` Animated`.
+
+#### How it works?
+
+Recycler makes it easy to efficiently display large sets of data. You supply the data and define how each item looks, and the recycler library dynamically creates the elements when they're needed.
+As the name implies, the recycler recycles those individual elements. When an item scrolls off the screen, the recycler doesn't destroy its view. Instead, the recycler reuses the view for new items that have scrolled onscreen. This reuse vastly improves performance, improving your app's responsiveness and reducing power consumption.
+
+When list can't render your items fast enough the non-rendered components will appear as blank space.
 
 _Compatible with: Android, iOS, Windows, Web and Expo._
 
