@@ -60,8 +60,8 @@ export default function CompareList() {
             ListHeaderComponent={renderBigHeader}
             ListFooterComponent={renderFooter}
             ListEmptyComponent={renderEmpty}
-            headerHeight={100} // <== Required to show header
-            footerHeight={100} // <== Required to show footer
+            headerHeight={100} // Default 0, so you need to specify it to show the header
+            footerHeight={100} // Default 0, so you need to specify it to show the footer
           />
           <FlatList
             style={[
