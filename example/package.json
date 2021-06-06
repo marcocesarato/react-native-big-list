@@ -1,6 +1,9 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "homepage": "https://marcocesarato.github.io/react-native-big-list/",
   "scripts": {
+    "deploy": "gh-pages -d web-build",
+    "predeploy": "expo build:web",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -11,15 +14,16 @@
     "expo": "~41.0.1",
     "expo-status-bar": "~1.0.4",
     "faker": "^5.5.3",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-paper": "^4.9.1",
     "react-native-big-list": "^1.1.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.16.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.14.3",
+    "gh-pages": "^3.2.0"
   },
   "private": true
 }
