@@ -1,11 +1,12 @@
 import React, { PureComponent } from "react";
 import {
-  ScrollViewProps,
+  Animated,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  ScrollViewProps,
 } from "react-native";
 
-interface Props extends ScrollViewProps {
+interface BigListProps extends ScrollViewProps {
   actionSheetScrollRef?: any;
   contentInset?: {
     bottom?: number;
@@ -41,4 +42,21 @@ interface Props extends ScrollViewProps {
   sectionHeight?: string | number | (() => number);
   sections?: unknown[][];
 }
-export default class BigList extends PureComponent<Props> {}
+export default class BigList extends PureComponent<BigListProps> {}
+
+type BigListItemProps = {
+  children: React.ReactNode[] | React.ReactNode;
+  height?: number;
+};
+
+export class BigListItem extends PureComponent<BigListItemProps> {}
+
+type BigListSectionProps = {
+  children: React.ReactNode[] | React.ReactNode;
+  height?: number;
+  nextSectionPosition?: number;
+  position?: number;
+  scrollTopValue: string | number | Animated.Value;
+};
+
+export class BigListSection extends PureComponent<BigListSectionProps> {}
