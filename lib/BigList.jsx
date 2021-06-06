@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import BigListItem, { BigListItemType } from "./BigListItem";
 import BigListProcessor from "./BigListProcessor";
 import BigListSection from "./BigListSection";
-import { autobind, processBlock } from "./utils";
+import {autobind, createElement, processBlock} from "./utils";
 
 class BigList extends PureComponent {
   /**
@@ -307,7 +307,7 @@ class BigList extends PureComponent {
     const { items = [] } = this.state;
     if (this.isEmpty()) {
       if (ListEmptyComponent != null) {
-        return <ListEmptyComponent />;
+        return createElement(ListHeaderComponent);
       }
       if (renderEmpty != null) {
         return renderEmpty();
@@ -326,8 +326,8 @@ class BigList extends PureComponent {
       switch (type) {
         case BigListItemType.HEADER:
           if (ListFooterComponent != null) {
-            child = <ListFooterComponent />;
-            style = ListFooterComponentStyle;
+            child = createElement(ListHeaderComponent);
+            style = ListHeaderComponentStyle;
           } else {
             child = renderHeader();
           }
@@ -335,8 +335,8 @@ class BigList extends PureComponent {
         case BigListItemType.FOOTER:
           if (type === BigListItemType.FOOTER) {
             if (ListFooterComponent != null) {
-              child = <ListHeaderComponent />;
-              style = ListHeaderComponentStyle;
+              child = createElement(ListFooterComponent);
+              style = ListFooterComponentStyle;
             } else {
               child = renderFooter();
             }
