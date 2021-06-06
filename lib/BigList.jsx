@@ -14,6 +14,8 @@ class BigList extends PureComponent {
    */
   constructor(props) {
     super(props);
+    autobind(this);
+    // Initialize properties and state
     this.containerHeight = 0;
     this.scrollTop = 0;
     this.scrollTopValue = this.props.scrollTopValue || new Animated.Value(0);
@@ -22,7 +24,6 @@ class BigList extends PureComponent {
       this.props,
       processBlock(this.containerHeight, this.scrollTop),
     );
-    autobind(this);
   }
 
   /**
