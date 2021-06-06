@@ -41,18 +41,19 @@ interface BigListProps extends ScrollViewProps {
   sectionFooterHeight?: string | number | (() => number);
   sectionHeight?: string | number | (() => number);
   sections?: unknown[][];
+  children?: null;
 }
 export default class BigList extends PureComponent<BigListProps> {}
 
 type BigListItemProps = {
-  children: React.ReactNode[] | React.ReactNode;
+  children?: React.ReactNode[] | React.ReactNode;
   height?: number;
 };
 
 export class BigListItem extends PureComponent<BigListItemProps> {}
 
 type BigListSectionProps = {
-  children: React.ReactNode[] | React.ReactNode;
+  children?: React.ReactNode[] | React.ReactNode;
   height?: number;
   nextSectionPosition?: number;
   position?: number;
