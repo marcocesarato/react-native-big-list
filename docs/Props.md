@@ -153,40 +153,40 @@ Rendered at the bottom of the list.
 
 Specify the item height.
 
-| Type                   | Required | Default |
-| ---------------------- | -------- | ------- |
+| Type             | Required | Default |
+| ---------------- | -------- | ------- |
 | number, function | Yes      | `50`    |
 
 ### `headerHeight`
 
 Specify the header item height.
 
-| Type                   | Required | Default |
-| ---------------------- | -------- | ------- |
+| Type             | Required | Default |
+| ---------------- | -------- | ------- |
 | number, function | No       | `0`     |
 
 ### `footerHeight`
 
 Specify the footer item height.
 
-| Type                   | Required | Default |
-| ---------------------- | -------- | ------- |
+| Type             | Required | Default |
+| ---------------- | -------- | ------- |
 | number, function | No       | `0`     |
 
 ### `sectionHeight`
 
 Specify the section header height.
 
-| Type                   | Required | Default |
-| ---------------------- | -------- | ------- |
+| Type             | Required | Default |
+| ---------------- | -------- | ------- |
 | number, function | No       | `0`     |
 
 ### `sectionFooterHeight`
 
 Specify the section footer height.
 
-| Type                   | Required | Default |
-| ---------------------- | -------- | ------- |
+| Type             | Required | Default |
+| ---------------- | -------- | ------- |
 | number, function | No       | `0`     |
 
 ### `scrollTopValue`
@@ -227,8 +227,8 @@ Rendered when the list is empty. Can be a React Component (e.g. `SomeComponent`)
 
 This is a **compatibility** prop for FlatList replacement and so it'll replace the `renderEmpty` prop.
 
-| Type   | Required |
-| ------ | -------- |
+| Type               | Required |
+| ------------------ | -------- |
 | component, element | No       |
 
 ### `ListFooterComponent`
@@ -240,9 +240,9 @@ Rendered at the bottom of all the items. Can be a React Component (e.g. `SomeCom
 This is a **compatibility** prop for FlatList replacement and so it'll replace the `renderFooter` prop.
 If you are creating for the first time the list we suggest to use `renderFooter` prop instead.
 
-| Type   | Required | 
-| ------ | -------- | 
-| component, element | No       | 
+| Type               | Required |
+| ------------------ | -------- |
+| component, element | No       |
 
 ### `ListFooterComponentStyle`
 
@@ -250,10 +250,9 @@ Styling for internal View for `ListFooterComponent`.
 
 This will works only if `ListFooterComponent` is specified.
 
-| Type   | Required | 
-| ------ | -------- | 
-| [View Style](https://reactnative.dev/docs/view-style-props) | No       | 
-
+| Type                                                        | Required |
+| ----------------------------------------------------------- | -------- |
+| [View Style](https://reactnative.dev/docs/view-style-props) | No       |
 
 ### `ListHeaderComponent`
 
@@ -261,12 +260,12 @@ Rendered at the top of all the items. Can be a React Component (e.g. `SomeCompon
 
 **PS:** You need also to specify the header height with `headerHeight` prop or using `ListHeaderComponentStyle`.
 
-This is a **compatibility** prop for FlatList replacement and so it'll replace the `renderHeader` prop. 
+This is a **compatibility** prop for FlatList replacement and so it'll replace the `renderHeader` prop.
 If you are creating for the first time the list we suggest to use `renderHeader` prop instead.
 
-| Type   | Required | 
-| ------ | -------- | 
-| component, element | No       | 
+| Type               | Required |
+| ------------------ | -------- |
+| component, element | No       |
 
 ### `ListHeaderComponentStyle`
 
@@ -274,6 +273,6 @@ Styling for internal View for `ListHeaderComponent`.
 
 This will works only if `ListHeaderComponent` is specified.
 
-| Type   | Required | 
-| ------ | -------- | 
-| [View Style](https://reactnative.dev/docs/view-style-props) | No       | 
+| Type                                                        | Required |
+| ----------------------------------------------------------- | -------- |
+| [View Style](https://reactnative.dev/docs/view-style-props) | No       |
