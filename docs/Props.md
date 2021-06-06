@@ -16,6 +16,20 @@ For simplicity, data is a plain array containing the items to render.
 | ----- | ------- | -------- |
 | array | `[]`    | Yes      |
 
+#### Examples
+
+```js
+[1, 2, 3, 4, 5, 6 /* ... */];
+```
+
+```js
+[
+  { label: "1", value: 1 /* ... */ },
+  { label: "2", value: 2 /* ... */ },
+  /* ... */
+];
+```
+
 ### `sections`
 
 For simplicity, sections is a plain array containing another plain array with the items (section items) to render. If specified `data` prop will be ignored.
@@ -26,6 +40,34 @@ It's required if no data is specified or if you want use sticky headers (look at
 | Type  | Default | Required                                     |
 | ----- | ------- | -------------------------------------------- |
 | array | `[]`    | Yes, if you want to use it instead of `data` |
+
+#### Examples
+
+```js
+[
+  // Section 1
+  [1, 2],
+  // Section 2
+  [3, 4],
+  /* ... */
+];
+```
+
+```js
+[
+  [
+    // Section 1
+    { label: "1", value: 1 /* ... */ },
+    { label: "2", value: 2 /* ... */ },
+  ],
+  [
+    // Section 2
+    { label: "3", value: 3 /* ... */ },
+    { label: "4", value: 4 /* ... */ },
+  ],
+  /* ... */
+];
+```
 
 ### <small>Required</small> `renderItem`
 

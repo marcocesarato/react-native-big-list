@@ -54,7 +54,7 @@ Install the library from npm or yarn just running one of the following command l
 ```javascript
 import BigList from "react-native-big-list";
 
-// ...
+/* ... */
 
 // Data array
 const data = [
@@ -63,7 +63,7 @@ const data = [
   { label: "3", value: 3 /* ... */ },
   { label: "4", value: 4 /* ... */ },
   { label: "5", value: 5 /* ... */ },
-  // ...
+  /* ... */
 ];
 
 // Example
@@ -97,7 +97,7 @@ return (
 ```javascript
 import BigList from "react-native-big-list";
 
-// ...
+/* ... */
 
 // Data array
 const sections = [
@@ -116,7 +116,7 @@ const sections = [
     { label: "6", value: 6 /* ... */ },
     { label: "6", value: 6 /* ... */ },
   ],
-  // ...
+  /* ... */
 ];
 
 // Example
