@@ -21,6 +21,8 @@
 This is a high performance list view for React Native with support for complex layouts using a similar FlatList usage to make easy the replacement.
 This list implementation for big list rendering on React Native works with a recycler focused on performance and memory usage and so it permits processing thousands items on the list.
 
+Try it on the published demo web app: [https://marcocesarato.github.io/react-native-big-list/](https://marcocesarato.github.io/react-native-big-list/)
+
 #### Why another list library?
 
 React Native's FlatList is great but when it comes to big lists it has some flaws because of its item caching.
