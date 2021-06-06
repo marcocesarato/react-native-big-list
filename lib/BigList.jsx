@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import BigListItem, { BigListItemType } from "./BigListItem";
 import BigListProcessor from "./BigListProcessor";
 import BigListSection from "./BigListSection";
-import {autobind, createElement, processBlock} from "./utils";
+import { autobind, createElement, processBlock } from "./utils";
 
 class BigList extends PureComponent {
   /**
@@ -519,13 +519,25 @@ BigList.propTypes = {
   ]),
   keyboardDismissMode: PropTypes.string,
   keyboardShouldPersistTaps: PropTypes.string,
-  ListEmptyComponent: PropTypes.element,
-  ListFooterComponent: PropTypes.element,
+  ListEmptyComponent: PropTypes.oneOfType([
+    PropTypes.elementType,
+    PropTypes.element,
+    PropTypes.node,
+  ]),
+  ListFooterComponent: PropTypes.oneOfType([
+    PropTypes.elementType,
+    PropTypes.element,
+    PropTypes.node,
+  ]),
   ListFooterComponentStyle: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array,
   ]),
-  ListHeaderComponent: PropTypes.element,
+  ListHeaderComponent: PropTypes.oneOfType([
+    PropTypes.elementType,
+    PropTypes.element,
+    PropTypes.node,
+  ]),
   ListHeaderComponentStyle: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array,
