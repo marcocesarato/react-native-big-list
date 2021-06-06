@@ -18,17 +18,17 @@
 
 #### What is this?
 
-This is a high performance list view for React Native with support for complex layouts.
-This is a fast list implementation for big list rendering on React Native and it works with a recycler focused on performance and memory usage and so it permits processing thousands items on the list.
+This is a high performance list view for React Native with support for complex layouts using a similar FlatList usage to make easy the replacement.
+This list implementation for big list rendering on React Native works with a recycler focused on performance and memory usage and so it permits processing thousands items on the list.
 
 #### Why another list library?
 
-React Native's FlatList is great but when it comes to big lists it has some flaws.
-Exists some alternatives like `react-native-largelist` and `recyclerlistview`.
+React Native's FlatList is great but when it comes to big lists it has some flaws because of its item caching.
+Exists some alternatives like `react-native-largelist` and `recyclerlistview` but both don't support Expo and have some issues.
 
-The `react-native-largelist` isn't compatible with web/expo, have a weird list item recycles (because it never has blank items), need data restructure and have some issues when trying to more data process (eg: 100,000 items) because it would freeze the CPU.
+The `react-native-largelist` isn't compatible with web and Expo, has native code that sometimes need to be readjusted and maintained, have a weird list item recycles (because it never has blank items), need data restructure and have some issues when trying to process a lot of data (eg: 100,000 items) because it would freeze the CPU.
 
-The `recyclerlistview` is very performant but unfortunately suffers from an empty frame on mount, weird scroll positions when trying to scroll to an element on mount, and the implementation of sticky headers conflicts with `Animated`.
+The `recyclerlistview` is very performant but isn't compatible with Expo. Also suffers from an empty frame on mount, weird scroll positions when trying to scroll to an element on mount, and the implementation of sticky headers conflicts with `Animated`.
 
 #### How it works?
 
