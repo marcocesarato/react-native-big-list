@@ -26,11 +26,11 @@ Try it on the published demo web app: [https://marcocesarato.github.io/react-nat
 #### Why another list library?
 
 React Native's FlatList is great but when it comes to big lists it has some flaws because of its item caching.
-Exists some alternatives like `react-native-largelist` and `recyclerlistview` but both don't support Expo and have some issues.
+Exists some alternatives like `react-native-largelist` and `recyclerlistview` but both have some issues.
 
 The `react-native-largelist` isn't compatible with web and Expo, has native code that sometimes need to be readjusted and maintained, have a weird list item recycles (because it never has blank items), need data restructure and have some issues when trying to process a lot of data (eg: 100,000 items) because it would freeze the CPU.
 
-The `recyclerlistview` is very performant but isn't compatible with Expo. Also suffers from an empty frame on mount, weird scroll positions when trying to scroll to an element on mount, and the implementation of sticky headers conflicts with `Animated`.
+The `recyclerlistview` is performant but suffers from an empty frame on mount, weird scroll positions when trying to scroll to an element on mount, and the implementation of sticky headers conflicts with `Animated`.
 
 #### How it works?
 
