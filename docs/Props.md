@@ -12,9 +12,9 @@ Big list have the same properties of the [ScrollView](https://reactnative.dev/do
 
 For simplicity, data is a plain array containing the items to render.
 
-| Type  | Default | Required |
-| ----- | ------- | -------- |
-| array | `[]`    | Yes      |
+| Type  | Required                             |
+| ----- | ------------------------------------ |
+| array | Yes, if `sections` are not specified |
 
 #### Examples
 
@@ -37,9 +37,9 @@ It'll replace the `data` prop.
 
 It's required if no data is specified or if you want use sticky headers (look at `renderSection`) with sections.
 
-| Type  | Default | Required                                     |
-| ----- | ------- | -------------------------------------------- |
-| array | `[]`    | Yes, if you want to use it instead of `data` |
+| Type  | Required                                     |
+| ----- | -------------------------------------------- |
+| array | Yes, if you want to use it instead of `data` |
 
 #### Examples
 
