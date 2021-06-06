@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React, { memo } from "react";
 import { View } from "react-native";
+import { mergeViewStyle } from "./utils";
 
 export const BigListItemType = {
   ITEM: "item",
@@ -12,8 +13,8 @@ export const BigListItemType = {
   SECTION_FOOTER: "section_footer",
 };
 
-const BigListItem = ({ height, children }) => (
-  <View style={{ height }}>{children}</View>
+const BigListItem = ({ height, style, children }) => (
+  <View style={mergeViewStyle(style, { height })}>{children}</View>
 );
 
 BigListItem.propTypes = {
@@ -22,6 +23,7 @@ BigListItem.propTypes = {
     PropTypes.node,
   ]),
   height: PropTypes.number,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 export default memo(BigListItem);

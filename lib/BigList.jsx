@@ -218,9 +218,8 @@ class BigList extends PureComponent {
   }
 
   /**
-   * BigList only re-renders when items change which which does not happen with
-   * every scroll event. Since an accessory might depend on scroll position this
-   * ensures the accessory at least re-renders when scrolling ends
+   * Handle scroll end.
+   * @param event
    */
   onScrollEnd(event) {
     const { renderAccessory, onScrollEnd } = this.props;
@@ -293,6 +292,11 @@ class BigList extends PureComponent {
    */
   renderItems() {
     const {
+      ListEmptyComponent,
+      ListFooterComponent,
+      ListFooterComponentStyle,
+      ListHeaderComponent,
+      ListHeaderComponentStyle,
       renderHeader,
       renderFooter,
       renderSection,
@@ -301,8 +305,13 @@ class BigList extends PureComponent {
       renderEmpty,
     } = this.props;
     const { items = [] } = this.state;
-    if (renderEmpty != null && this.isEmpty()) {
-      return renderEmpty();
+    if (this.isEmpty()) {
+      if (ListEmptyComponent != null) {
+        return <ListEmptyComponent />;
+      }
+      if (renderEmpty != null) {
+        return renderEmpty();
+      }
     }
     const sectionPositions = [];
     items.forEach(({ type, position }) => {
@@ -313,13 +322,24 @@ class BigList extends PureComponent {
     const children = [];
     items.forEach(({ type, key, position, height, section, row }) => {
       let child;
+      let style;
       switch (type) {
         case BigListItemType.HEADER:
-          child = renderHeader();
+          if (ListFooterComponent != null) {
+            child = <ListFooterComponent />;
+            style = ListFooterComponentStyle;
+          } else {
+            child = renderHeader();
+          }
         // falls through
         case BigListItemType.FOOTER:
           if (type === BigListItemType.FOOTER) {
-            child = renderFooter();
+            if (ListFooterComponent != null) {
+              child = <ListHeaderComponent />;
+              style = ListHeaderComponentStyle;
+            } else {
+              child = renderFooter();
+            }
           }
         // falls through
         case BigListItemType.ROW:
@@ -340,7 +360,7 @@ class BigList extends PureComponent {
         case BigListItemType.ITEM:
           if (child != null) {
             children.push(
-              <BigListItem key={key} height={height}>
+              <BigListItem key={key} height={height} style={style}>
                 {child}
               </BigListItem>,
             );
@@ -498,6 +518,17 @@ BigList.propTypes = {
   ]),
   keyboardDismissMode: PropTypes.string,
   keyboardShouldPersistTaps: PropTypes.string,
+  ListEmptyComponent: PropTypes.element,
+  ListFooterComponent: PropTypes.element,
+  ListFooterComponentStyle: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
+  ListHeaderComponent: PropTypes.element,
+  ListHeaderComponentStyle: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
   onLayout: PropTypes.func,
   onScroll: PropTypes.func,
   onScrollEnd: PropTypes.func,
