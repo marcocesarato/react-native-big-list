@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { Animated, Platform, ScrollView, View } from "react-native";
+import PropTypes from "prop-types";
 
 import BigListItem, { BigListItemType } from "./BigListItem";
 import BigListProcessor from "./BigListProcessor";
@@ -467,6 +468,63 @@ class BigList extends PureComponent {
     );
   }
 }
+
+BigList.propTypes = {
+  actionSheetScrollRef: PropTypes.any,
+  bottom: PropTypes.number,
+  contentInset: PropTypes.shape({
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number,
+  }),
+  data: PropTypes.array,
+  footerHeight: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.func,
+  ]),
+  headerHeight: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.func,
+  ]),
+  insetBottom: PropTypes.number,
+  insetTop: PropTypes.number,
+  itemHeight: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.func,
+  ]),
+  keyboardDismissMode: PropTypes.string,
+  keyboardShouldPersistTaps: PropTypes.string,
+  onLayout: PropTypes.func,
+  onScroll: PropTypes.func,
+  onScrollEnd: PropTypes.func,
+  removeClippedSubviews: PropTypes.bool,
+  renderAccessory: PropTypes.func,
+  renderActionSheetScrollViewWrapper: PropTypes.func,
+  renderEmpty: PropTypes.func,
+  renderFooter: PropTypes.func,
+  renderHeader: PropTypes.func,
+  renderItem: PropTypes.func.isRequired,
+  renderSection: PropTypes.func,
+  renderSectionFooter: PropTypes.func,
+  scrollEventThrottle: PropTypes.number,
+  scrollTopValue: PropTypes.number,
+  sectionFooterHeight: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.func,
+  ]),
+  sectionHeight: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.func,
+  ]),
+  sections: PropTypes.array,
+};
+
 BigList.defaultProps = {
   // Data
   data: [],
@@ -494,4 +552,5 @@ BigList.defaultProps = {
   insetBottom: 0,
   contentInset: { top: 0, right: 0, left: 0, bottom: 0 },
 };
+
 export default BigList;

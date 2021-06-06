@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { memo } from "react";
 import { Animated } from "react-native";
 
@@ -42,4 +43,16 @@ const BigListSection = ({
   ];
   return <Animated.View style={style}>{fillChildren}</Animated.View>;
 };
+
+BigListSection.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  height: PropTypes.number,
+  nextSectionPosition: PropTypes.number,
+  position: PropTypes.number,
+  scrollTopValue: PropTypes.instanceOf(Animated.Value),
+};
+
 export default memo(BigListSection);
