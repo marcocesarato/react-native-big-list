@@ -25,15 +25,10 @@ export default function CompareList() {
       />
     );
   };
-  const renderEmpty = () => {
-    return <List.Item title="No items" />;
-  };
+  const renderEmpty = () => <List.Item title="No items" />;
+
   const renderBigHeader = () => (
-    <List.Item
-      title="BigList"
-      description="react-native-big-list"
-      style={styles.header}
-    />
+    <List.Item title="BigList" description="../../lib" style={styles.header} />
   );
   const renderFlatHeader = () => (
     <List.Item

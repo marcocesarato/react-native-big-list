@@ -18,9 +18,7 @@ export default function SectionList() {
       />
     );
   };
-  const renderEmpty = () => {
-    return <List.Item title="No items" />;
-  };
+  const renderEmpty = () => <List.Item title="No items" />;
   const renderHeader = () => (
     <List.Item
       title="Marco Cesarato"
