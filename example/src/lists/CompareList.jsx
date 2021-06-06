@@ -28,7 +28,11 @@ export default function CompareList() {
   const renderEmpty = () => <List.Item title="No items" />;
 
   const renderBigHeader = () => (
-    <List.Item title="BigList" description="react-native-big-list" style={styles.header} />
+    <List.Item
+      title="BigList"
+      description="react-native-big-list"
+      style={styles.header}
+    />
   );
   const renderFlatHeader = () => (
     <List.Item
@@ -47,18 +51,18 @@ export default function CompareList() {
       <KeyboardAvoidingView style={styles.container}>
         <View style={styles.compare}>
           <BigList
-            style={styles.container}
+            style={[
+              styles.container,
+              Platform.select({ web: { maxHeight: "100vh" }, default: {} }),
+            ]}
             data={data}
-            // Item
-            itemHeight={90}
             renderItem={renderItem}
-            renderEmpty={renderEmpty}
-            // Header
-            headerHeight={90}
-            renderHeader={renderBigHeader}
-            // Footer
-            footerHeight={100}
-            renderFooter={renderFooter}
+            ListHeaderComponent={renderBigHeader}
+            ListFooterComponent={renderFooter}
+            ListEmptyComponent={renderEmpty}
+            headerHeight={100} // <== Required to show header
+            footerHeight={100} // <== Required to show footer
+            keyExtractor={(item) => String(item.id)}
           />
           <FlatList
             style={[
