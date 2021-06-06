@@ -21,7 +21,7 @@
 This is a high performance list view for React Native with support for complex layouts using a similar FlatList usage to make easy the replacement.
 This list implementation for big list rendering on React Native works with a recycler focused on performance and memory usage and so it permits processing thousands items on the list.
 
-Try it on the published demo web app: [https://marcocesarato.github.io/react-native-big-list/](https://marcocesarato.github.io/react-native-big-list/)
+Try it on the published demo web app (sticky headers at the moment doesn't work on web version): [https://marcocesarato.github.io/react-native-big-list/](https://marcocesarato.github.io/react-native-big-list/)
 
 #### Why another list library?
 
@@ -50,6 +50,8 @@ Install the library from npm or yarn just running one of the following command l
 | `npm install react-native-big-list --save` | `yarn add react-native-big-list` |
 
 ## 💻 Usage
+
+Read also [How to migrate from FlatList](docs/Migrate-FlatList.md)
 
 #### Standard List (array of items)
 
@@ -95,6 +97,8 @@ return (
 #### Section List (array with inside arrays of items)
 
 > This list will auto stick the section rendered on the top of the list
+
+> PS: Sticky headers at the moment doesn't work on web version
 
 ```javascript
 import BigList from "react-native-big-list";

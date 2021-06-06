@@ -62,7 +62,6 @@ export default function CompareList() {
             ListEmptyComponent={renderEmpty}
             headerHeight={100} // <== Required to show header
             footerHeight={100} // <== Required to show footer
-            keyExtractor={(item) => String(item.id)}
           />
           <FlatList
             style={[
