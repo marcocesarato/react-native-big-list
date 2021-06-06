@@ -170,31 +170,9 @@ expo start
 
 Open Expo Client on your device. Use it to scan the QR code printed by `expo start`. You may have to wait a minute while your project bundles and loads for the first time.
 
-## 💡 Props List
+## 💡 Props
 
-Big list have the same properties of the [ScrollView](https://reactnative.dev/docs/view#props) with some more additional:
-
-| Property                                   | Description                                                                                                                                                  | Type            | Default                                    |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | ------------------------------------------ |
-| `data`                                     | For simplicity, data is a plain array containing the items to render.                                                                                        | Array           | `[]`                                       |
-| `sections`                                 | For simplicity, sections is a plain array containing another plain array with the items (section items) to render. If specified `data` prop will be ignored. | Array           | `[]`                                       |
-| `renderItem({ item, index/section, row })` | Takes an item from data and renders it into the list.                                                                                                        | Function        |                                            |
-| `renderHeader()`                           | Rendered at the top of all the items.                                                                                                                        | Function        |                                            |
-| `renderFooter()`                           | Rendered at the bottom of all the items.                                                                                                                     | Function        |                                            |
-| `renderActionSheetScrollViewWrapper()`     | Wrap the entire list into an accessory component.                                                                                                            | Function        |                                            |
-| `renderAccessory()`                        | Rendered at the bottom of the list an accessory.                                                                                                             | Function        |                                            |
-| `renderEmpty()`                            | Rendered when the list is empty.                                                                                                                             | Function        |                                            |
-| `renderSection(section)`                   | Rendered at the top of all the section items.                                                                                                                | Function        |                                            |
-| `renderSectionFooter(section)`             | Rendered at the bottom of all the section items.                                                                                                             | Function        |                                            |
-| `itemHeight`                               | Specify the item height                                                                                                                                      | Number/Function | `50`                                       |
-| `headerHeight`                             | Specify the header height                                                                                                                                    | Number/Function | `0`                                        |
-| `footerHeight`                             | Specify the footer height                                                                                                                                    | Number/Function | `0`                                        |
-| `sectionHeight`                            | Specify the section height                                                                                                                                   | Number/Function | `0`                                        |
-| `sectionFooterHeight`                      | Specify the section footer height                                                                                                                            | Number/Function | `0`                                        |
-| `scrollTopValue`                           | Specify the initial scroll from the top of the list                                                                                                          | Number          |                                            |
-| `insetTop`                                 | Specify the top inset                                                                                                                                        | Number          | `0`                                        |
-| `insetBottom`                              | Specify the bottom inset                                                                                                                                     | Number          | `0`                                        |
-| `contentInset`                             | Specify the content inset                                                                                                                                    | Object          | `{ top: 0, right: 0, left: 0, bottom: 0 }` |
+Big list have the same properties of the [ScrollView Props](https://reactnative.dev/docs/view#props) with some more additional specific [BigList Props](docs/Props.md) pretty similar to FlatList.
 
 ## 🤔 How to contribute
 
