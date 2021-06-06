@@ -22,10 +22,10 @@ interface BigListProps extends ScrollViewProps {
   itemHeight?: string | number | (() => number);
   keyboardDismissMode?: string;
   keyboardShouldPersistTaps?: string;
-  ListEmptyComponent?: React.ReactElement;
-  ListFooterComponent?: React.ReactElement;
+  ListEmptyComponent?: React.ReactNode;
+  ListFooterComponent?: React.ReactNode;
   ListFooterComponentStyle?: object | unknown[];
-  ListHeaderComponent?: React.ReactElement;
+  ListHeaderComponent?: React.ReactNode;
   ListHeaderComponentStyle?: object | unknown[];
   onLayout?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScroll?(event: NativeSyntheticEvent<NativeScrollEvent>): void;
