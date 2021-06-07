@@ -63,11 +63,11 @@ export default function SectionList() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   compare: {
     flex: 1,
     flexDirection: "row",
+  },
+  container: {
+    flex: 1,
   },
 });

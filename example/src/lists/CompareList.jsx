@@ -1,11 +1,11 @@
 import React from "react";
 import {
+  FlatList,
   KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   StyleSheet,
   View,
-  FlatList,
-  Platform,
 } from "react-native";
 import BigList from "react-native-big-list";
 import { List, Subheading } from "react-native-paper";
@@ -83,12 +83,12 @@ export default function CompareList() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   compare: {
     flex: 1,
     flexDirection: "row",
+  },
+  container: {
+    flex: 1,
   },
   header: {
     flex: 1,

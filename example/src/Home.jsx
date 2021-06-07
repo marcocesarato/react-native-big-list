@@ -8,9 +8,9 @@ import {
   useTheme,
 } from "react-native-paper";
 
+import CompareList from "./lists/CompareList";
 import List from "./lists/List";
 import SectionList from "./lists/SectionList";
-import CompareList from "./lists/CompareList";
 
 const Home = () => {
   const {
