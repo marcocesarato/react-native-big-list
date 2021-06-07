@@ -243,6 +243,45 @@ class BigList extends PureComponent {
   }
 
   /**
+   * Scroll to item.
+   * @param {object} item
+   * @param {bool} animated
+   * @returns {bool}
+   */
+  scrollToItem({ item, animated = false }) {
+    let index;
+    if (this.hasSections()) {
+      const coords = JSON.stringify(
+        this.map((a) => {
+          return a[0] + "|" + a[1];
+        }),
+      );
+      index = coords.indexOf(item[0] + "|" + item[1]) !== -1;
+    } else {
+      index = this.props.data.indexOf(item);
+    }
+    return this.scrollTo({ index, animated });
+  }
+
+  /**
+   * Scroll to offset.
+   * @param {number} offset
+   * @param {bool} animated
+   * @returns {bool}
+   */
+  scrollToOffset({ offset, animated = false }) {
+    if (this.scrollView.current != null) {
+      this.scrollView.current.scrollTo({
+        x: 0,
+        y: offset,
+        animated,
+      });
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Scroll to top.
    * @param {bool} animated
    * @returns {bool}
