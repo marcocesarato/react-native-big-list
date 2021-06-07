@@ -402,8 +402,8 @@ class BigList extends PureComponent {
    */
   isEmpty() {
     const sectionLengths = this.getSectionLengths();
-    const length = sectionLengths.reduce((total, rowLength) => {
-      return total + rowLength;
+    const length = sectionLengths.reduce((total, sectionLength) => {
+      return total + sectionLength;
     }, 0);
     return length === 0;
   }
@@ -429,7 +429,7 @@ class BigList extends PureComponent {
   /**
    * Get item scroll view offset.
    * @param section
-   * @param row
+   * @param index
    * @returns {*}
    */
   getItemOffset({ section = 0, index }) {
@@ -506,7 +506,7 @@ class BigList extends PureComponent {
       }
     });
     const children = [];
-    items.forEach(({ type, key, position, height, section, row }) => {
+    items.forEach(({ type, key, position, height, section, index }) => {
       let child;
       let style;
       switch (type) {
@@ -530,11 +530,11 @@ class BigList extends PureComponent {
         // falls through
         case BigListItemType.ROW:
           if (type === BigListItemType.ROW) {
-            const item = this.getItem({ section, index: row });
+            const item = this.getItem({ section, index });
             if (this.hasSections()) {
-              child = renderItem({ item, section, index: row });
+              child = renderItem({ item, section, index });
             } else {
-              child = renderItem({ item, index: row });
+              child = renderItem({ item, index });
             }
           }
         // falls through
