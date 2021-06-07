@@ -155,7 +155,7 @@ class BigList extends PureComponent {
         insetBottom,
       } = this.props;
       const sectionLengths = BigList.getSectionLengths(sections, data);
-      return BigListProcessor({
+      return new BigListProcessor({
         sections: sectionLengths,
         headerHeight,
         footerHeight,
