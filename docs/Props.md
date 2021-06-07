@@ -72,7 +72,7 @@ It's required if no data is specified or if you want use sticky headers (look at
 ### <small>Required</small> `renderItem`
 
 ```ts
-renderItem({item: unknown, index: number, section?: number})
+renderItem({ item: unknown, index: number, section: number });
 ```
 
 Takes an item from data and renders it into the list.
