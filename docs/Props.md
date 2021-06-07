@@ -153,6 +153,8 @@ Rendered at the bottom of the list.
 
 Specify the item height.
 
+This is needed to have a great performance boost for lists of several thousands items.
+
 | Type             | Required | Default |
 | ---------------- | -------- | ------- |
 | number, function | Yes      | `50`    |
@@ -220,6 +222,28 @@ Specify the content inset.
 | Type   | Required | Default                                    |
 | ------ | -------- | ------------------------------------------ |
 | number | No       | `{ top: 0, right: 0, left: 0, bottom: 0 }` |
+
+### `getItemLayout`
+
+```js
+(data, index) => {length: number, offset: number, index: number}
+```
+
+`getItemLayout` is an optional optimization that allows skipping the measurement of dynamic content if you know the size (height or width) of items ahead of time. getItemLayout is efficient if you have fixed size items, for example:
+
+```js
+getItemLayout={(data, index) => (
+  {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
+)}
+```
+
+Adding getItemLayout can be a great performance boost for lists of several thousands items.
+
+This is a **compatibility** prop for FlatList replacement and so it'll replace the `itemHeight` prop.
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ### `ListEmptyComponent`
 
