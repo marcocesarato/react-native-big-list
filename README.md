@@ -51,16 +51,28 @@ Install the library from npm or yarn just running one of the following command l
 
 ## 💻 Usage
 
-Read also [How to migrate from FlatList](docs/Migrate-FlatList.md)
+> Read also [How to migrate from FlatList](docs/Migrate-FlatList.md)
 
 #### Standard List (array of items)
+
+Simple usage:
+
+```javascript
+import BigList from "react-native-big-list";
+// ...
+const MyExample = ({ data }) => {
+  const renderItem = ({ item, index }) => <MyListItem item={item} />;
+  return <BigList data={data} renderItem={renderItem} itemHeight={50} />;
+};
+```
+
+Usage with empty item, header and footer:
 
 ```javascript
 import BigList from "react-native-big-list";
 
 /* ... */
 
-// Data array
 const data = [
   { label: "1", value: 1 /* ... */ },
   { label: "2", value: 2 /* ... */ },
@@ -70,8 +82,9 @@ const data = [
   /* ... */
 ];
 
-// Example
-const renderItem = ({ item, index }) => <MyListItem item={item} />;
+const renderItem = ({ item, index }) => (
+  <MyListItem label={item.label} value={item.value} />
+);
 const renderEmpty = () => <MyEmpty />;
 const renderHeader = () => <MyHeader />;
 const renderFooter = () => <MyFooter />;
@@ -79,22 +92,18 @@ const renderFooter = () => <MyFooter />;
 return (
   <BigList
     data={data}
-    // Item
-    itemHeight={50} // Item height
     renderItem={renderItem}
-    // Empty (optional)
     renderEmpty={renderEmpty}
-    // Header (optional)
-    headerHeight={90} // Header height
     renderHeader={renderHeader}
-    // Footer (optional)
-    footerHeight={100} // Header footer
     renderFooter={renderFooter}
+    itemHeight={50}
+    headerHeight={90}
+    footerHeight={100}
   />
 );
 ```
 
-#### Section List (array with inside arrays of items)
+#### Section List (array of arrays with items)
 
 > This list will auto stick the section rendered on the top of the list
 
@@ -105,28 +114,28 @@ import BigList from "react-native-big-list";
 
 /* ... */
 
-// Data array
 const sections = [
   [
-    // Section 1
+    // Section 0
     { label: "1", value: 1 /* ... */ },
     { label: "2", value: 2 /* ... */ },
   ],
   [
-    // Section 2
+    // Section 1
     { label: "3", value: 3 /* ... */ },
     { label: "4", value: 4 /* ... */ },
   ],
   [
-    // Section 3
+    // Section 2
     { label: "6", value: 6 /* ... */ },
     { label: "6", value: 6 /* ... */ },
   ],
   /* ... */
 ];
 
-// Example
-const renderItem = ({ item, section, row }) => <MyListItem item={item} />;
+const renderItem = ({ item, index }) => (
+  <MyListItem label={item.label} value={item.value} />
+);
 const renderHeader = () => <MyHeader />;
 const renderFooter = () => <MyFooter />;
 const renderSectionHeader = () => <MySectionHeader />;
@@ -135,21 +144,16 @@ const renderSectionFooter = () => <MySectionFooter />;
 return (
   <BigList
     sections={sections}
-    // Item
-    itemHeight={50} // Item height
     renderItem={renderItem}
-    // Header (optional)
-    headerHeight={90} // Header height
     renderHeader={renderHeader}
-    // Footer (optional)
-    footerHeight={100} // Footer footer
     renderFooter={renderFooter}
-    // Section (optional)
-    sectionHeight={90} // Section header height
     renderSection={renderSectionHeader}
-    // Section Footer (optional)
-    sectionFooterHeight={100} // Section footer height
     renderSectionFooter={renderSectionFooter}
+    itemHeight={50}
+    headerHeight={90}
+    footerHeight={100}
+    sectionHeight={90}
+    sectionFooterHeight={100}
   />
 );
 ```
@@ -176,9 +180,9 @@ expo start
 
 Open Expo Client on your device. Use it to scan the QR code printed by `expo start`. You may have to wait a minute while your project bundles and loads for the first time.
 
-## 💡 Props
+## 💡 Props and Methods
 
-Big list have the same properties of the [ScrollView Props](https://reactnative.dev/docs/view#props) with some more additional specific [BigList Props](docs/Props.md) pretty similar to FlatList and specific [BigList Methods](docs/Methods.md).
+The list has the same props of the [ScrollView](https://reactnative.dev/docs/view#props) in addition to its specific [Props](docs/Props.md) and [Methods](docs/Methods.md).
 
 ## 🤔 How to contribute
 
