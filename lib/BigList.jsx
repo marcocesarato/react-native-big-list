@@ -413,7 +413,7 @@ class BigList extends PureComponent {
           if (type === BigListItemType.ROW) {
             const item = this.getItem(section, row);
             if (this.hasSections()) {
-              child = renderItem({ item, section, row });
+              child = renderItem({ item, section, index: row });
             } else {
               child = renderItem({ item, index: row });
             }

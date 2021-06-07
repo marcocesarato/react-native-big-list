@@ -72,14 +72,14 @@ It's required if no data is specified or if you want use sticky headers (look at
 ### <small>Required</small> `renderItem`
 
 ```ts
-renderItem({item: unknown, index/section: number, row?: number})
+renderItem({item: unknown, index: number, section?: number})
 ```
 
 Takes an item from data and renders it into the list.
 
 Using `data` arguments will be an object with the `item` and its `index`.
 
-Using `sections` arguments will be an object with the `item` and its `section` index and `row` index.
+Using `sections` arguments will be an object with the `item` and its `section` index and row `index`.
 
 | Type     | Required |
 | -------- | -------- |
