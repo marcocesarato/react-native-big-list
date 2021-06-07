@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
-import { Animated, Platform, ScrollView, View } from "react-native";
 import PropTypes from "prop-types";
+import { Animated, Platform, ScrollView, View } from "react-native";
 
 import BigListItem, { BigListItemType } from "./BigListItem";
 import BigListProcessor from "./BigListProcessor";
@@ -129,13 +129,19 @@ class BigList extends PureComponent {
   }
 
   /**
-   * Scroll to location.
-   * @param section
-   * @param row
-   * @param animated
+   * Get Scroll View reference.
+   * @returns {ScrollView|null}
    */
-  scrollToLocation(section, row, animated = true) {
-    const scrollView = this.scrollView.current;
+  getScrollView() {
+    return this.scrollView.current;
+  }
+
+  /**
+   * Get list processor,
+   * @returns {BigListProcessor}
+   */
+  getListProcessor() {
+    const scrollView = this.getScrollView();
     if (scrollView != null) {
       const {
         data,
@@ -149,7 +155,7 @@ class BigList extends PureComponent {
         insetBottom,
       } = this.props;
       const sectionLengths = BigList.getSectionLengths(sections, data);
-      const processor = new BigListProcessor({
+      return BigListProcessor({
         sections: sectionLengths,
         headerHeight,
         footerHeight,
@@ -160,8 +166,70 @@ class BigList extends PureComponent {
         insetBottom,
         scrollView,
       });
-      processor.scrollToPosition(section, row, animated);
     }
+    return null;
+  }
+
+  /**
+   * Scroll to.
+   * @param {int} section
+   * @param {int} index
+   * @param {bool} animated
+   * @returns {bool}
+   */
+  scrollTo({ index, section = 0, animated = true }) {
+    const processor = this.getListProcessor();
+    if (processor != null && index != null && section != null) {
+      return processor.scrollToPosition(section, index, animated);
+    }
+    return false;
+  }
+
+  /**
+   * Alias of scrollTo
+   * @see scrollTo
+   * @param {object} options
+   * @returns {bool}
+   */
+  scrollToIndex(options) {
+    return this.scrollTo(options);
+  }
+
+  /**
+   * Scroll to top.
+   * @param {bool} animated
+   * @returns {bool}
+   */
+  scrollToTop({ animated = true }) {
+    return this.scrollTo({ section: 0, index: 0, animated });
+  }
+
+  /**
+   * Scroll to end.
+   * @param {bool} animated
+   * @returns {bool}
+   */
+  scrollToEnd({ animated = true }) {
+    const { sections, data } = this.props;
+    let section = 0;
+    let index = 0;
+    if (this.hasSections()) {
+      const sectionLengths = BigList.getSectionLengths(sections, data);
+      section = sectionLengths[sectionLengths.length - 1];
+    } else {
+      index = data.length;
+    }
+    return this.scrollTo({ section, index, animated });
+  }
+
+  /**
+   * Scroll to section.
+   * @param {int} section
+   * @param {bool} animated
+   * @returns {bool}
+   */
+  scrollToSection({ section, animated = true }) {
+    return this.scrollTo({ index: 0, section, animated });
   }
 
   /**
@@ -237,10 +305,8 @@ class BigList extends PureComponent {
    * @returns {boolean}
    */
   isEmpty() {
-    const sectionLengths = BigList.getSectionLengths(
-      this.props.sections,
-      this.props.data,
-    );
+    const { sections, data } = this.props;
+    const sectionLengths = BigList.getSectionLengths(sections, data);
     const length = sectionLengths.reduce((total, rowLength) => {
       return total + rowLength;
     }, 0);
@@ -271,7 +337,7 @@ class BigList extends PureComponent {
    * @param row
    * @returns {*}
    */
-  getItem(section, row) {
+  getItem(section = 0, row) {
     if (this.hasSections()) {
       return this.props.sections[section][row];
     } else {

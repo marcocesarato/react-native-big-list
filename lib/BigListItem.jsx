@@ -1,6 +1,7 @@
-import PropTypes from "prop-types";
 import React, { memo } from "react";
+import PropTypes from "prop-types";
 import { View } from "react-native";
+
 import { mergeViewStyle } from "./utils";
 
 export const BigListItemType = {
