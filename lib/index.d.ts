@@ -20,7 +20,7 @@ interface BigListProps extends ScrollViewProps {
   headerHeight?: string | number | (() => number);
   insetBottom?: number;
   insetTop?: number;
-  itemHeight?: string | number | (() => number);
+  itemHeight?: string | number | (({section?: number, index: number}) => number);
   keyboardDismissMode?: string;
   keyboardShouldPersistTaps?: string;
   ListEmptyComponent?: React.ReactNode;
@@ -32,20 +32,20 @@ interface BigListProps extends ScrollViewProps {
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   removeClippedSubviews?: boolean;
-  renderAccessory?: React.ReactNode;
+  renderAccessory?: (list: BigList) => React.ReactNode;
   renderActionSheetScrollViewWrapper?: (
-    element: React.ReactElement,
+    element: React.ReactNode,
   ) => React.ReactNode;
-  renderEmpty?: () => React.ReactNode;
-  renderFooter?: () => React.ReactNode;
-  renderHeader?: () => React.ReactNode;
-  renderItem: (item: object) => React.ReactNode;
-  renderSection?: (section: number) => React.ReactNode;
-  renderSectionFooter?: (section: number) => React.ReactNode;
+  renderEmpty?: () => React.ReactNode | null | undefined;
+  renderFooter?: () => React.ReactNode | null | undefined;
+  renderHeader?: () => React.ReactNode | null | undefined;
+  renderItem: (item: object) => React.ReactNode | null | undefined;
+  renderSection?: (section: number) => React.ReactNode | null | undefined;
+  renderSectionFooter?: (section: number) => React.ReactNode | null | undefined;
   scrollEventThrottle?: number;
   scrollTopValue?: number;
-  sectionFooterHeight?: string | number | (() => number);
-  sectionHeight?: string | number | (() => number);
+  sectionFooterHeight?: string | number | ((section: number) => number);
+  sectionHeight?: string | number | ((section: number) => number);
   sections?: unknown[][];
   children?: null;
 }
