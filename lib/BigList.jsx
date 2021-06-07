@@ -20,10 +20,7 @@ class BigList extends PureComponent {
     this.scrollTop = 0;
     this.scrollTopValue = this.props.scrollTopValue || new Animated.Value(0);
     this.scrollView = React.createRef();
-    this.state = BigList.getListState(
-      this.props,
-      processBlock(this.containerHeight, this.scrollTop),
-    );
+    this.state = this.getListState();
   }
 
   /**
@@ -33,6 +30,7 @@ class BigList extends PureComponent {
    * @param footerHeight
    * @param sectionHeight
    * @param itemHeight
+   * @param getItemLayout
    * @param sectionFooterHeight
    * @param sections
    * @param insetTop
@@ -50,6 +48,7 @@ class BigList extends PureComponent {
       footerHeight,
       sectionHeight,
       itemHeight,
+      getItemLayout,
       sectionFooterHeight,
       sections,
       insetTop,
@@ -66,13 +65,15 @@ class BigList extends PureComponent {
         items: [],
       };
     }
-    const sectionLengths = BigList.getSectionLengths(sections, data);
+    const self = BigList;
+    const layoutItemHeight = self.getItemHeight(itemHeight, getItemLayout);
+    const sectionLengths = self.getSectionLengths(sections, data);
     const processor = new BigListProcessor({
       sections: sectionLengths,
+      itemHeight: layoutItemHeight,
       headerHeight,
       footerHeight,
       sectionHeight,
-      itemHeight,
       sectionFooterHeight,
       insetTop,
       insetBottom,
@@ -92,6 +93,19 @@ class BigList extends PureComponent {
   }
 
   /**
+   * Get list state
+   * @param {object} props
+   * @param {object} options.
+   * @return {{blockStart: *, batchSize: *, blockEnd: *, items: *[], height: *}|{blockStart, batchSize, blockEnd, items: *[], height: *}}
+   */
+  getListState(props, options) {
+    return this.constructor.getListState(
+      props || this.props,
+      options || processBlock(this.containerHeight, this.scrollTop),
+    );
+  }
+
+  /**
    * Get sections item lengths.
    * @param {array} sections
    * @param {array} data
@@ -104,6 +118,41 @@ class BigList extends PureComponent {
       });
     }
     return [data?.length];
+  }
+
+  /**
+   * Get sections item lengths.
+   * @returns {int[]}
+   */
+  getSectionLengths() {
+    const { sections, data } = this.props;
+    return this.constructor.getSectionLengths(sections, data);
+  }
+
+  /**
+   * Get item height.
+   * @param itemHeight
+   * @param getItemLayout
+   * @return {null|*}
+   */
+  static getItemHeight(itemHeight, getItemLayout) {
+    if (getItemLayout) {
+      const itemLayout = getItemLayout([], 0);
+      return itemLayout.length;
+    }
+    if (itemHeight) {
+      return itemHeight;
+    }
+    return null;
+  }
+
+  /**
+   * Get item height.
+   * @return {null|*}
+   */
+  getItemHeight() {
+    const { itemHeight, getItemLayout } = this.props;
+    return this.constructor.getItemHeight(itemHeight, getItemLayout);
   }
 
   /**
@@ -144,17 +193,15 @@ class BigList extends PureComponent {
     const scrollView = this.getScrollView();
     if (scrollView != null) {
       const {
-        data,
-        sections,
         headerHeight,
         footerHeight,
         sectionHeight,
-        itemHeight,
         sectionFooterHeight,
         insetTop,
         insetBottom,
       } = this.props;
-      const sectionLengths = BigList.getSectionLengths(sections, data);
+      const itemHeight = this.getItemHeight();
+      const sectionLengths = this.getSectionLengths();
       return new BigListProcessor({
         sections: sectionLengths,
         headerHeight,
@@ -210,11 +257,11 @@ class BigList extends PureComponent {
    * @returns {bool}
    */
   scrollToEnd({ animated = true }) {
-    const { sections, data } = this.props;
+    const { data } = this.props;
     let section = 0;
     let index = 0;
     if (this.hasSections()) {
-      const sectionLengths = BigList.getSectionLengths(sections, data);
+      const sectionLengths = this.getSectionLengths();
       section = sectionLengths[sectionLengths.length - 1];
     } else {
       index = data.length;
@@ -305,8 +352,7 @@ class BigList extends PureComponent {
    * @returns {boolean}
    */
   isEmpty() {
-    const { sections, data } = this.props;
-    const sectionLengths = BigList.getSectionLengths(sections, data);
+    const sectionLengths = this.getSectionLengths();
     const length = sectionLengths.reduce((total, rowLength) => {
       return total + rowLength;
     }, 0);
@@ -571,6 +617,7 @@ BigList.propTypes = {
     PropTypes.number,
     PropTypes.func,
   ]),
+  getItemLayout: PropTypes.func,
   headerHeight: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

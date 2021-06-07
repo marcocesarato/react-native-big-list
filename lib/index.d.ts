@@ -16,6 +16,7 @@ interface BigListProps extends ScrollViewProps {
   };
   data?: unknown[];
   footerHeight?: string | number | (() => number);
+  getItemLayout?: () => number;
   headerHeight?: string | number | (() => number);
   insetBottom?: number;
   insetTop?: number;
