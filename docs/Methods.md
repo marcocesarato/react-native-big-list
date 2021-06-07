@@ -6,10 +6,6 @@
 
 # Methods
 
-### `getItems()`
-
-Get all `items` of the list, useful for tests.
-
 ### `scrollTo()`
 
 ```ts
