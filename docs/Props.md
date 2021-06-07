@@ -226,7 +226,7 @@ Specify the content inset.
 ## <a name="flatlist"></a> FlatList compatibility
 
 > These are **compatibility** props for a faster FlatList replacement and all these props have an alias.<br>
-> All of them should be replaced with their related props of BigList *(recommended)*.
+> All of them should be replaced with their related props of BigList _(recommended)_.
 
 ### `getItemLayout`
 

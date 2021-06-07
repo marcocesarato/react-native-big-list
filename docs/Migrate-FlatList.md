@@ -10,7 +10,7 @@ Migration and then the replacement of a FlatList is very simple.
 
 BigList permit a fast way replacement of the FlatList component using some aliases of props that **replace** the default props.
 The props compatibles are listed on [Props List](./Props.md#flatlist).
-All of them should be replaced with their related props of BigList *(recommended)*.
+All of them should be replaced with their related props of BigList _(recommended)_.
 
 The main props of FlatList are compatible with BigList like `data` and its structure, `ListHeaderComponent`, `ListHeaderComponentStyle` etc...
 
@@ -21,6 +21,7 @@ You just need to:
 - 📝 Import the component
 - 📝 Replace the name of the component from `FlatList` to `BigList`.
 - 📝 Add the props for the heights
+
   > BigList need to define a static height of the items for maintain great performances.<br>
   > If you use `getItemLayout` you don't need to define `itemHeight`<br>
 
@@ -87,7 +88,7 @@ const ITEM_HEIGHT = 50;
 />;
 ```
 
-## Next steps <small>*(optional)*</small>
+## Next steps <small>_(optional)_</small>
 
 > These steps are recommended but if you want turn back to FlatList in anytime you can keep only the first steps without any problems.
 
