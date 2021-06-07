@@ -164,10 +164,10 @@ Specify the item height.
 This is needed to have a great performance boost for lists of several thousands items.
 
 Function example:
+
 ```ts
 itemHeight(section: number, index: number)
 ```
-
 
 | Type             | Required | Default |
 | ---------------- | -------- | ------- |
@@ -194,10 +194,10 @@ Specify the footer item height.
 Specify the section header height.
 
 Function example:
+
 ```ts
 sectionHeight(section: number)
 ```
-
 
 | Type             | Required | Default |
 | ---------------- | -------- | ------- |
@@ -208,6 +208,7 @@ sectionHeight(section: number)
 Specify the section footer height.
 
 Function example:
+
 ```ts
 sectionFooterHeight(section: number)
 ```
