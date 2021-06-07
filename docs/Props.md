@@ -4,9 +4,13 @@
 
 </div>
 
-# Props List
+# Props
 
-Big list have the same properties of the [ScrollView](https://reactnative.dev/docs/view#props) with some more additional:
+### [ScrollView Props](https://reactnative.dev/docs/view#props)
+
+Inherits ScrollView Props.
+
+---
 
 ### <small>Required</small> `data`
 
