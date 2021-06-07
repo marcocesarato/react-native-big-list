@@ -4,7 +4,7 @@
 
 </div>
 
-## 💡 Props List
+# Props List
 
 Big list have the same properties of the [ScrollView](https://reactnative.dev/docs/view#props) with some more additional:
 

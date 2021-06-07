@@ -4,7 +4,7 @@
 
 </div>
 
-## How to migrate from FlatList?
+# How to migrate from FlatList?
 
 Migration and then the replacement of a FlatList is very simple.
 

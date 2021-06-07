@@ -178,7 +178,7 @@ Open Expo Client on your device. Use it to scan the QR code printed by `expo sta
 
 ## 💡 Props
 
-Big list have the same properties of the [ScrollView Props](https://reactnative.dev/docs/view#props) with some more additional specific [BigList Props](docs/Props.md) pretty similar to FlatList.
+Big list have the same properties of the [ScrollView Props](https://reactnative.dev/docs/view#props) with some more additional specific [BigList Props](docs/Props.md) pretty similar to FlatList and specific [BigList Methods](docs/Methods.md).
 
 ## 🤔 How to contribute
 
