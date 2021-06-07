@@ -223,15 +223,20 @@ Specify the content inset.
 | ------ | -------- | ------------------------------------------ |
 | number | No       | `{ top: 0, right: 0, left: 0, bottom: 0 }` |
 
+## <a name="flatlist"></a> FlatList compatibility
+
+> These are **compatibility** props for a faster FlatList replacement and all these props have an alias.<br>
+> All of them should be replaced with their related props of BigList *(recommended)*.
+
 ### `getItemLayout`
 
-```js
+```ts
 (data, index) => {length: number, offset: number, index: number}
 ```
 
 `getItemLayout` is an optional optimization that allows skipping the measurement of dynamic content if you know the size (height or width) of items ahead of time. getItemLayout is efficient if you have fixed size items, for example:
 
-```js
+```ts
 getItemLayout={(data, index) => (
   {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
 )}

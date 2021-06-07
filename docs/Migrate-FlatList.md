@@ -8,16 +8,27 @@
 
 Migration and then the replacement of a FlatList is very simple.
 
-The main props of FlatList are compatible with BigList like `data`, `ListHeaderComponent`, `ListHeaderComponentStyle` etc...
+BigList permit a fast way replacement of the FlatList component using some aliases of props that **replace** the default props.
+The props compatibles are listed on [Props List](./Props.md#flatlist).
+All of them should be replaced with their related props of BigList *(recommended)*.
 
-So you just need to:
+The main props of FlatList are compatible with BigList like `data` and its structure, `ListHeaderComponent`, `ListHeaderComponentStyle` etc...
 
-- Import the component
-- Replace the name of the component from `FlatList` to `BigList`.
-- BigList need to define a static height of the items (for the performance), so you need to add the height props like `itemHeight` for items (default `50`), `headerHeight` for the header etc...<br>
-  If you use `getItemLayout` you can omit the `itemHeight` (omit `itemHeight` isn't recommended)<br>
-  To have more details check the [Props list](./Props.md)
-- `keyExtractor` isn't needed, so you can remove it
+## Getting started
+
+You just need to:
+
+- 📝 Import the component
+- 📝 Replace the name of the component from `FlatList` to `BigList`.
+- 📝 Add the props for the heights
+  > BigList need to define a static height of the items for maintain great performances.<br>
+  > If you use `getItemLayout` you don't need to define `itemHeight`<br>
+
+  - `itemHeight` for items (default `50`)
+  - `headerHeight` for the header (default `0`)
+  - `footerHeight` for the footer (default `0`)
+
+Enjoy 😃
 
 ### Example
 
@@ -33,7 +44,7 @@ const ITEM_HEIGHT = 50;
 <FlatList
   style={styles.list}
   data={data}
-  ListHeaderComponent={renderFlatHeader}
+  ListHeaderComponent={renderHeader}
   ListFooterComponent={renderFooter}
   ListFooterComponentStyle={styles.footer}
   ListEmptyComponent={renderEmpty}
@@ -60,7 +71,7 @@ const ITEM_HEIGHT = 50;
   style={styles.list}
   data={data}
   renderItem={renderItem}
-  ListHeaderComponent={renderFlatHeader} // Replaceable with `renderHeader`
+  ListHeaderComponent={renderHeader} // Replaceable with `renderHeader`
   ListFooterComponent={renderFooter} // Replaceable with `renderFooter`
   ListFooterComponentStyle={styles.footer} // This works only with `ListFooterComponent`
   ListEmptyComponent={renderEmpty} // Replaceable with `renderEmpty`
@@ -73,5 +84,41 @@ const ITEM_HEIGHT = 50;
   //  New props
   headerHeight={100} // Default 0, need to specify the header height
   footerHeight={100} // Default 0, need to specify the foorer height
+/>;
+```
+
+## Next steps <small>*(optional)*</small>
+
+> These steps are recommended but if you want turn back to FlatList in anytime you can keep only the first steps without any problems.
+
+- 📝 Replace `ListHeaderComponent` with `renderHeader`
+- 📝 Replace `ListFooterComponent` with `renderFooter`
+- 📝 Replace `ListEmptyComponent` with `renderEmpty`
+- 📝 Replace `getItemLayout` with `itemHeight`
+- ❌ Remove `keyExtractor`
+- ❌ Remove `ListFooterComponentStyle`
+- ❌ Remove `ListHeaderComponentStyle`
+
+To have more details about props check the [Props list](./Props.md)
+
+### Final result
+
+```js
+import BigList from "react-native-big-list";
+
+const ITEM_HEIGHT = 50;
+
+/* ... */
+
+<BigList
+  style={styles.list}
+  data={data}
+  renderItem={renderItem}
+  renderHeader={renderHeader}
+  renderFooter={renderFooter}
+  renderEmpty={renderEmpty}
+  itemHeight={ITEM_HEIGHT}
+  headerHeight={100}
+  footerHeight={100}
 />;
 ```
