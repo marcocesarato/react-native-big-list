@@ -9,7 +9,7 @@
 ### `scrollTo()`
 
 ```ts
-scrollTo({ x?: number, y?: number, animated?: boolean });
+scrollTo({ x: number, y: number, animated: boolean });
 ```
 
 Scrolls to a given x, y offset, either immediately, with a smooth animation.
@@ -96,7 +96,6 @@ Provides a list item giving its section and row.
 
 Provides an `array` with all the items of the list.
 
-
 ### `isVisible()`
 
 ```js
@@ -104,7 +103,6 @@ isVisible({ index, section = 0 })
 ```
 
 Provides a `boolean` giving its section and row and return if the item is visible or not on the list, useful for tests.
-
 
 ### `isEmpty()`
 

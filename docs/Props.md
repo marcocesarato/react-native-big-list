@@ -147,7 +147,11 @@ Wrap the entire list into an accessory component.
 
 ### `renderAccessory`
 
-Rendered at the bottom of the list.
+```ts
+renderAccessory(list: BigList)
+```
+
+Rendered accessory at the bottom of the list.
 
 | Type     | Required |
 | -------- | -------- |
@@ -158,6 +162,12 @@ Rendered at the bottom of the list.
 Specify the item height.
 
 This is needed to have a great performance boost for lists of several thousands items.
+
+Function example:
+```ts
+itemHeight(section: number, index: number)
+```
+
 
 | Type             | Required | Default |
 | ---------------- | -------- | ------- |
@@ -183,6 +193,12 @@ Specify the footer item height.
 
 Specify the section header height.
 
+Function example:
+```ts
+sectionHeight(section: number)
+```
+
+
 | Type             | Required | Default |
 | ---------------- | -------- | ------- |
 | number, function | No       | `0`     |
@@ -190,6 +206,11 @@ Specify the section header height.
 ### `sectionFooterHeight`
 
 Specify the section footer height.
+
+Function example:
+```ts
+sectionFooterHeight(section: number)
+```
 
 | Type             | Required | Default |
 | ---------------- | -------- | ------- |
