@@ -1,13 +1,13 @@
 import React, { PureComponent } from "react";
 import {
   Animated,
-  NativeSyntheticEvent,
   NativeScrollEvent,
+  NativeSyntheticEvent,
   ScrollViewProps,
 } from "react-native";
 
 interface BigListProps extends ScrollViewProps {
-  actionSheetScrollRef?: any;
+  actionSheetScrollRef?: unknown;
   contentInset?: {
     bottom?: number;
     left?: number;
@@ -28,19 +28,19 @@ interface BigListProps extends ScrollViewProps {
   ListHeaderComponent?: React.ReactNode;
   ListHeaderComponentStyle?: object | unknown[];
   onLayout?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  onScroll?(event: NativeSyntheticEvent<NativeScrollEvent>): void;
-  onScrollEnd?(event: NativeSyntheticEvent<NativeScrollEvent>): void;
+  onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  onScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   removeClippedSubviews?: boolean;
-  renderAccessory?(): React.ReactNode;
-  renderActionSheetScrollViewWrapper?(
+  renderAccessory?: React.ReactNode;
+  renderActionSheetScrollViewWrapper?: (
     element: React.ReactElement,
-  ): React.ReactNode;
-  renderEmpty?(): React.ReactNode;
-  renderFooter?(): React.ReactNode;
-  renderHeader?(): React.ReactNode;
-  renderItem(item: object): React.ReactNode;
-  renderSection?(section: number): React.ReactNode;
-  renderSectionFooter?(section: number): React.ReactNode;
+  ) => React.ReactNode;
+  renderEmpty?: () => React.ReactNode;
+  renderFooter?: () => React.ReactNode;
+  renderHeader?: () => React.ReactNode;
+  renderItem: (item: object) => React.ReactNode;
+  renderSection?: (section: number) => React.ReactNode;
+  renderSectionFooter?: (section: number) => React.ReactNode;
   scrollEventThrottle?: number;
   scrollTopValue?: number;
   sectionFooterHeight?: string | number | (() => number);
