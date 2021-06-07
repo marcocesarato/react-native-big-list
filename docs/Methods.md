@@ -39,7 +39,7 @@ Scrolls to the end of the content.
 ### `scrollToIndex()`
 
 ```js
-`scrollToIndex({ index, section = 0, animated = true })`;
+scrollToIndex({ index, section = 0, animated = true })
 ```
 
 Scrolls to the item at the specified index such that it is positioned.
