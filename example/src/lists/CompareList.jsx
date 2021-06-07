@@ -14,13 +14,15 @@ import { StatusBar } from "expo-status-bar";
 import data from "../data/data.json";
 import Block from "./components/Block";
 
+const ITEM_HEIGHT = 50;
+
 export default function CompareList() {
   const renderItem = ({ item }) => {
     return (
       <List.Item
         title={item.id + " - " + item.title}
         description={item.description}
-        style={styles.container}
+        style={styles.item}
         left={(props) => <List.Icon {...props} icon="account" />}
       />
     );
@@ -57,11 +59,16 @@ export default function CompareList() {
             ]}
             data={data}
             renderItem={renderItem}
+            getItemLayout={(data, index) => ({
+              length: ITEM_HEIGHT,
+              offset: ITEM_HEIGHT * index,
+              index,
+            })}
             ListHeaderComponent={renderBigHeader}
             ListFooterComponent={renderFooter}
             ListEmptyComponent={renderEmpty}
-            headerHeight={100} // Default 0, so you need to specify it to show the header
-            footerHeight={100} // Default 0, so you need to specify it to show the footer
+            headerHeight={100} // Default 0, need to specify the header height
+            footerHeight={100} // Default 0, need to specify the footer  height
           />
           <FlatList
             style={[
@@ -69,11 +76,16 @@ export default function CompareList() {
               Platform.select({ web: { maxHeight: "100vh" }, default: {} }),
             ]}
             data={data}
-            ListHeaderComponent={renderFlatHeader}
-            ListFooterComponent={renderFooter}
-            ListEmptyComponent={renderEmpty}
             renderItem={renderItem}
-            keyExtractor={(item) => String(item.id)}
+            getItemLayout={(data, index) => ({
+              length: ITEM_HEIGHT,
+              offset: ITEM_HEIGHT * index,
+              index,
+            })} // Replaceable with `itemHeight={ITEM_HEIGHT}`
+            ListHeaderComponent={renderFlatHeader} // Replaceable with `renderHeader`
+            ListFooterComponent={renderFooter} // Replaceable with `renderFooter`
+            ListEmptyComponent={renderEmpty} // Replaceable with `renderEmpty`
+            keyExtractor={(item) => String(item.id)} // Removable
           />
         </View>
         <StatusBar style="auto" />
@@ -93,5 +105,9 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     paddingTop: 20,
+  },
+  item: {
+    flex: 1,
+    maxHeight: ITEM_HEIGHT,
   },
 });
