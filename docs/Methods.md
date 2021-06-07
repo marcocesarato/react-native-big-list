@@ -9,7 +9,7 @@
 ### `scrollTo()`
 
 ```ts
-scrollTo(options?: { x?: number, y?: number, animated?: boolean } | number);
+scrollTo({ x?: number, y?: number, animated?: boolean });
 ```
 
 Scrolls to a given x, y offset, either immediately, with a smooth animation.
