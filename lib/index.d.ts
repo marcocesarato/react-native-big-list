@@ -20,7 +20,10 @@ interface BigListProps extends ScrollViewProps {
   headerHeight?: string | number | (() => number);
   insetBottom?: number;
   insetTop?: number;
-  itemHeight?: string | number | (({section?: number, index: number}) => number);
+  itemHeight?:
+    | string
+    | number
+    | ((item: { index: number; section?: number }) => number);
   keyboardDismissMode?: string;
   keyboardShouldPersistTaps?: string;
   ListEmptyComponent?: React.ReactNode;
@@ -47,7 +50,7 @@ interface BigListProps extends ScrollViewProps {
   sectionFooterHeight?: string | number | ((section: number) => number);
   sectionHeight?: string | number | ((section: number) => number);
   sections?: unknown[][];
-  children?: null;
+  children?: null | undefined;
 }
 export default class BigList extends PureComponent<BigListProps> {}
 
