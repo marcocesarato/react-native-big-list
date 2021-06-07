@@ -157,20 +157,12 @@ class BigList extends PureComponent {
 
   /**
    * Is item visible.
-   * @param {int} indexOrSection
-   * @param {int|null} row
+   * @param {int} index
+   * @param {int} section
    * @returns {boolean}
    */
-  isVisible(indexOrSection, row = null) {
-    let section = indexOrSection;
-    if (!this.hasSections()) {
-      row = section;
-      section = 1;
-    }
-    const position =
-      this.props.headerHeight +
-      section * this.props.sectionHeight +
-      row * this.props.itemHeight;
+  isVisible({ index, section = 0 }) {
+    this.getItemOffset({ index, section });
     return (
       position >= this.scrollTop &&
       position <= this.scrollTop + this.containerHeight
@@ -178,10 +170,10 @@ class BigList extends PureComponent {
   }
 
   /**
-   * Get Scroll View reference.
+   * Provides a reference to the underlying scroll component.
    * @returns {ScrollView|null}
    */
-  getScrollView() {
+  getNativeScrollRef() {
     return this.scrollView.current;
   }
 
@@ -190,7 +182,7 @@ class BigList extends PureComponent {
    * @returns {BigListProcessor}
    */
   getListProcessor() {
-    const scrollView = this.getScrollView();
+    const scrollView = this.getNativeScrollRef();
     if (scrollView != null) {
       const {
         headerHeight,
@@ -218,28 +210,45 @@ class BigList extends PureComponent {
   }
 
   /**
-   * Scroll to.
-   * @param {int} section
+   * Displays the scroll indicators momentarily.
+   */
+  flashScrollIndicators() {
+    const scrollView = this.getNativeScrollRef();
+    if (scrollView != null) {
+      scrollView.flashScrollIndicators();
+    }
+  }
+
+  /**
+   * Scrolls to a given x, y offset, either immediately, with a smooth animation.
+   * @param {int} x
+   * @param {int} y
+   * @param {bool} animated
+   */
+  scrollTo({ x = 0, y = 0, animated = true }) {
+    const scrollView = this.getNativeScrollRef();
+    if (scrollView != null) {
+      scrollView.scrollTo({
+        x: x,
+        y: y,
+        animated,
+      });
+    }
+  }
+
+  /**
+   * Scroll to index.
    * @param {int} index
+   * @param {int} section
    * @param {bool} animated
    * @returns {bool}
    */
-  scrollTo({ index, section = 0, animated = true }) {
+  scrollToIndex({ index, section = 0, animated = true }) {
     const processor = this.getListProcessor();
     if (processor != null && index != null && section != null) {
       return processor.scrollToPosition(section, index, animated);
     }
     return false;
-  }
-
-  /**
-   * Alias of scrollTo
-   * @see scrollTo
-   * @param {object} options
-   * @returns {bool}
-   */
-  scrollToIndex(options) {
-    return this.scrollTo(options);
   }
 
   /**
@@ -270,8 +279,9 @@ class BigList extends PureComponent {
    * @returns {bool}
    */
   scrollToOffset({ offset, animated = false }) {
-    if (this.scrollView.current != null) {
-      this.scrollView.current.scrollTo({
+    const scrollRef = this.getNativeScrollRef();
+    if (scrollRef != null) {
+      scrollRef.scrollTo({
         x: 0,
         y: offset,
         animated,
@@ -417,16 +427,40 @@ class BigList extends PureComponent {
   }
 
   /**
-   * Get item data.
+   * Get item scroll view offset.
    * @param section
    * @param row
    * @returns {*}
    */
-  getItem(section = 0, row) {
+  getItemOffset({ section = 0, index }) {
+    const {
+      insetTop,
+      headerHeight,
+      sectionHeight,
+      sectionFooterHeight,
+      itemHeight,
+    } = this.props;
+    let headers = this.hasSections() ? section + 1 : 1;
+    return (
+      insetTop +
+      headerHeight +
+      headers * sectionHeight +
+      section * sectionFooterHeight +
+      index * itemHeight
+    );
+  }
+
+  /**
+   * Get item data.
+   * @param section
+   * @param index
+   * @returns {*}
+   */
+  getItem({ index, section = 0 }) {
     if (this.hasSections()) {
-      return this.props.sections[section][row];
+      return this.props.sections[section][index];
     } else {
-      return this.props.data[row];
+      return this.props.data[index];
     }
   }
 
@@ -496,7 +530,7 @@ class BigList extends PureComponent {
         // falls through
         case BigListItemType.ROW:
           if (type === BigListItemType.ROW) {
-            const item = this.getItem(section, row);
+            const item = this.getItem({ section, row });
             if (this.hasSections()) {
               child = renderItem({ item, section, index: row });
             } else {
@@ -548,11 +582,12 @@ class BigList extends PureComponent {
    * Component did mount.
    */
   componentDidMount() {
-    if (this.scrollView.current != null) {
+    const scrollView = this.getNativeScrollRef();
+    if (scrollView != null) {
       if (Platform.OS !== "web") {
         // Disabled on web
         this.scrollTopValueAttachment = Animated.attachNativeEvent(
-          this.scrollView.current,
+          scrollView,
           "onScroll",
           [{ nativeEvent: { contentOffset: { y: this.scrollTopValue } } }],
         );
