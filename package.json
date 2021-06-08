@@ -34,7 +34,7 @@
   "homepage": "https://github.com/marcocesarato/react-native-big-list#readme",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "lint": "eslint --ignore-path .gitignore \"**/*.{js,jsx}\"",
+    "lint": "eslint --ignore-path .gitignore \"./lib/*.{js,jsx}\"",
     "prettify": "prettier --write \"./**/*.{ts,tsx,js,jsx,json,md}\"",
     "format": "yarpm run prettify && yarpm run lint --fix",
     "release": "standard-version"
