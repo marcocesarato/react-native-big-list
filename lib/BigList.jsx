@@ -162,7 +162,7 @@ class BigList extends PureComponent {
    * @returns {boolean}
    */
   isVisible({ index, section = 0 }) {
-    this.getItemOffset({ index, section });
+    const position = this.getItemOffset({ index, section });
     return (
       position >= this.scrollTop &&
       position <= this.scrollTop + this.containerHeight
