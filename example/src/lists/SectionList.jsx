@@ -1,9 +1,9 @@
 import React from "react";
 import { KeyboardAvoidingView, SafeAreaView, StyleSheet } from "react-native";
-import BigList from "react-native-big-list";
 import { Appbar, List, Subheading } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 
+import BigList from "../../lib";
 import sections from "../data/sections.json";
 import Block from "./components/Block";
 
