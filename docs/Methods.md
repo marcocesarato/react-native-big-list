@@ -60,6 +60,18 @@ scrollToOffset({ offset, animated = false })
 
 Scroll to a specific content pixel offset in the list vertically.
 
+### `scrollToLocation()`
+
+```js
+scrollToLocation({
+	section: number,
+	index: number,
+	animated = true
+})
+```
+
+Scrolls to the item at the specified sectionIndex and itemIndex (within the section).
+
 ### `scrollToSection()`
 
 ```js

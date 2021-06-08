@@ -252,6 +252,22 @@ class BigList extends PureComponent {
   }
 
   /**
+   * Alias to scrollToIndex with polyfill for SectionList.
+   * @see scrollToIndex
+   * @param {int} itemIndex
+   * @param {int} sectionIndex
+   * @param {bool} animated
+   * @returns {bool}
+   */
+  scrollToLocation({ itemIndex, sectionIndex, animated = true }) {
+    return this.scrollToIndex({
+      section: sectionIndex,
+      index: itemIndex,
+      animated,
+    });
+  }
+
+  /**
    * Scroll to item.
    * @param {object} item
    * @param {bool} animated
@@ -440,7 +456,7 @@ class BigList extends PureComponent {
       sectionFooterHeight,
       itemHeight,
     } = this.props;
-    let headers = this.hasSections() ? section + 1 : 1;
+    const headers = this.hasSections() ? section + 1 : 1;
     return (
       insetTop +
       headerHeight +
