@@ -4,9 +4,12 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   ScrollViewProps,
+  LayoutChangeEvent,
+  ListRenderItem,
+  ViewStyle
 } from "react-native";
 
-interface BigListProps extends ScrollViewProps {
+interface BigListProps<ItemT> extends ScrollViewProps {
   actionSheetScrollRef?: unknown;
   contentInset?: {
     bottom?: number;
@@ -14,7 +17,7 @@ interface BigListProps extends ScrollViewProps {
     right?: number;
     top?: number;
   };
-  data?: unknown[];
+  data?: ItemT[];
   footerHeight?: string | number | (() => number);
   getItemLayout?: () => number;
   headerHeight?: string | number | (() => number);
@@ -24,14 +27,14 @@ interface BigListProps extends ScrollViewProps {
     | string
     | number
     | ((item: { index: number; section?: number }) => number);
-  keyboardDismissMode?: string;
-  keyboardShouldPersistTaps?: string;
+  keyboardDismissMode?: "none" | "interactive" | "on-drag";
+  keyboardShouldPersistTaps?: boolean | "always" | "never" | "handled";
   ListEmptyComponent?: React.ReactNode;
   ListFooterComponent?: React.ReactNode;
-  ListFooterComponentStyle?: object | unknown[];
+  ListFooterComponentStyle?: ViewStyle | ViewStyle[];
   ListHeaderComponent?: React.ReactNode;
-  ListHeaderComponentStyle?: object | unknown[];
-  onLayout?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  ListHeaderComponentStyle?: ViewStyle | ViewStyle[];
+  onLayout?: (event: LayoutChangeEvent) => void;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   removeClippedSubviews?: boolean;
@@ -42,17 +45,17 @@ interface BigListProps extends ScrollViewProps {
   renderEmpty?: () => React.ReactNode | null | undefined;
   renderFooter?: () => React.ReactNode | null | undefined;
   renderHeader?: () => React.ReactNode | null | undefined;
-  renderItem: (item: object) => React.ReactNode | null | undefined;
+  renderItem: ListRenderItem<ItemT> | null | undefined;
   renderSection?: (section: number) => React.ReactNode | null | undefined;
   renderSectionFooter?: (section: number) => React.ReactNode | null | undefined;
   scrollEventThrottle?: number;
   scrollTopValue?: number;
   sectionFooterHeight?: string | number | ((section: number) => number);
   sectionHeight?: string | number | ((section: number) => number);
-  sections?: unknown[][];
+  sections?: ItemT[][];
   children?: null | undefined;
 }
-export default class BigList extends PureComponent<BigListProps> {}
+export default class BigList<ItemT = any> extends PureComponent<BigListProps<ItemT>> {}
 
 type BigListItemProps = {
   children?: React.ReactNode[] | React.ReactNode;
