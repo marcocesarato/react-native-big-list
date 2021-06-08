@@ -18,9 +18,9 @@ The main props of FlatList are compatible with BigList like `data` and its struc
 
 You just need to:
 
-- 📝 Import the component
-- 📝 Replace the name of the component from `FlatList` to `BigList`.
-- 📝 Add the props for the heights
+- 📝&nbsp;Import the component
+- 📝&nbsp;Replace the name of the component from `FlatList` to `BigList`.
+- 📝&nbsp;Add the props for the heights
 
   > BigList need to define a static height of the items for maintain great performances.<br>
   > If you use `getItemLayout` you don't need to define `itemHeight`<br>
@@ -92,13 +92,13 @@ const ITEM_HEIGHT = 50;
 
 > These steps are recommended but if you want turn back to FlatList in anytime you can keep only the first steps without any problems.
 
-- 📝 Replace `ListHeaderComponent` with `renderHeader`
-- 📝 Replace `ListFooterComponent` with `renderFooter`
-- 📝 Replace `ListEmptyComponent` with `renderEmpty`
-- 📝 Replace `getItemLayout` with `itemHeight`
-- ❌ Remove `keyExtractor`
-- ❌ Remove `ListFooterComponentStyle`
-- ❌ Remove `ListHeaderComponentStyle`
+- 📝&nbsp;Replace `ListHeaderComponent` with `renderHeader`
+- 📝&nbsp;Replace `ListFooterComponent` with `renderFooter`
+- 📝&nbsp;Replace `ListEmptyComponent` with `renderEmpty`
+- 📝&nbsp;Replace `getItemLayout` with `itemHeight`
+- ❌&nbsp;Remove `keyExtractor`
+- ❌&nbsp;Remove `ListFooterComponentStyle`
+- ❌&nbsp;Remove `ListHeaderComponentStyle`
 
 To have more details about props check the [Props list](./Props.md)
 
