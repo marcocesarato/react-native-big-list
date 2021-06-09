@@ -6,7 +6,7 @@ import {
   ScrollViewProps,
   LayoutChangeEvent,
   ListRenderItem,
-  ViewStyle
+  ViewStyle,
 } from "react-native";
 
 interface BigListProps<ItemT> extends ScrollViewProps {
@@ -55,7 +55,9 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   sections?: ItemT[][];
   children?: null | undefined;
 }
-export default class BigList<ItemT = any> extends PureComponent<BigListProps<ItemT>> {}
+export default class BigList<ItemT = any> extends PureComponent<
+  BigListProps<ItemT>
+> {}
 
 type BigListItemProps = {
   children?: React.ReactNode[] | React.ReactNode;

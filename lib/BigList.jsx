@@ -669,7 +669,20 @@ class BigList extends PureComponent {
             actionSheetScrollRef.current = ref;
           }
         },
-        onScroll: this.onScroll,
+        onScroll:
+          Platform.OS === "web"
+            ? Animated.event(
+                [
+                  {
+                    nativeEvent: { contentOffset: { y: this.scrollTopValue } },
+                  },
+                ],
+                {
+                  listener: (event) => this.onScroll(event),
+                  useNativeDriver: false,
+                },
+              )
+            : this.onScroll,
         onLayout: this.onLayout,
         onMomentumScrollEnd: this.onScrollEnd,
         onScrollEndDrag: this.onScrollEnd,
@@ -790,7 +803,7 @@ BigList.defaultProps = {
   sectionFooterHeight: 0,
   // Scroll
   removeClippedSubviews: false,
-  scrollEventThrottle: 16,
+  scrollEventThrottle: Platform.OS === "web" ? 5 : 16,
   // Keyboard
   keyboardShouldPersistTaps: "always",
   keyboardDismissMode: "interactive",
