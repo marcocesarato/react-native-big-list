@@ -39,7 +39,7 @@ As the name implies, the recycler recycles those individual elements. When an it
 
 When list can't render your items fast enough the non-rendered components will appear as blank space.
 
-_Compatible with: Android, iOS, Windows, Web and Expo._
+This library is fully JS native, so it's compatible with all available platforms: _Android, iOS, Windows, MacOS, Web (sticky headers not available on web yet) and Expo_.
 
 ## 📖 Install
 
