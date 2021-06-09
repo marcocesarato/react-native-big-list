@@ -243,11 +243,11 @@ Specify the bottom inset.
 
 ### `contentInset`
 
-Specify the content inset.
+The amount by which the scroll view content is inset from the edges of the scroll view.
 
-| Type   | Required | Default                                    |
-| ------ | -------- | ------------------------------------------ |
-| number | No       | `{ top: 0, right: 0, left: 0, bottom: 0 }` |
+| Type                                                               | Required | Default                                    |
+| ------------------------------------------------------------------ | -------- | ------------------------------------------ |
+| object: {top: number, left: number, bottom: number, right: number} | No       | `{ top: 0, right: 0, left: 0, bottom: 0 }` |
 
 ## <a name="flatlist"></a> FlatList compatibility
 
