@@ -46,12 +46,12 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   renderFooter?: () => React.ReactNode | null | undefined;
   renderHeader?: () => React.ReactNode | null | undefined;
   renderItem: ListRenderItem<ItemT> | null | undefined;
-  renderSection?: (section: number) => React.ReactNode | null | undefined;
+  renderSectionHeader?: (section: number) => React.ReactNode | null | undefined;
   renderSectionFooter?: (section: number) => React.ReactNode | null | undefined;
   scrollEventThrottle?: number;
   scrollTopValue?: number;
   sectionFooterHeight?: string | number | ((section: number) => number);
-  sectionHeight?: string | number | ((section: number) => number);
+  sectionHeaderHeight?: string | number | ((section: number) => number);
   sections?: ItemT[][];
   stickySectionHeadersEnabled: boolean;
   children?: null | undefined;

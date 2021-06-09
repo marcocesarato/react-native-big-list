@@ -147,12 +147,12 @@ return (
     renderItem={renderItem}
     renderHeader={renderHeader}
     renderFooter={renderFooter}
-    renderSection={renderSectionHeader}
+    renderSectionHeader={renderSectionHeader}
     renderSectionFooter={renderSectionFooter}
     itemHeight={50}
     headerHeight={90}
     footerHeight={100}
-    sectionHeight={90}
+    sectionHeaderHeight={90}
     sectionFooterHeight={100}
   />
 );

@@ -39,7 +39,7 @@ For simplicity, data is a plain array containing the items to render.
 For simplicity, sections is a plain array containing another plain array with the items (section items) to render. If specified `data` prop will be ignored.
 It'll replace the `data` prop.
 
-It's required if no data is specified or if you want use sticky headers (look at `renderSection`) with sections.
+It's required if no data is specified or if you want use sticky headers (look at `renderSectionHeader`) with sections.
 
 | Type  | Required                                     |
 | ----- | -------------------------------------------- |
@@ -113,10 +113,10 @@ Rendered at the bottom of all the items.
 | -------- | -------- |
 | function | No       |
 
-### `renderSection`
+### `renderSectionHeader`
 
 ```ts
-renderSection(section: number)
+renderSectionHeader(section: number)
 ```
 
 Rendered at the top of all the section's items.
@@ -189,14 +189,14 @@ Specify the footer item height.
 | ---------------- | -------- | ------- |
 | number, function | No       | `0`     |
 
-### `sectionHeight`
+### `sectionHeaderHeight`
 
 Specify the section header height.
 
 Function example:
 
 ```ts
-sectionHeight(section: number)
+sectionHeaderHeight(section: number)
 ```
 
 | Type             | Required | Default |

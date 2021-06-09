@@ -28,7 +28,7 @@ class BigList extends PureComponent {
    * @param data
    * @param headerHeight
    * @param footerHeight
-   * @param sectionHeight
+   * @param sectionHeaderHeight
    * @param itemHeight
    * @param getItemLayout
    * @param sectionFooterHeight
@@ -46,7 +46,7 @@ class BigList extends PureComponent {
       data,
       headerHeight,
       footerHeight,
-      sectionHeight,
+      sectionHeaderHeight,
       itemHeight,
       getItemLayout,
       sectionFooterHeight,
@@ -73,7 +73,7 @@ class BigList extends PureComponent {
       itemHeight: layoutItemHeight,
       headerHeight,
       footerHeight,
-      sectionHeight,
+      sectionHeaderHeight,
       sectionFooterHeight,
       insetTop,
       insetBottom,
@@ -187,7 +187,7 @@ class BigList extends PureComponent {
       const {
         headerHeight,
         footerHeight,
-        sectionHeight,
+        sectionHeaderHeight,
         sectionFooterHeight,
         insetTop,
         insetBottom,
@@ -198,7 +198,7 @@ class BigList extends PureComponent {
         sections: sectionLengths,
         headerHeight,
         footerHeight,
-        sectionHeight,
+        sectionHeaderHeight,
         sectionFooterHeight,
         itemHeight,
         insetTop,
@@ -452,7 +452,7 @@ class BigList extends PureComponent {
     const {
       insetTop,
       headerHeight,
-      sectionHeight,
+      sectionHeaderHeight,
       sectionFooterHeight,
       itemHeight,
     } = this.props;
@@ -460,7 +460,7 @@ class BigList extends PureComponent {
     return (
       insetTop +
       headerHeight +
-      headers * sectionHeight +
+      headers * sectionHeaderHeight +
       section * sectionFooterHeight +
       index * itemHeight
     );
@@ -501,7 +501,7 @@ class BigList extends PureComponent {
       ListHeaderComponentStyle,
       renderHeader,
       renderFooter,
-      renderSection,
+      renderSectionHeader,
       renderItem,
       renderSectionFooter,
       renderEmpty,
@@ -574,7 +574,7 @@ class BigList extends PureComponent {
         }
         case BigListItemType.SECTION:
           sectionPositions.shift();
-          child = renderSection(section);
+          child = renderSectionHeader(section);
           if (child != null) {
             children.push(
               <BigListSection
@@ -645,7 +645,7 @@ class BigList extends PureComponent {
       scrollTopValue,
       renderHeader,
       renderFooter,
-      renderSection,
+      renderSectionHeader,
       renderItem,
       renderSectionFooter,
       renderActionSheetScrollViewWrapper,
@@ -654,7 +654,7 @@ class BigList extends PureComponent {
       itemHeight,
       footerHeight,
       headerHeight,
-      sectionHeight,
+      sectionHeaderHeight,
       sectionFooterHeight,
       insetTop,
       insetBottom,
@@ -769,7 +769,7 @@ BigList.propTypes = {
   renderFooter: PropTypes.func,
   renderHeader: PropTypes.func,
   renderItem: PropTypes.func.isRequired,
-  renderSection: PropTypes.func,
+  renderSectionHeader: PropTypes.func,
   renderSectionFooter: PropTypes.func,
   scrollEventThrottle: PropTypes.number,
   scrollTopValue: PropTypes.number,
@@ -778,7 +778,7 @@ BigList.propTypes = {
     PropTypes.number,
     PropTypes.func,
   ]),
-  sectionHeight: PropTypes.oneOfType([
+  sectionHeaderHeight: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.func,
@@ -795,13 +795,13 @@ BigList.defaultProps = {
   renderItem: () => null,
   renderHeader: () => null,
   renderFooter: () => null,
-  renderSection: () => null,
+  renderSectionHeader: () => null,
   renderSectionFooter: () => null,
   // Height
   itemHeight: 50,
   headerHeight: 0,
   footerHeight: 0,
-  sectionHeight: 0,
+  sectionHeaderHeight: 0,
   sectionFooterHeight: 0,
   // Scroll
   stickySectionHeadersEnabled: true,
