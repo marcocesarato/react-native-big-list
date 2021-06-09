@@ -217,6 +217,14 @@ sectionFooterHeight(section: number)
 | ---------------- | -------- | ------- |
 | number, function | No       | `0`     |
 
+### `stickySectionHeadersEnabled`
+
+Makes section headers stick to the top of the screen until the next one pushes it off.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `true`  |
+
 ### `scrollTopValue`
 
 Specify the initial scroll from the top of the list.

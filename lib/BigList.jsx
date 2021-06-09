@@ -598,16 +598,19 @@ class BigList extends PureComponent {
    * Component did mount.
    */
   componentDidMount() {
+    const { stickySectionHeadersEnabled } = this.props;
     const scrollView = this.getNativeScrollRef();
-    if (scrollView != null) {
-      if (Platform.OS !== "web") {
-        // Disabled on web
-        this.scrollTopValueAttachment = Animated.attachNativeEvent(
-          scrollView,
-          "onScroll",
-          [{ nativeEvent: { contentOffset: { y: this.scrollTopValue } } }],
-        );
-      }
+    if (
+      stickySectionHeadersEnabled &&
+      scrollView != null &&
+      Platform.OS !== "web"
+    ) {
+      // Disabled on web
+      this.scrollTopValueAttachment = Animated.attachNativeEvent(
+        scrollView,
+        "onScroll",
+        [{ nativeEvent: { contentOffset: { y: this.scrollTopValue } } }],
+      );
     }
   }
 
@@ -656,10 +659,21 @@ class BigList extends PureComponent {
       insetTop,
       insetBottom,
       actionSheetScrollRef,
+      stickySectionHeadersEnabled,
       ...props
     } = this.props;
 
     const wrapper = renderActionSheetScrollViewWrapper || ((val) => val);
+    const handleScroll =
+      stickySectionHeadersEnabled && Platform.OS === "web"
+        ? Animated.event(
+            [{ nativeEvent: { contentOffset: { y: this.scrollTopValue } } }],
+            {
+              listener: (event) => this.onScroll(event),
+              useNativeDriver: false,
+            },
+          )
+        : this.onScroll;
     const scrollViewProps = {
       ...props,
       ...{
@@ -669,20 +683,7 @@ class BigList extends PureComponent {
             actionSheetScrollRef.current = ref;
           }
         },
-        onScroll:
-          Platform.OS === "web"
-            ? Animated.event(
-                [
-                  {
-                    nativeEvent: { contentOffset: { y: this.scrollTopValue } },
-                  },
-                ],
-                {
-                  listener: (event) => this.onScroll(event),
-                  useNativeDriver: false,
-                },
-              )
-            : this.onScroll,
+        onScroll: handleScroll,
         onLayout: this.onLayout,
         onMomentumScrollEnd: this.onScrollEnd,
         onScrollEndDrag: this.onScrollEnd,
@@ -783,6 +784,7 @@ BigList.propTypes = {
     PropTypes.func,
   ]),
   sections: PropTypes.array,
+  stickySectionHeadersEnabled: PropTypes.bool,
 };
 
 BigList.defaultProps = {
@@ -802,6 +804,7 @@ BigList.defaultProps = {
   sectionHeight: 0,
   sectionFooterHeight: 0,
   // Scroll
+  stickySectionHeadersEnabled: true,
   removeClippedSubviews: false,
   scrollEventThrottle: Platform.OS === "web" ? 5 : 16,
   // Keyboard

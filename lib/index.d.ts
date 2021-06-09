@@ -53,6 +53,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   sectionFooterHeight?: string | number | ((section: number) => number);
   sectionHeight?: string | number | ((section: number) => number);
   sections?: ItemT[][];
+  stickySectionHeadersEnabled: boolean;
   children?: null | undefined;
 }
 export default class BigList<ItemT = any> extends PureComponent<
