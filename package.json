@@ -1,6 +1,6 @@
 {
   "name": "react-native-big-list",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A big and fast list implementation for react-native with a recycler API focused on performance and ram usage while processing thousand items on the list.",
   "keywords": [
     "react-native-big-list",
