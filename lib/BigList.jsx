@@ -367,9 +367,20 @@ class BigList extends PureComponent {
     ) {
       this.setState(nextState);
     }
-    const { onScroll } = this.props;
+    const { onScroll, onEndReached, onEndReachedThreshold } = this.props;
     if (onScroll != null) {
       onScroll(event);
+    }
+    const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
+    const distanceFromEnd =
+      contentSize.height - (layoutMeasurement.height + contentOffset.y);
+    if (distanceFromEnd <= layoutMeasurement.height * onEndReachedThreshold) {
+      if (!this.endReached) {
+        this.endReached = true;
+        onEndReached && onEndReached({ distanceFromEnd });
+      }
+    } else {
+      this.endReached = false;
     }
   }
 
@@ -759,6 +770,8 @@ BigList.propTypes = {
     PropTypes.object,
     PropTypes.array,
   ]),
+  onEndReached: PropTypes.func,
+  onEndReachedThreshold: PropTypes.number,
   onLayout: PropTypes.func,
   onScroll: PropTypes.func,
   onScrollEnd: PropTypes.func,
@@ -814,6 +827,7 @@ BigList.defaultProps = {
   insetTop: 0,
   insetBottom: 0,
   contentInset: { top: 0, right: 0, left: 0, bottom: 0 },
+  onEndReachedThreshold: 0,
 };
 
 export default BigList;

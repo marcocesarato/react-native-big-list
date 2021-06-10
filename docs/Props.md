@@ -257,6 +257,26 @@ The amount by which the scroll view content is inset from the edges of the scrol
 | ------------------------------------------------------------------ | -------- | ------------------------------------------ |
 | object: {top: number, left: number, bottom: number, right: number} | No       | `{ top: 0, right: 0, left: 0, bottom: 0 }` |
 
+### `onEndReached`
+
+```ts
+onEndReached(info: {distanceFromEnd: number})
+```
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
+Called once when the scroll position gets within `onEndReachedThreshold` of the rendered content.
+
+### `onEndReachedThreshold`
+
+How far from the end (in units of visible length of the list) the bottom edge of the list must be from the end of the content to trigger the `onEndReached` callback. Thus a value of `0.5` will trigger onEndReached when the end of the content is within half the visible length of the list.
+
+| Type   | Required | Default |
+| ------ | -------- | ------- |
+| number | No       | `0`     |
+
 ## <a name="flatlist"></a> FlatList compatibility
 
 > These are **compatibility** props for a faster FlatList replacement and all these props have an alias.<br>

@@ -1,11 +1,11 @@
 import React, { PureComponent } from "react";
 import {
   Animated,
+  LayoutChangeEvent,
+  ListRenderItem,
   NativeScrollEvent,
   NativeSyntheticEvent,
   ScrollViewProps,
-  LayoutChangeEvent,
-  ListRenderItem,
   ViewStyle,
 } from "react-native";
 
@@ -34,6 +34,8 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   ListFooterComponentStyle?: ViewStyle | ViewStyle[];
   ListHeaderComponent?: React.ReactNode;
   ListHeaderComponentStyle?: ViewStyle | ViewStyle[];
+  onEndReached?: ((info: { distanceFromEnd: number }) => void) | null;
+  onEndReachedThreshold?: number | null;
   onLayout?: (event: LayoutChangeEvent) => void;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
