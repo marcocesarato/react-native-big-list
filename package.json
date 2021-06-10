@@ -33,7 +33,8 @@
   "files": [
     "dist/",
     "lib/",
-    "assets/"
+    "assets/",
+    "docs/"
   ],
   "author": "Marco Cesarato <cesarato.developer@gmail.com>",
   "bugs": {
