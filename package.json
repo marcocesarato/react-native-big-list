@@ -31,9 +31,9 @@
   "react-native": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "dist/",
-    "lib/",
-    "docs/"
+    "lib",
+    "dist",
+    "docs"
   ],
   "author": "Marco Cesarato <cesarato.developer@gmail.com>",
   "bugs": {
@@ -64,7 +64,8 @@
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.0",
     "react-native-builder-bob": "^0.18.1",
-    "standard-version": "^9.3.0"
+    "standard-version": "^9.3.0",
+    "typescript": "^4.3.2"
   },
   "husky": {
     "hooks": {
@@ -98,7 +99,12 @@
     "output": "dist",
     "targets": [
       "commonjs",
-      "module"
+      "module",
+      "typescript"
     ]
-  }
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "dist/"
+  ]
 }
