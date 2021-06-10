@@ -26,7 +26,14 @@
     "list",
     "performance"
   ],
-  "main": "./lib/index.js",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/module/index.js",
+  "react-native": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "dist/",
+    "lib/"
+  ],
   "author": "Marco Cesarato <cesarato.developer@gmail.com>",
   "bugs": {
     "url": "https://github.com/marcocesarato/react-native-big-list/issues"
@@ -34,6 +41,7 @@
   "homepage": "https://github.com/marcocesarato/react-native-big-list#readme",
   "license": "GPL-3.0-or-later",
   "scripts": {
+    "prepare": "bob build",
     "lint": "eslint --ignore-path .gitignore \"./lib/*.{js,jsx}\"",
     "prettify": "prettier --write \"./**/*.{ts,tsx,js,jsx,json,md}\"",
     "format": "yarpm run prettify && yarpm run lint --fix",
@@ -54,6 +62,7 @@
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.0",
+    "react-native-builder-bob": "^0.18.1",
     "standard-version": "^9.3.0"
   },
   "husky": {
@@ -82,5 +91,13 @@
   "bit": {
     "env": {},
     "packageManager": "npm"
+  },
+  "react-native-builder-bob": {
+    "source": "lib",
+    "output": "dist",
+    "targets": [
+      "commonjs",
+      "module"
+    ]
   }
 }

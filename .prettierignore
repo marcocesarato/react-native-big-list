@@ -2,3 +2,4 @@ example/.expo
 example/.expo-shared
 example/web-build
 example/node_modules
+dist/
