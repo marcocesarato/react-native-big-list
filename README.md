@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="React Native Big List" src="assets/logo.png" />
+<img alt="React Native Big List" src="https://github.com/marcocesarato/react-native-big-list/raw/master/assets/logo.png" />
 
 ### If this project has helped you out, please support us with a star 🌟
 
@@ -162,9 +162,9 @@ For more examples check the `example` directory the `list` directory
 
 ## 🎨 Screenshots
 
-| BigList vs FlatList                                          | Section List                                                          |
-| ------------------------------------------------------------ | --------------------------------------------------------------------- |
-| <img src="assets/screenshots/performance.gif" width="500" /> | <img src="assets/screenshots/example-section-list.jpg" width="500" /> |
+| BigList vs FlatList                                                                                                            | Section List                                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/marcocesarato/react-native-big-list/raw/master/assets/screenshots/performance.gif" width="500" /> | <img src="https://github.com/marcocesarato/react-native-big-list/raw/master/assets/screenshots/example-section-list.jpg" width="500" /> |
 
 ## ⚡️ Example
 
