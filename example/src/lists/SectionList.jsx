@@ -32,7 +32,7 @@ export default function SectionList() {
       <Subheading>No more items available...</Subheading>
     </Block>
   );
-  const renderSection = (section) => (
+  const renderSectionHeader = (section) => (
     <Appbar style={styles.header}>
       <Appbar.Content
         style={styles.headerContent}
@@ -63,8 +63,8 @@ export default function SectionList() {
           footerHeight={100}
           renderFooter={renderFooter}
           // Section
-          sectionHeight={75}
-          renderSection={renderSection}
+          sectionHeaderHeight={75}
+          renderSectionHeader={renderSectionHeader}
           // Section footer
           sectionFooterHeight={60}
           renderSectionFooter={renderSectionFooter}
