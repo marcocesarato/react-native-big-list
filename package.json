@@ -28,7 +28,6 @@
   ],
   "main": "dist/commonjs/index.js",
   "module": "dist/module/index.js",
-  "react-native": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib",
@@ -42,7 +41,7 @@
   "homepage": "https://github.com/marcocesarato/react-native-big-list#readme",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "prepare": "bob build",
+    "prepare": "bob build && node scripts/dist.js",
     "lint": "eslint --ignore-path .gitignore \"./lib/*.{js,jsx}\"",
     "prettify": "prettier --write \"./**/*.{ts,tsx,js,jsx,json,md}\"",
     "format": "yarpm run prettify && yarpm run lint --fix",
@@ -60,6 +59,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-native": "^3.11.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "glob": "^7.1.7",
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.0",
