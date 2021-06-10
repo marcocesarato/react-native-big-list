@@ -32,7 +32,8 @@
   "types": "lib/index.d.ts",
   "files": [
     "dist/",
-    "lib/"
+    "lib/",
+    "assets/"
   ],
   "author": "Marco Cesarato <cesarato.developer@gmail.com>",
   "bugs": {
