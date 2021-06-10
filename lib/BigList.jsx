@@ -1,6 +1,12 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Animated, Platform, ScrollView, View } from "react-native";
+import {
+  Animated,
+  Platform,
+  RefreshControl,
+  ScrollView,
+  View,
+} from "react-native";
 
 import BigListItem, { BigListItemType } from "./BigListItem";
 import BigListProcessor from "./BigListProcessor";
@@ -671,6 +677,10 @@ class BigList extends PureComponent {
       insetBottom,
       actionSheetScrollRef,
       stickySectionHeadersEnabled,
+      onEndReached,
+      onEndReachedThreshold,
+      onRefresh,
+      refreshing,
       ...props
     } = this.props;
 
@@ -685,20 +695,31 @@ class BigList extends PureComponent {
             },
           )
         : this.onScroll;
-    const scrollViewProps = {
-      ...props,
-      ...{
-        ref: (ref) => {
-          this.scrollView.current = ref;
-          if (actionSheetScrollRef) {
-            actionSheetScrollRef.current = ref;
-          }
-        },
-        onScroll: handleScroll,
-        onLayout: this.onLayout,
-        onMomentumScrollEnd: this.onScrollEnd,
-        onScrollEndDrag: this.onScrollEnd,
+
+    const defaultProps = {
+      refreshControl:
+        onRefresh && !this.props.refreshControl ? (
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        ) : null,
+    };
+
+    const overwriteProps = {
+      ref: (ref) => {
+        this.scrollView.current = ref;
+        if (actionSheetScrollRef) {
+          actionSheetScrollRef.current = ref;
+        }
       },
+      onScroll: handleScroll,
+      onLayout: this.onLayout,
+      onMomentumScrollEnd: this.onScrollEnd,
+      onScrollEndDrag: this.onScrollEnd,
+    };
+
+    const scrollViewProps = {
+      ...defaultProps,
+      ...props,
+      ...overwriteProps,
     };
     const scrollView = wrapper(
       <ScrollView {...scrollViewProps}>{this.renderItems()}</ScrollView>,
@@ -773,6 +794,7 @@ BigList.propTypes = {
   onEndReached: PropTypes.func,
   onEndReachedThreshold: PropTypes.number,
   onLayout: PropTypes.func,
+  onRefresh: PropTypes.func,
   onScroll: PropTypes.func,
   onScrollEnd: PropTypes.func,
   removeClippedSubviews: PropTypes.bool,
@@ -784,6 +806,7 @@ BigList.propTypes = {
   renderItem: PropTypes.func.isRequired,
   renderSectionHeader: PropTypes.func,
   renderSectionFooter: PropTypes.func,
+  refreshing: PropTypes.bool,
   scrollEventThrottle: PropTypes.number,
   scrollTopValue: PropTypes.number,
   sectionFooterHeight: PropTypes.oneOfType([
@@ -804,6 +827,7 @@ BigList.defaultProps = {
   // Data
   data: [],
   sections: null,
+  refreshing: false,
   // Renders
   renderItem: () => null,
   renderHeader: () => null,

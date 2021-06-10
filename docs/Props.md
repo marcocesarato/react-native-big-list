@@ -257,6 +257,22 @@ The amount by which the scroll view content is inset from the edges of the scrol
 | ------------------------------------------------------------------ | -------- | ------------------------------------------ |
 | object: {top: number, left: number, bottom: number, right: number} | No       | `{ top: 0, right: 0, left: 0, bottom: 0 }` |
 
+### `refreshing`
+
+Set this true while waiting for new data from a refresh.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `false` |
+
+### `onRefresh`
+
+If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make sure to also set the `refreshing` prop correctly.
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
 ### `onEndReached`
 
 ```ts

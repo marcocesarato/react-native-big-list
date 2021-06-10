@@ -34,9 +34,13 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   ListFooterComponentStyle?: ViewStyle | ViewStyle[];
   ListHeaderComponent?: React.ReactNode;
   ListHeaderComponentStyle?: ViewStyle | ViewStyle[];
-  onEndReached?: ((info: { distanceFromEnd: number }) => void) | null;
-  onEndReachedThreshold?: number | null;
+  onEndReached?:
+    | ((info: { distanceFromEnd: number }) => void)
+    | null
+    | undefined;
+  onEndReachedThreshold?: number | null | undefined;
   onLayout?: (event: LayoutChangeEvent) => void;
+  onRefresh?: () => void | null | undefined;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   removeClippedSubviews?: boolean;
@@ -50,6 +54,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   renderItem: ListRenderItem<ItemT> | null | undefined;
   renderSectionHeader?: (section: number) => React.ReactNode | null | undefined;
   renderSectionFooter?: (section: number) => React.ReactNode | null | undefined;
+  refreshing?: boolean | null | undefined;
   scrollEventThrottle?: number;
   scrollTopValue?: number;
   sectionFooterHeight?: string | number | ((section: number) => number);
