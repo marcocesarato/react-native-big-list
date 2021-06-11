@@ -730,6 +730,11 @@ class BigList extends PureComponent {
         onRefresh && !this.props.refreshControl ? (
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         ) : null,
+      contentContainerStyle: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        maxWidth: "100%",
+      },
     };
 
     const overwriteProps = {
@@ -743,11 +748,6 @@ class BigList extends PureComponent {
       onLayout: this.onLayout,
       onMomentumScrollEnd: this.onScrollEnd,
       onScrollEndDrag: this.onScrollEnd,
-      contentContainerStyle: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        maxWidth: "100%",
-      },
     };
 
     const scrollViewProps = {
@@ -755,6 +755,13 @@ class BigList extends PureComponent {
       ...props,
       ...overwriteProps,
     };
+
+    // Content container style merge
+    scrollViewProps.contentContainerStyle = mergeViewStyle(
+      props.contentContainerStyle,
+      defaultProps.contentContainerStyle,
+    );
+
     const scrollView = wrapper(
       <ScrollView {...scrollViewProps}>{this.renderItems()}</ScrollView>,
     );
