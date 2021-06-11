@@ -25,7 +25,7 @@ const Home = () => {
         styles.container,
         {
           backgroundColor: background,
-          paddingBottom: insetBottom + 195,
+          paddingBottom: insetBottom + 205,
         },
       ]}
     >
