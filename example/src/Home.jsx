@@ -8,6 +8,7 @@ import {
   useTheme,
 } from "react-native-paper";
 
+import ColumnsList from "./lists/ColumnsList";
 import CompareList from "./lists/CompareList";
 import List from "./lists/List";
 import SectionList from "./lists/SectionList";
@@ -24,7 +25,7 @@ const Home = () => {
         styles.container,
         {
           backgroundColor: background,
-          paddingBottom: insetBottom + 155,
+          paddingBottom: insetBottom + 195,
         },
       ]}
     >
@@ -49,6 +50,14 @@ const Home = () => {
               </View>
             </View>
           </TouchableRipple>
+          <TouchableRipple onPress={() => setChecked("columns")}>
+            <View style={styles.row}>
+              <Paragraph>Columns List</Paragraph>
+              <View pointerEvents="none">
+                <RadioButton.Android value="columns" />
+              </View>
+            </View>
+          </TouchableRipple>
           <TouchableRipple onPress={() => setChecked("section")}>
             <View style={styles.row}>
               <Paragraph>Section List</Paragraph>
@@ -69,6 +78,8 @@ const Home = () => {
       </View>
       {checked === "standard" ? (
         <List />
+      ) : checked === "columns" ? (
+        <ColumnsList />
       ) : checked === "section" ? (
         <SectionList />
       ) : checked === "compare" ? (
