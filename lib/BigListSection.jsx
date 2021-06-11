@@ -31,17 +31,18 @@ const BigListSection = ({
     React.cloneElement(child, {
       style: { flex: 1 },
     });
-  const style = [
+  const viewStyle = [
     React.isValidElement(child) && child.props.style
       ? child.props.style
       : undefined,
     {
       zIndex: 10,
       height: height,
+      width: "100%",
       transform: [{ translateY }],
     },
   ];
-  return <Animated.View style={style}>{fillChildren}</Animated.View>;
+  return <Animated.View style={viewStyle}>{fillChildren}</Animated.View>;
 };
 
 BigListSection.propTypes = {

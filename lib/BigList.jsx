@@ -11,7 +11,7 @@ import {
 import BigListItem, { BigListItemType } from "./BigListItem";
 import BigListProcessor from "./BigListProcessor";
 import BigListSection from "./BigListSection";
-import { autobind, createElement, processBlock } from "./utils";
+import { autobind, createElement, mergeViewStyle, processBlock } from "./utils";
 
 class BigList extends PureComponent {
   /**
@@ -42,6 +42,7 @@ class BigList extends PureComponent {
    * @param sections
    * @param insetTop
    * @param insetBottom
+   * @param numColumns
    * @param batchSize
    * @param blockStart
    * @param blockEnd
@@ -61,6 +62,7 @@ class BigList extends PureComponent {
       sections,
       insetTop,
       insetBottom,
+      numColumns,
     },
     { batchSize, blockStart, blockEnd, items: prevItems },
   ) {
@@ -85,6 +87,7 @@ class BigList extends PureComponent {
       sectionFooterHeight,
       insetTop,
       insetBottom,
+      numColumns,
     });
     return {
       ...{
@@ -527,6 +530,7 @@ class BigList extends PureComponent {
    */
   renderItems() {
     const {
+      numColumns,
       ListEmptyComponent,
       ListFooterComponent,
       ListFooterComponentStyle,
@@ -550,7 +554,7 @@ class BigList extends PureComponent {
     }
     const sectionPositions = [];
     items.forEach(({ type, position }) => {
-      if (type === BigListItemType.SECTION) {
+      if (type === BigListItemType.SECTION_HEADER) {
         sectionPositions.push(position);
       }
     });
@@ -558,27 +562,39 @@ class BigList extends PureComponent {
     items.forEach(({ type, key, position, height, section, index }) => {
       let child;
       let style;
+      const itemKey = key || position; // Fallback fix
       switch (type) {
         case BigListItemType.HEADER:
-          if (ListFooterComponent != null) {
+          if (ListHeaderComponent != null) {
             child = createElement(ListHeaderComponent);
-            style = ListHeaderComponentStyle;
+            style = mergeViewStyle({ width: "100%" }, ListHeaderComponentStyle);
           } else {
             child = renderHeader();
+            style = { width: "100%" };
           }
         // falls through
         case BigListItemType.FOOTER:
           if (type === BigListItemType.FOOTER) {
             if (ListFooterComponent != null) {
               child = createElement(ListFooterComponent);
-              style = ListFooterComponentStyle;
+              style = mergeViewStyle(
+                { width: "100%" },
+                ListFooterComponentStyle,
+              );
             } else {
               child = renderFooter();
+              style = { width: "100%" };
             }
           }
         // falls through
-        case BigListItemType.ROW:
-          if (type === BigListItemType.ROW) {
+        case BigListItemType.SECTION_FOOTER:
+          if (type === BigListItemType.SECTION_FOOTER) {
+            child = renderSectionFooter(section);
+            style = { width: "100%" };
+          }
+        // falls through
+        case BigListItemType.ITEM:
+          if (type === BigListItemType.ITEM) {
             const item = this.getItem({ section, index });
             if (this.hasSections()) {
               child = renderItem({ item, section, index });
@@ -586,32 +602,29 @@ class BigList extends PureComponent {
               child = renderItem({ item, index });
             }
           }
-        // falls through
-        case BigListItemType.SECTION_FOOTER:
-          if (type === BigListItemType.SECTION_FOOTER) {
-            child = renderSectionFooter(section);
-          }
-        // falls through
-        case BigListItemType.ITEM:
           if (child != null) {
             children.push(
-              <BigListItem key={key} height={height} style={style}>
+              <BigListItem
+                key={itemKey}
+                height={height}
+                width={100 / numColumns + "%"}
+                style={style}
+              >
                 {child}
               </BigListItem>,
             );
           }
           break;
-        case BigListItemType.SPACER: {
-          children.push(<BigListItem key={key} height={height} />);
+        case BigListItemType.SPACER:
+          children.push(<BigListItem key={itemKey} height={height} />);
           break;
-        }
-        case BigListItemType.SECTION:
+        case BigListItemType.SECTION_HEADER:
           sectionPositions.shift();
           child = renderSectionHeader(section);
           if (child != null) {
             children.push(
               <BigListSection
-                key={key}
+                key={itemKey}
                 height={height}
                 position={position}
                 nextSectionPosition={sectionPositions[0]}
@@ -730,6 +743,11 @@ class BigList extends PureComponent {
       onLayout: this.onLayout,
       onMomentumScrollEnd: this.onScrollEnd,
       onScrollEndDrag: this.onScrollEnd,
+      contentContainerStyle: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        maxWidth: "100%",
+      },
     };
 
     const scrollViewProps = {
@@ -758,6 +776,7 @@ BigList.propTypes = {
   actionSheetScrollRef: PropTypes.any,
   batchSizeThreshold: PropTypes.number,
   bottom: PropTypes.number,
+  numColumns: PropTypes.number,
   contentInset: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,
@@ -846,6 +865,7 @@ BigList.defaultProps = {
   sections: null,
   refreshing: false,
   batchSizeThreshold: 1,
+  numColumns: 1,
   // Renders
   renderItem: () => null,
   renderHeader: () => null,

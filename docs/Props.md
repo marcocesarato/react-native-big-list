@@ -225,6 +225,14 @@ Makes section headers stick to the top of the screen until the next one pushes i
 | ------- | -------- | ------- |
 | boolean | No       | `true`  |
 
+### `numColumns`
+
+Format the list in column format by placing the elements side by side with x elements per x number of columns per row.
+
+| Type   | Required | Default |
+| ------ | -------- | ------- |
+| number | No       | `1`     |
+
 ### `scrollTopValue`
 
 Specify the initial scroll from the top of the list.
@@ -303,7 +311,7 @@ Minimum value limited to `0.5` to display all elements on the visible list with 
 
 | Type   | Required | Default |
 | ------ | -------- | ------- |
-| number | No       | `1`    |
+| number | No       | `1`     |
 
 ## <a name="flatlist"></a> FlatList compatibility
 
