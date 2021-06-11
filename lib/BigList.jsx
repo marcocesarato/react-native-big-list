@@ -32,6 +32,7 @@ class BigList extends PureComponent {
   /**
    * Get list state.
    * @param data
+   * @param batchSizeThreshold
    * @param headerHeight
    * @param footerHeight
    * @param sectionHeaderHeight
@@ -50,6 +51,7 @@ class BigList extends PureComponent {
   static getListState(
     {
       data,
+      batchSizeThreshold,
       headerHeight,
       footerHeight,
       sectionHeaderHeight,
@@ -105,9 +107,15 @@ class BigList extends PureComponent {
    * @return {{blockStart: *, batchSize: *, blockEnd: *, items: *[], height: *}|{blockStart, batchSize, blockEnd, items: *[], height: *}}
    */
   getListState(props, options) {
+    const stateProps = props || this.props;
     return this.constructor.getListState(
-      props || this.props,
-      options || processBlock(this.containerHeight, this.scrollTop),
+      stateProps,
+      options ||
+        processBlock({
+          containerHeight: this.containerHeight,
+          scrollTop: this.scrollTop,
+          batchSizeThreshold: stateProps.batchSizeThreshold,
+        }),
     );
   }
 
@@ -356,7 +364,7 @@ class BigList extends PureComponent {
    */
   onScroll(event) {
     const { nativeEvent } = event;
-    const { contentInset } = this.props;
+    const { contentInset, batchSizeThreshold } = this.props;
     this.containerHeight =
       nativeEvent.layoutMeasurement.height -
       (contentInset.top || 0) -
@@ -365,7 +373,11 @@ class BigList extends PureComponent {
       Math.max(0, nativeEvent.contentOffset.y),
       nativeEvent.contentSize.height - this.containerHeight,
     );
-    const nextState = processBlock(this.containerHeight, this.scrollTop);
+    const nextState = processBlock({
+      containerHeight: this.containerHeight,
+      scrollTop: this.scrollTop,
+      batchSizeThreshold,
+    });
     if (
       nextState.batchSize !== this.state.batchSize ||
       nextState.blockStart !== this.state.blockStart ||
@@ -396,12 +408,16 @@ class BigList extends PureComponent {
    */
   onLayout(event) {
     const { nativeEvent } = event;
-    const { contentInset } = this.props;
+    const { contentInset, batchSizeThreshold } = this.props;
     this.containerHeight =
       nativeEvent.layout.height -
       (contentInset.top || 0) -
       (contentInset.bottom || 0);
-    const nextState = processBlock(this.containerHeight, this.scrollTop);
+    const nextState = processBlock({
+      containerHeight: this.containerHeight,
+      scrollTop: this.scrollTop,
+      batchSizeThreshold,
+    });
     if (
       nextState.batchSize !== this.state.batchSize ||
       nextState.blockStart !== this.state.blockStart ||
@@ -740,6 +756,7 @@ class BigList extends PureComponent {
 
 BigList.propTypes = {
   actionSheetScrollRef: PropTypes.any,
+  batchSizeThreshold: PropTypes.number,
   bottom: PropTypes.number,
   contentInset: PropTypes.shape({
     bottom: PropTypes.number,
@@ -828,6 +845,7 @@ BigList.defaultProps = {
   data: [],
   sections: null,
   refreshing: false,
+  batchSizeThreshold: 1,
   // Renders
   renderItem: () => null,
   renderHeader: () => null,

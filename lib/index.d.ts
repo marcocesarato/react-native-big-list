@@ -11,6 +11,7 @@ import {
 
 interface BigListProps<ItemT> extends ScrollViewProps {
   actionSheetScrollRef?: unknown;
+  batchSizeThreshold?: number | null | unknown;
   contentInset?: {
     bottom?: number;
     left?: number;

@@ -293,6 +293,18 @@ How far from the end (in units of visible length of the list) the bottom edge of
 | ------ | -------- | ------- |
 | number | No       | `0`     |
 
+### `batchSizeThreshold`
+
+How much threshold must be applied to the batch size to render the elements before rendering the other batch of elements. Thus a value of `0.5` will make the batch size equal to half the visible length of the list (above and below from the current position of the batch).
+
+**A lower value of this prop improve performance and memory usage.**
+
+Minimum value limited to `0.5` to display all elements on the visible list with no gaps.
+
+| Type   | Required | Default |
+| ------ | -------- | ------- |
+| number | No       | `1`    |
+
 ## <a name="flatlist"></a> FlatList compatibility
 
 > These are **compatibility** props for a faster FlatList replacement and all these props have an alias.<br>
