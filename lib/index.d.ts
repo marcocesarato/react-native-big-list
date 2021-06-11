@@ -35,6 +35,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   ListFooterComponentStyle?: ViewStyle | ViewStyle[];
   ListHeaderComponent?: React.ReactNode;
   ListHeaderComponentStyle?: ViewStyle | ViewStyle[];
+  numColumns: number | null | undefined;
   onEndReached?:
     | ((info: { distanceFromEnd: number }) => void)
     | null
