@@ -694,7 +694,7 @@ class BigList extends PureComponent {
       renderSectionHeader,
       renderItem,
       renderSectionFooter,
-      renderActionSheetScrollViewWrapper,
+      renderScrollViewWrapper,
       renderEmpty,
       renderAccessory,
       itemHeight,
@@ -713,7 +713,7 @@ class BigList extends PureComponent {
       ...props
     } = this.props;
 
-    const wrapper = renderActionSheetScrollViewWrapper || ((val) => val);
+    const wrapper = renderScrollViewWrapper || ((val) => val);
     const handleScroll =
       stickySectionHeadersEnabled && Platform.OS === "web"
         ? Animated.event(
@@ -842,7 +842,7 @@ BigList.propTypes = {
   onScrollEnd: PropTypes.func,
   removeClippedSubviews: PropTypes.bool,
   renderAccessory: PropTypes.func,
-  renderActionSheetScrollViewWrapper: PropTypes.func,
+  renderScrollViewWrapper: PropTypes.func,
   renderEmpty: PropTypes.func,
   renderFooter: PropTypes.func,
   renderHeader: PropTypes.func,
