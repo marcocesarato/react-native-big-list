@@ -1,18 +1,18 @@
-<div align="center">
-
-<img alt="React Native Big List" src="https://github.com/marcocesarato/react-native-big-list/raw/master/assets/logo.png" />
-
-</div>
+---
+sidebar_position: 5
+---
 
 # Props
 
-### [ScrollView Props](https://reactnative.dev/docs/view#props)
+## [ScrollView Props](https://reactnative.dev/docs/view#props)
 
 Inherits ScrollView Props.
 
 ---
 
-### <small>Required</small> `data`
+## Standard Props
+
+### `data` <small>Required</small>
 
 For simplicity, data is a plain array containing the items to render.
 
@@ -33,6 +33,39 @@ For simplicity, data is a plain array containing the items to render.
   /* ... */
 ];
 ```
+
+### `renderItem` <small>Required</small>
+
+```ts
+renderItem({ item: unknown, index: number, section: number });
+```
+
+Takes an item from data and renders it into the list.
+
+Using `data` arguments will be an object with the `item` and its `index`.
+
+Using `sections` arguments will be an object with the `item` and its `section` index and row `index`.
+
+| Type     | Required |
+| -------- | -------- |
+| function | Yes      |
+
+### `itemHeight` <small>Required</small>
+
+Specify the item height.
+
+This is needed to have a great performance boost for lists of several thousands items.
+
+__Function example:__
+
+```ts
+itemHeight(section: number, index: number)
+```
+
+| Type             | Required | Default |
+| ---------------- | -------- | ------- |
+| number, function | Yes      | `50`    |
+
 
 ### `sections`
 
@@ -72,22 +105,6 @@ It's required if no data is specified or if you want use sticky headers (look at
   /* ... */
 ];
 ```
-
-### <small>Required</small> `renderItem`
-
-```ts
-renderItem({ item: unknown, index: number, section: number });
-```
-
-Takes an item from data and renders it into the list.
-
-Using `data` arguments will be an object with the `item` and its `index`.
-
-Using `sections` arguments will be an object with the `item` and its `section` index and row `index`.
-
-| Type     | Required |
-| -------- | -------- |
-| function | Yes      |
 
 ### `renderEmpty`
 
@@ -137,7 +154,7 @@ Rendered at the bottom of all the section's items.
 | -------- | -------- |
 | function | No       |
 
-### `renderActionSheetScrollViewWrapper`
+### `renderScrollViewWrapper`
 
 Wrap the entire list into an accessory component.
 
@@ -156,22 +173,6 @@ Rendered accessory at the bottom of the list.
 | Type     | Required |
 | -------- | -------- |
 | function | No       |
-
-### <small>Required</small> `itemHeight`
-
-Specify the item height.
-
-This is needed to have a great performance boost for lists of several thousands items.
-
-Function example:
-
-```ts
-itemHeight(section: number, index: number)
-```
-
-| Type             | Required | Default |
-| ---------------- | -------- | ------- |
-| number, function | Yes      | `50`    |
 
 ### `headerHeight`
 
@@ -193,7 +194,7 @@ Specify the footer item height.
 
 Specify the section header height.
 
-Function example:
+__Function example:__
 
 ```ts
 sectionHeaderHeight(section: number)
@@ -207,7 +208,7 @@ sectionHeaderHeight(section: number)
 
 Specify the section footer height.
 
-Function example:
+__Function example:__
 
 ```ts
 sectionFooterHeight(section: number)
@@ -313,9 +314,9 @@ Minimum value limited to `0.5` to display all elements on the visible list with 
 | ------ | -------- | ------- |
 | number | No       | `1`     |
 
-## <a name="flatlist"></a> FlatList compatibility
+## <a name="flatlist"></a> FlatList Props
 
-> These are **compatibility** props for a faster FlatList replacement and all these props have an alias.<br>
+> These are **compatibility** props for a faster FlatList replacement and all these props have an alias.<br/>
 > All of them should be replaced with their related props of BigList _(recommended)_.
 
 ### `getItemLayout`

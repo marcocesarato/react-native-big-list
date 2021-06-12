@@ -1,8 +1,6 @@
-<div align="center">
-
-<img alt="React Native Big List" src="https://github.com/marcocesarato/react-native-big-list/raw/master/assets/logo.png" />
-
-</div>
+---
+sidebar_position: 6
+---
 
 # Methods
 
@@ -14,7 +12,7 @@ scrollTo({ x: number, y: number, animated: boolean });
 
 Scrolls to a given x, y offset, either immediately, with a smooth animation.
 
-Example:
+__Example:__
 
 ```js
 scrollTo({ x: 0, y: 0, animated: true });

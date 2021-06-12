@@ -21,7 +21,9 @@
 This is a high performance list view for React Native with support for complex layouts using a similar FlatList usage to make easy the replacement.
 This list implementation for big list rendering on React Native works with a recycler focused on performance and memory usage and so it permits processing thousands items on the list.
 
-Try it on the published demo web app (sticky headers at the moment doesn't work on web version): [https://marcocesarato.github.io/react-native-big-list/](https://marcocesarato.github.io/react-native-big-list/)
+Check the [Documentation](https://marcocesarato.github.io/react-native-big-list-docs/).
+
+You can also try it on the published demo web app: [https://marcocesarato.github.io/react-native-big-list/](https://marcocesarato.github.io/react-native-big-list/)
 
 #### Why another list library?
 
@@ -39,7 +41,7 @@ As the name implies, the recycler recycles those individual elements. When an it
 
 When list can't render your items fast enough the non-rendered components will appear as blank space.
 
-This library is fully JS native, so it's compatible with all available platforms: _Android, iOS, Windows, MacOS, Web (sticky headers not available on web yet) and Expo_.
+This library is fully JS native, so it's compatible with all available platforms: _Android, iOS, Windows, MacOS, Web and Expo_.
 
 ## 📖 Install
 
@@ -51,11 +53,10 @@ Install the library from npm or yarn just running one of the following command l
 
 ## 💻 Usage
 
-> Read also [How to migrate from FlatList](docs/Migrate-FlatList.md)
+> Read also [How to migrate from FlatList](https://marcocesarato.github.io/react-native-big-list-docs/extras/migrate-flatlist/)
 
-#### Standard List (array of items)
 
-Simple usage:
+Basic example:
 
 ```javascript
 import BigList from "react-native-big-list";
@@ -66,99 +67,7 @@ const MyExample = ({ data }) => {
 };
 ```
 
-Usage with empty item, header and footer:
-
-```javascript
-import BigList from "react-native-big-list";
-
-/* ... */
-
-const data = [
-  { label: "1", value: 1 /* ... */ },
-  { label: "2", value: 2 /* ... */ },
-  { label: "3", value: 3 /* ... */ },
-  { label: "4", value: 4 /* ... */ },
-  { label: "5", value: 5 /* ... */ },
-  /* ... */
-];
-
-const renderItem = ({ item, index }) => (
-  <MyListItem label={item.label} value={item.value} />
-);
-const renderEmpty = () => <MyEmpty />;
-const renderHeader = () => <MyHeader />;
-const renderFooter = () => <MyFooter />;
-
-return (
-  <BigList
-    data={data}
-    renderItem={renderItem}
-    renderEmpty={renderEmpty}
-    renderHeader={renderHeader}
-    renderFooter={renderFooter}
-    itemHeight={50}
-    headerHeight={90}
-    footerHeight={100}
-  />
-);
-```
-
-#### Section List (array of arrays with items)
-
-> This list will auto stick the section rendered on the top of the list
-
-> PS: Sticky headers at the moment doesn't work on web version
-
-```javascript
-import BigList from "react-native-big-list";
-
-/* ... */
-
-const sections = [
-  [
-    // Section 0
-    { label: "1", value: 1 /* ... */ },
-    { label: "2", value: 2 /* ... */ },
-  ],
-  [
-    // Section 1
-    { label: "3", value: 3 /* ... */ },
-    { label: "4", value: 4 /* ... */ },
-  ],
-  [
-    // Section 2
-    { label: "6", value: 6 /* ... */ },
-    { label: "6", value: 6 /* ... */ },
-  ],
-  /* ... */
-];
-
-const renderItem = ({ item, index }) => (
-  <MyListItem label={item.label} value={item.value} />
-);
-const renderHeader = () => <MyHeader />;
-const renderFooter = () => <MyFooter />;
-const renderSectionHeader = () => <MySectionHeader />;
-const renderSectionFooter = () => <MySectionFooter />;
-
-return (
-  <BigList
-    sections={sections}
-    renderItem={renderItem}
-    renderHeader={renderHeader}
-    renderFooter={renderFooter}
-    renderSectionHeader={renderSectionHeader}
-    renderSectionFooter={renderSectionFooter}
-    itemHeight={50}
-    headerHeight={90}
-    footerHeight={100}
-    sectionHeaderHeight={90}
-    sectionFooterHeight={100}
-  />
-);
-```
-
-For more examples check the `example` directory the `list` directory
+For more examples check the `example` directory the `list` directory or check the [Documentation](https://marcocesarato.github.io/react-native-big-list-docs/basics/standard-list)
 
 ## 🎨 Screenshots
 
@@ -167,6 +76,12 @@ For more examples check the `example` directory the `list` directory
 | <img src="https://github.com/marcocesarato/react-native-big-list/raw/master/assets/screenshots/performance.gif" width="500" /> | <img src="https://github.com/marcocesarato/react-native-big-list/raw/master/assets/screenshots/example-section-list.jpg" width="500" /> |
 
 ## ⚡️ Example
+
+### Snippets
+
+- [Standard List](https://marcocesarato.github.io/react-native-big-list-docs/basics/standard-list)
+- [Columns List](https://marcocesarato.github.io/react-native-big-list-docs/basics/columns-list)
+- [Sections List](https://marcocesarato.github.io/react-native-big-list-docs/basics/sections-list)
 
 ### Expo
 
