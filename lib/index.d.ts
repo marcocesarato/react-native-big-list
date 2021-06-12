@@ -47,9 +47,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   onScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   removeClippedSubviews?: boolean;
   renderAccessory?: (list: React.ReactNode) => React.ReactNode;
-  renderScrollViewWrapper?: (
-    element: React.ReactNode,
-  ) => React.ReactNode;
+  renderScrollViewWrapper?: (element: React.ReactNode) => React.ReactNode;
   renderEmpty?: () => React.ReactNode | null | undefined;
   renderFooter?: () => React.ReactNode | null | undefined;
   renderHeader?: () => React.ReactNode | null | undefined;

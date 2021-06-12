@@ -56,7 +56,7 @@ Specify the item height.
 
 This is needed to have a great performance boost for lists of several thousands items.
 
-__Function example:__
+**Function example:**
 
 ```ts
 itemHeight(section: number, index: number)
@@ -65,7 +65,6 @@ itemHeight(section: number, index: number)
 | Type             | Required | Default |
 | ---------------- | -------- | ------- |
 | number, function | Yes      | `50`    |
-
 
 ### `sections`
 
@@ -194,7 +193,7 @@ Specify the footer item height.
 
 Specify the section header height.
 
-__Function example:__
+**Function example:**
 
 ```ts
 sectionHeaderHeight(section: number)
@@ -208,7 +207,7 @@ sectionHeaderHeight(section: number)
 
 Specify the section footer height.
 
-__Function example:__
+**Function example:**
 
 ```ts
 sectionFooterHeight(section: number)

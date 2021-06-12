@@ -55,7 +55,6 @@ Install the library from npm or yarn just running one of the following command l
 
 > Read also [How to migrate from FlatList](https://marcocesarato.github.io/react-native-big-list-docs/extras/migrate-flatlist/)
 
-
 Basic example:
 
 ```javascript

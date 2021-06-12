@@ -12,7 +12,7 @@ scrollTo({ x: number, y: number, animated: boolean });
 
 Scrolls to a given x, y offset, either immediately, with a smooth animation.
 
-__Example:__
+**Example:**
 
 ```js
 scrollTo({ x: 0, y: 0, animated: true });

@@ -11,7 +11,16 @@
 }
 
 html[data-theme='dark'] {
-  --ifm-color-primary: #5b60ff;
+  --ifm-color-primary: #6267ff;
+  --ifm-footer-background-color: #242526;
+}
+
+html .navbar__brand img {
+  filter: grayscale(100%) brightness(0);
+}
+
+html[data-theme=dark] .navbar__brand img {
+filter: grayscale(100%) brightness(10);
 }
 
 .docusaurus-highlight-code-line {
