@@ -29,7 +29,7 @@ export default function SectionList() {
     <View>
       <TextInput
         label="Number of columns (max 10)"
-        value={numberColumns}
+        value={String(numberColumns)}
         type="numeric"
         keyboardType="numeric"
         onChangeText={(value) => {
