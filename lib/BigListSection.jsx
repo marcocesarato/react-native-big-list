@@ -2,6 +2,16 @@ import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { Animated } from "react-native";
 
+/**
+ * List section.
+ * @param {number} position
+ * @param {number} height
+ * @param {number} nextSectionPosition
+ * @param {Animated.Value} scrollTopValue
+ * @param {React.node} children
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const BigListSection = ({
   position,
   height,

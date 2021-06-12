@@ -31,38 +31,38 @@ class BigList extends PureComponent {
 
   /**
    * Get list state.
-   * @param data
-   * @param batchSizeThreshold
-   * @param headerHeight
-   * @param footerHeight
-   * @param sectionHeaderHeight
-   * @param itemHeight
-   * @param getItemLayout
-   * @param sectionFooterHeight
-   * @param sections
-   * @param insetTop
-   * @param insetBottom
-   * @param numColumns
-   * @param batchSize
-   * @param blockStart
-   * @param blockEnd
-   * @param prevItems
+   * @param {array} data
+   * @param {array[]|object|null|undefined} sections
+   * @param {array} prevItems
+   * @param {number|null} batchSizeThreshold
+   * @param {number|function|null|undefined} headerHeight
+   * @param {number|function|null|undefined} footerHeight
+   * @param {number|function|null|undefined} sectionHeaderHeight
+   * @param {number|function|null|undefined} itemHeight
+   * @param {number|function|null|undefined} sectionFooterHeight
+   * @param {number|null|undefined} insetTop
+   * @param {number|null|undefined} insetBottom
+   * @param {number|null|undefined} numColumns
+   * @param {number|null|undefined} batchSize
+   * @param {number|null|undefined} blockStart
+   * @param {number|null|undefined} blockEnd
+   * @param {function|null|undefined} getItemLayout
    * @returns {{blockStart: *, batchSize: *, blockEnd: *, items: [], height: *}|{blockStart, batchSize, blockEnd, items: [], height: *}}
    */
   static getListState(
     {
       data,
+      sections,
       batchSizeThreshold,
       headerHeight,
       footerHeight,
       sectionHeaderHeight,
       itemHeight,
-      getItemLayout,
       sectionFooterHeight,
-      sections,
       insetTop,
       insetBottom,
       numColumns,
+      getItemLayout,
     },
     { batchSize, blockStart, blockEnd, items: prevItems },
   ) {
@@ -124,7 +124,7 @@ class BigList extends PureComponent {
 
   /**
    * Get sections item lengths.
-   * @param {array} sections
+   * @param {array[]|object<string, object>|null|undefined} sections
    * @param {array} data
    * @returns {int[]}
    */
@@ -148,8 +148,8 @@ class BigList extends PureComponent {
 
   /**
    * Get item height.
-   * @param itemHeight
-   * @param getItemLayout
+   * @param {number} itemHeight
+   * @param {function|null|undefined} getItemLayout
    * @return {null|*}
    */
   static getItemHeight(itemHeight, getItemLayout) {
@@ -480,8 +480,8 @@ class BigList extends PureComponent {
 
   /**
    * Get item scroll view offset.
-   * @param section
-   * @param index
+   * @param {int} section
+   * @param {int} index
    * @returns {*}
    */
   getItemOffset({ section = 0, index }) {
@@ -504,8 +504,8 @@ class BigList extends PureComponent {
 
   /**
    * Get item data.
-   * @param section
-   * @param index
+   * @param {int} section
+   * @param {int} index
    * @returns {*}
    */
   getItem({ index, section = 0 }) {

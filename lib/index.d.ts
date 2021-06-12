@@ -61,7 +61,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   scrollTopValue?: number;
   sectionFooterHeight?: string | number | ((section: number) => number);
   sectionHeaderHeight?: string | number | ((section: number) => number);
-  sections?: ItemT[][];
+  sections?: ItemT[][] | null | undefined;
   stickySectionHeadersEnabled: boolean;
   children?: null | undefined;
 }

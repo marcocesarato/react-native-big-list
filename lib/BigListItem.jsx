@@ -13,6 +13,15 @@ export const BigListItemType = {
   FOOTER: "footer",
 };
 
+/**
+ * List item.
+ * @param {React.node} children
+ * @param {array|object|null|undefined} style
+ * @param {number} height
+ * @param {number} width
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const BigListItem = ({ children, style, height, width = "100%" }) => {
   return (
     <View
