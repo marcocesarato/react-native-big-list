@@ -14,7 +14,7 @@ Inherits ScrollView Props.
 
 ### `data` <small>Required</small>
 
-For simplicity, data is a plain array containing the items to render.
+For simplicity, `data` is a plain array containing the items to render.
 
 | Type  | Required                             |
 | ----- | ------------------------------------ |
@@ -68,10 +68,9 @@ itemHeight(section: number, index: number)
 
 ### `sections`
 
-For simplicity, sections is a plain array containing another plain array with the items (section items) to render. If specified `data` prop will be ignored.
-It'll replace the `data` prop.
+For simplicity, `sections` is a plain array containing another plain array with the items (section items) to render. If specified `data` prop will be ignored and so it'll replace the `data` prop.
 
-It's required if no data is specified or if you want use sticky headers (look at `renderSectionHeader`) with sections.
+It's required if no data is specified or if you want to use sticky headers (look at `renderSectionHeader`) with sections.
 
 | Type  | Required                                     |
 | ----- | -------------------------------------------- |

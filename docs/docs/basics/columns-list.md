@@ -4,6 +4,20 @@ sidebar_position: 2
 
 # Columns list
 
+Like the [standard list](standard-list.md), the prop `data` is required. You just need to specify the number of columns using the prop `numColumns` that will format the list in column format by placing the elements side by side with x elements per x number of columns per row.
+
+### Props
+
+#### `numColumns`
+
+| Type   | Required | Default |
+| ------ | -------- | ------- |
+| number | No       | `1`     |
+
+## Example
+
+Here and example
+
 ```javascript
 import BigList from "react-native-big-list";
 

@@ -4,6 +4,24 @@ sidebar_position: 1
 
 # Standard list
 
+The prop `data` is required for a standard list. For simplicity, `data` is a plain array containing the items to render.
+
+### Data examples
+
+```js
+[1, 2, 3, 4, 5, 6 /* ... */];
+```
+
+```js
+[
+  { label: "1", value: 1 /* ... */ },
+  { label: "2", value: 2 /* ... */ },
+  /* ... */
+];
+```
+
+## Example
+
 ```javascript
 import BigList from "react-native-big-list";
 
