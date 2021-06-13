@@ -7,7 +7,8 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
+    "deploy": "GIT_USER=marcocesarato docusaurus deploy",
+    "deploy-win": "cmd /C \"set \"GIT_USER=marcocesarato\" && docusaurus deploy\"",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
@@ -16,12 +17,13 @@
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.0",
     "@docusaurus/preset-classic": "2.0.0-beta.0",
-    "@mdx-js/react": "^1.6.21",
+    "@easyops-cn/docusaurus-search-local": "^0.18.1",
+    "@mdx-js/react": "^1.6.22",
     "@svgr/webpack": "^5.5.0",
     "clsx": "^1.1.1",
     "file-loader": "^6.2.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "url-loader": "^4.1.1"
   },
   "browserslist": {

@@ -13,6 +13,8 @@
 html[data-theme='dark'] {
   --ifm-color-primary: #6267ff;
   --ifm-footer-background-color: #242526;
+  --ifm-navbar-search-input-background-color: #DDD;
+  --ifm-navbar-search-input-color: #242526;
 }
 
 html .navbar__brand img {
@@ -25,4 +27,18 @@ html .navbar__brand img {
   display: block;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
+}
+
+.navbar__search-input {
+  outline: none;
+}
+.navbar__search-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #888;
+  opacity: 1; /* Firefox */
+}
+.navbar__search-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #888;
+}
+.navbar__search-input::-ms-input-placeholder { /* Microsoft Edge */
+  color: #888;
 }
