@@ -12,7 +12,7 @@ Inherits ScrollView Props.
 
 ## Standard Props
 
-### `data` <small>Required</small>
+### <small class="required">Required</small> `data`
 
 For simplicity, `data` is a plain array containing the items to render.
 
@@ -34,7 +34,7 @@ For simplicity, `data` is a plain array containing the items to render.
 ];
 ```
 
-### `renderItem` <small>Required</small>
+### <small class="required">Required</small> `renderItem`
 
 ```ts
 renderItem({ item: unknown, index: number, section: number });
@@ -46,11 +46,15 @@ Using `data` arguments will be an object with the `item` and its `index`.
 
 Using `sections` arguments will be an object with the `item` and its `section` index and row `index`.
 
+:::note
+You need also to specify the height using [__itemHeight__](#required-itemheight).
+:::
+
 | Type     | Required |
 | -------- | -------- |
 | function | Yes      |
 
-### `itemHeight` <small>Required</small>
+### <small class="required">Required</small> `itemHeight`
 
 Specify the item height.
 
@@ -66,11 +70,14 @@ itemHeight(section: number, index: number)
 | ---------------- | -------- | ------- |
 | number, function | Yes      | `50`    |
 
-### `sections`
+### <small class="required">Required</small> `sections`
 
-For simplicity, `sections` is a plain array containing another plain array with the items (section items) to render. If specified `data` prop will be ignored and so it'll replace the `data` prop.
+For simplicity, `sections` is a plain array containing another plain array with the items (section items) to render.
 
-It's required if no data is specified or if you want to use sticky headers (look at `renderSectionHeader`) with sections.
+:::caution
+Specifying this prop you'll overwrite _data_ prop and so it'll be ignored.
+It's required if no _data_ is specified or if you want to use sticky headers/sections separators (look also at [__renderSectionHeader__](#rendersectionheader) and [__renderSectionFooter__](#rendersectionfooter)).
+:::
 
 | Type  | Required                                     |
 | ----- | -------------------------------------------- |
@@ -116,6 +123,10 @@ Rendered when the list is empty.
 
 Rendered at the top of all the items.
 
+:::note
+You need also to specify the height using [__headerHeight__](#headerheight).
+:::
+
 | Type     | Required |
 | -------- | -------- |
 | function | No       |
@@ -123,6 +134,10 @@ Rendered at the top of all the items.
 ### `renderFooter`
 
 Rendered at the bottom of all the items.
+
+:::note
+You need also to specify the height using [__footerHeight__](#footerheight).
+:::
 
 | Type     | Required |
 | -------- | -------- |
@@ -136,6 +151,10 @@ renderSectionHeader(section: number)
 
 Rendered at the top of all the section's items.
 
+:::note
+You need also to specify the height using [__sectionHeaderHeight__](#sectionheaderheight).
+:::
+
 | Type     | Required |
 | -------- | -------- |
 | function | No       |
@@ -147,6 +166,10 @@ renderSectionFooter(section: number)
 ```
 
 Rendered at the bottom of all the section's items.
+
+:::note
+You need also to specify the height using [__sectionFooterHeight__](#sectionfooterheight).
+:::
 
 | Type     | Required |
 | -------- | -------- |
@@ -302,11 +325,12 @@ How far from the end (in units of visible length of the list) the bottom edge of
 
 ### `batchSizeThreshold`
 
+:::info
+**A lower value of this prop improve performance and memory usage.**<br />
+Minimum value limited to _0.5_ to display all elements on the visible list with no gaps.
+:::
+
 How much threshold must be applied to the batch size to render the elements before rendering the other batch of elements. Thus a value of `0.5` will make the batch size equal to half the visible length of the list (above and below from the current position of the batch).
-
-**A lower value of this prop improve performance and memory usage.**
-
-Minimum value limited to `0.5` to display all elements on the visible list with no gaps.
 
 | Type   | Required | Default |
 | ------ | -------- | ------- |
@@ -314,8 +338,13 @@ Minimum value limited to `0.5` to display all elements on the visible list with 
 
 ## <a name="flatlist"></a> FlatList Props
 
-> These are **compatibility** props for a faster FlatList replacement and all these props have an alias.<br/>
-> All of them should be replaced with their related props of BigList _(recommended)_.
+:::caution Compatibility
+
+These are **compatibility** props for a faster FlatList replacement and all these props have an alias.
+These props will **replace** their related alias standard props.
+All of them should be replaced with their related props as best practice.
+
+:::
 
 ### `getItemLayout`
 
@@ -333,7 +362,11 @@ getItemLayout={(data, index) => (
 
 Adding getItemLayout can be a great performance boost for lists of several thousands items.
 
-This is a **compatibility** prop for FlatList replacement and so it'll replace the `itemHeight` prop.
+:::note Compatibility
+
+This is a **compatibility** prop for FlatList replacement and so it'll replace the [__itemHeight__](#required-itemheight) prop.
+
+:::
 
 | Type     | Required |
 | -------- | -------- |
@@ -343,7 +376,11 @@ This is a **compatibility** prop for FlatList replacement and so it'll replace t
 
 Rendered when the list is empty. Can be a React Component (e.g. `SomeComponent`), or a React element (e.g. `<SomeComponent />`).
 
-This is a **compatibility** prop for FlatList replacement and so it'll replace the `renderEmpty` prop.
+:::note Compatibility
+
+This is a **compatibility** prop for FlatList replacement and so it'll replace the [__renderEmpty__](#renderempty) prop.
+
+:::
 
 | Type               | Required |
 | ------------------ | -------- |
@@ -353,10 +390,16 @@ This is a **compatibility** prop for FlatList replacement and so it'll replace t
 
 Rendered at the bottom of all the items. Can be a React Component (e.g. `SomeComponent`), or a React element (e.g. `<SomeComponent />`).
 
-**PS:** You need also to specify the footer height with `footerHeight` prop or using `ListFooterComponentStyle`.
+:::note
+You need also to specify the footer height with [__footerHeight__](#footerheight) prop or using [__ListFooterComponentStyle__](#listfootercomponentstyle).
+:::
 
-This is a **compatibility** prop for FlatList replacement and so it'll replace the `renderFooter` prop.
-If you are creating for the first time the list we suggest to use `renderFooter` prop instead.
+:::note Compatibility
+
+This is a **compatibility** prop for FlatList replacement and so it'll replace the [__renderFooter__](#renderfooter) prop.
+If you are creating for the first time the list we suggest to use [__renderFooter__](#renderfooter) prop instead.
+
+:::
 
 | Type               | Required |
 | ------------------ | -------- |
@@ -364,9 +407,13 @@ If you are creating for the first time the list we suggest to use `renderFooter`
 
 ### `ListFooterComponentStyle`
 
-Styling for internal View for `ListFooterComponent`.
+:::info
 
-This will works only if `ListFooterComponent` is specified.
+This will works only if [__ListFooterComponent__](#listfootercomponent) is specified.
+
+:::
+
+Styling for internal View for [__ListFooterComponent__](#listfootercomponent).
 
 | Type                                                        | Required |
 | ----------------------------------------------------------- | -------- |
@@ -376,10 +423,16 @@ This will works only if `ListFooterComponent` is specified.
 
 Rendered at the top of all the items. Can be a React Component (e.g. `SomeComponent`), or a React element (e.g. `<SomeComponent />`).
 
-**PS:** You need also to specify the header height with `headerHeight` prop or using `ListHeaderComponentStyle`.
+:::note
+You need also to specify the header height with [__headerHeight__](#headerheight) prop or using [__ListHeaderComponentStyle__](#listfootercomponentstyle).
+:::
 
-This is a **compatibility** prop for FlatList replacement and so it'll replace the `renderHeader` prop.
-If you are creating for the first time the list we suggest to use `renderHeader` prop instead.
+:::note Compatibility
+
+This is a **compatibility** prop for FlatList replacement and so it'll replace the [__renderHeader__](#renderheader) prop.
+If you are creating for the first time the list we suggest to use [__renderHeader__](#renderheader) prop instead.
+
+:::
 
 | Type               | Required |
 | ------------------ | -------- |
@@ -387,9 +440,13 @@ If you are creating for the first time the list we suggest to use `renderHeader`
 
 ### `ListHeaderComponentStyle`
 
-Styling for internal View for `ListHeaderComponent`.
+:::info
 
-This will works only if `ListHeaderComponent` is specified.
+This will works only if [__ListHeaderComponent__](#listfootercomponent) is specified.
+
+:::
+
+Styling for internal View for [__ListHeaderComponent__](#listfootercomponent).
 
 | Type                                                        | Required |
 | ----------------------------------------------------------- | -------- |

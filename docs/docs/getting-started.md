@@ -14,9 +14,9 @@ Install the library from npm or yarn just running one of the following command l
 
 ## Usage
 
-:::note
+:::info
 
-Read also How to migrate from FlatList
+You come from the FlatList? Read also "_Migrate from FlatList_" on extras section.
 
 :::
 

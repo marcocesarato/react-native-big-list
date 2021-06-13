@@ -42,3 +42,39 @@ html .navbar__brand img {
 .navbar__search-input::-ms-input-placeholder { /* Microsoft Edge */
   color: #888;
 }
+
+.required, .optional {
+  margin-left: 5px;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 2px;
+  line-height: 20px;
+  font-size: 65%;
+  font-weight: 500;
+  padding: 2px 1em;
+}
+
+.required {
+  border-color: #fa5035;
+  color: #fa5035;
+}
+.optional {
+  border-color: #54c7ec;
+  color: #54c7ec;
+}
+
+.table-of-contents .required, .table-of-contents .optional {
+  color: transparent;
+  border-radius: 100%;
+  height: 6px;
+  width: 6px;
+  border-width: 3px;
+  margin: 0;
+  margin-right: 6px;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+  font-size: 0;
+  line-height: 0;
+  vertical-align: middle;
+}

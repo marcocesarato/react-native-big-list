@@ -6,9 +6,10 @@ sidebar_position: 3
 
 To create a section list you need to specify the `sections` prop. For simplicity, `sections` is a plain array containing another plain array with the items (section items) to render. If specified `data` prop will be ignored and so it'll replace the `data` prop.
 
-It's required if no data is specified or if you want to use sticky headers (look at `renderSectionHeader`) with sections.
-
-It enables also the `renderSectionHeader` and `renderSectionFooter` props.
+:::info
+It's required if no data is specified or if you want to use sticky headers (look at **renderSectionHeader** prop) with sections.<br />
+It enables also the **renderSectionHeader** and **renderSectionFooter** props.
+:::
 
 ### Data examples
 
