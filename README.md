@@ -23,7 +23,7 @@ This list implementation for big list rendering on React Native works with a rec
 
 Check the [Documentation](https://marcocesarato.github.io/react-native-big-list-docs/).
 
-You can also try it on the published demo web app: [https://marcocesarato.github.io/react-native-big-list/](https://marcocesarato.github.io/react-native-big-list/)
+You can also try it on the published web app: [Demo](https://marcocesarato.github.io/react-native-big-list/)
 
 #### Why another list library?
 
@@ -93,6 +93,8 @@ expo start
 ```
 
 Open Expo Client on your device. Use it to scan the QR code printed by `expo start`. You may have to wait a minute while your project bundles and loads for the first time.
+
+You can also try it on the published web app: [Demo](https://marcocesarato.github.io/react-native-big-list/)
 
 ## 💡 Props and Methods
 
