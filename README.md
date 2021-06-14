@@ -98,7 +98,7 @@ You can also try it on the published web app: [Demo](https://marcocesarato.githu
 
 ## 💡 Props and Methods
 
-The list has the same props of the [ScrollView](https://reactnative.dev/docs/view#props) in addition to its specific [Props](docs/Props.md) and [Methods](docs/Methods.md).
+The list has the same props of the [ScrollView](https://reactnative.dev/docs/view#props) in addition to its specific [Props](https://marcocesarato.github.io/react-native-big-list-docs/props) and [Methods](https://marcocesarato.github.io/react-native-big-list-docs/methods).
 
 ## 🤔 How to contribute
 
