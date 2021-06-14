@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Props
 
-## [ScrollView Props](https://reactnative.dev/docs/view#props)
+## [ScrollView Props](https://reactnative.dev/docs/scrollview#props)
 
 Inherits ScrollView Props.
 
