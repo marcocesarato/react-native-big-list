@@ -12,6 +12,8 @@
 
 <!--[![Package Quality](https://npm.packagequality.com/shield/react-native-big-list.svg?style=for-the-badge)](https://packagequality.com/#?package=react-native-big-list)-->
 
+[Documentation](https://marcocesarato.github.io/react-native-big-list-docs/)
+
 </div>
 
 ## 📘 Description
@@ -20,8 +22,6 @@
 
 This is a high performance list view for React Native with support for complex layouts using a similar FlatList usage to make easy the replacement.
 This list implementation for big list rendering on React Native works with a recycler focused on performance and memory usage and so it permits processing thousands items on the list.
-
-Check the [Documentation](https://marcocesarato.github.io/react-native-big-list-docs/).
 
 You can also try it on the published web app: [Demo](https://marcocesarato.github.io/react-native-big-list/)
 
@@ -102,7 +102,7 @@ The list has the same props of the [ScrollView](https://reactnative.dev/docs/vie
 
 ## 🤔 How to contribute
 
-Have an idea? Found a bug? Please raise to [ISSUES](https://github.com/marcocesarato/react-native-big-list/issues).
+Have an idea? Found a bug? Please raise to [ISSUES](https://github.com/marcocesarato/react-native-big-list/issues) or [PULL REQUEST](https://github.com/marcocesarato/react-native-big-list/pulls).
 Contributions are welcome and are greatly appreciated! Every little bit helps, and credit will always be given.
 
 <p align="center">
