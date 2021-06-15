@@ -47,7 +47,7 @@ Using `data` arguments will be an object with the `item` and its `index`.
 Using `sections` arguments will be an object with the `item` and its `section` index and row `index`.
 
 :::note
-You need also to specify the height using [__itemHeight__](#required-itemheight).
+You need also to specify the height using [**itemHeight**](#required-itemheight).
 :::
 
 | Type     | Required |
@@ -76,7 +76,7 @@ For simplicity, `sections` is a plain array containing another plain array with 
 
 :::caution
 Specifying this prop you'll overwrite _data_ prop and so it'll be ignored.
-It's required if no _data_ is specified or if you want to use sticky headers/sections separators (look also at [__renderSectionHeader__](#rendersectionheader) and [__renderSectionFooter__](#rendersectionfooter)).
+It's required if no _data_ is specified or if you want to use sticky headers/sections separators (look also at [**renderSectionHeader**](#rendersectionheader) and [**renderSectionFooter**](#rendersectionfooter)).
 :::
 
 | Type  | Required                                     |
@@ -124,7 +124,7 @@ Rendered when the list is empty.
 Rendered at the top of all the items.
 
 :::note
-You need also to specify the height using [__headerHeight__](#headerheight).
+You need also to specify the height using [**headerHeight**](#headerheight).
 :::
 
 | Type     | Required |
@@ -136,7 +136,7 @@ You need also to specify the height using [__headerHeight__](#headerheight).
 Rendered at the bottom of all the items.
 
 :::note
-You need also to specify the height using [__footerHeight__](#footerheight).
+You need also to specify the height using [**footerHeight**](#footerheight).
 :::
 
 | Type     | Required |
@@ -152,7 +152,7 @@ renderSectionHeader(section: number)
 Rendered at the top of all the section's items.
 
 :::note
-You need also to specify the height using [__sectionHeaderHeight__](#sectionheaderheight).
+You need also to specify the height using [**sectionHeaderHeight**](#sectionheaderheight).
 :::
 
 | Type     | Required |
@@ -168,7 +168,7 @@ renderSectionFooter(section: number)
 Rendered at the bottom of all the section's items.
 
 :::note
-You need also to specify the height using [__sectionFooterHeight__](#sectionfooterheight).
+You need also to specify the height using [**sectionFooterHeight**](#sectionfooterheight).
 :::
 
 | Type     | Required |
@@ -364,7 +364,7 @@ Adding getItemLayout can be a great performance boost for lists of several thous
 
 :::note Compatibility
 
-This is a **compatibility** prop for FlatList replacement and so it'll replace the [__itemHeight__](#required-itemheight) prop.
+This is a **compatibility** prop for FlatList replacement and so it'll replace the [**itemHeight**](#required-itemheight) prop.
 
 :::
 
@@ -378,7 +378,7 @@ Rendered when the list is empty. Can be a React Component (e.g. `SomeComponent`)
 
 :::note Compatibility
 
-This is a **compatibility** prop for FlatList replacement and so it'll replace the [__renderEmpty__](#renderempty) prop.
+This is a **compatibility** prop for FlatList replacement and so it'll replace the [**renderEmpty**](#renderempty) prop.
 
 :::
 
@@ -391,13 +391,13 @@ This is a **compatibility** prop for FlatList replacement and so it'll replace t
 Rendered at the bottom of all the items. Can be a React Component (e.g. `SomeComponent`), or a React element (e.g. `<SomeComponent />`).
 
 :::note
-You need also to specify the footer height with [__footerHeight__](#footerheight) prop or using [__ListFooterComponentStyle__](#listfootercomponentstyle).
+You need also to specify the footer height with [**footerHeight**](#footerheight) prop or using [**ListFooterComponentStyle**](#listfootercomponentstyle).
 :::
 
 :::note Compatibility
 
-This is a **compatibility** prop for FlatList replacement and so it'll replace the [__renderFooter__](#renderfooter) prop.
-If you are creating for the first time the list we suggest to use [__renderFooter__](#renderfooter) prop instead.
+This is a **compatibility** prop for FlatList replacement and so it'll replace the [**renderFooter**](#renderfooter) prop.
+If you are creating for the first time the list we suggest to use [**renderFooter**](#renderfooter) prop instead.
 
 :::
 
@@ -409,11 +409,11 @@ If you are creating for the first time the list we suggest to use [__renderFoote
 
 :::info
 
-This will works only if [__ListFooterComponent__](#listfootercomponent) is specified.
+This will works only if [**ListFooterComponent**](#listfootercomponent) is specified.
 
 :::
 
-Styling for internal View for [__ListFooterComponent__](#listfootercomponent).
+Styling for internal View for [**ListFooterComponent**](#listfootercomponent).
 
 | Type                                                        | Required |
 | ----------------------------------------------------------- | -------- |
@@ -424,13 +424,13 @@ Styling for internal View for [__ListFooterComponent__](#listfootercomponent).
 Rendered at the top of all the items. Can be a React Component (e.g. `SomeComponent`), or a React element (e.g. `<SomeComponent />`).
 
 :::note
-You need also to specify the header height with [__headerHeight__](#headerheight) prop or using [__ListHeaderComponentStyle__](#listfootercomponentstyle).
+You need also to specify the header height with [**headerHeight**](#headerheight) prop or using [**ListHeaderComponentStyle**](#listfootercomponentstyle).
 :::
 
 :::note Compatibility
 
-This is a **compatibility** prop for FlatList replacement and so it'll replace the [__renderHeader__](#renderheader) prop.
-If you are creating for the first time the list we suggest to use [__renderHeader__](#renderheader) prop instead.
+This is a **compatibility** prop for FlatList replacement and so it'll replace the [**renderHeader**](#renderheader) prop.
+If you are creating for the first time the list we suggest to use [**renderHeader**](#renderheader) prop instead.
 
 :::
 
@@ -442,11 +442,11 @@ If you are creating for the first time the list we suggest to use [__renderHeade
 
 :::info
 
-This will works only if [__ListHeaderComponent__](#listfootercomponent) is specified.
+This will works only if [**ListHeaderComponent**](#listfootercomponent) is specified.
 
 :::
 
-Styling for internal View for [__ListHeaderComponent__](#listfootercomponent).
+Styling for internal View for [**ListHeaderComponent**](#listfootercomponent).
 
 | Type                                                        | Required |
 | ----------------------------------------------------------- | -------- |
