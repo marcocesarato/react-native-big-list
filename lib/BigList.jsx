@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import BigListItem, { BigListItemType } from "./BigListItem";
+import BigListPlaceholder from "./BigListPlaceholder";
 import BigListProcessor from "./BigListProcessor";
 import BigListSection from "./BigListSection";
 import { autobind, createElement, mergeViewStyle, processBlock } from "./utils";
@@ -531,6 +532,9 @@ class BigList extends PureComponent {
   renderItems() {
     const {
       numColumns,
+      disablePlaceholder,
+      placeholderComponent,
+      placeholderImage,
       ListEmptyComponent,
       ListFooterComponent,
       ListFooterComponentStyle,
@@ -616,7 +620,18 @@ class BigList extends PureComponent {
           }
           break;
         case BigListItemType.SPACER:
-          children.push(<BigListItem key={itemKey} height={height} />);
+          children.push(
+            disablePlaceholder ? (
+              <BigListPlaceholder
+                key={itemKey}
+                height={height}
+                image={placeholderImage}
+                component={placeholderComponent}
+              />
+            ) : (
+              <BigListItem key={itemKey} height={height} />
+            ),
+          );
           break;
         case BigListItemType.SECTION_HEADER:
           sectionPositions.shift();
@@ -687,6 +702,7 @@ class BigList extends PureComponent {
     // Reduce list properties
     const {
       data,
+      disablePlaceholder,
       sections,
       scrollTopValue,
       renderHeader,
@@ -791,6 +807,13 @@ BigList.propTypes = {
     top: PropTypes.number,
   }),
   data: PropTypes.array,
+  disablePlaceholder: PropTypes.bool,
+  placeholderImage: PropTypes.any,
+  placeholderComponent: PropTypes.oneOfType([
+    PropTypes.elementType,
+    PropTypes.element,
+    PropTypes.node,
+  ]),
   footerHeight: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -873,6 +896,7 @@ BigList.defaultProps = {
   refreshing: false,
   batchSizeThreshold: 1,
   numColumns: 1,
+  disablePlaceholder: Platform.select({ web: true, default: false }),
   // Renders
   renderItem: () => null,
   renderHeader: () => null,

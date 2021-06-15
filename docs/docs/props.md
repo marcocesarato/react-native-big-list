@@ -239,6 +239,36 @@ sectionFooterHeight(section: number)
 | ---------------- | -------- | ------- |
 | number, function | No       | `0`     |
 
+### `disablePlaceholder`
+
+Disable placeholder on fast scrolling.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `false` |
+
+### `placeholderImage`
+
+Placeholder background repeated on fast scrolling.
+
+| Type                                                          | Required |
+| ------------------------------------------------------------- | -------- |
+| [ImageSource](https://reactnative.dev/docs/image#imagesource) | No       |
+
+### `placeholderComponent`
+
+Placeholder component on fast scrolling. This is component is placed at start from the top to the first visible item and from the last visible item to the end of the scroll view.
+
+:::caution
+
+This will replace the **placeholderImage** and need **disablePlaceholder** equal to *false*.
+
+:::
+
+| Type               | Required |
+| ------------------ | -------- |
+| component, element | No       |
+
 ### `stickySectionHeadersEnabled`
 
 Makes section headers stick to the top of the screen until the next one pushes it off.
