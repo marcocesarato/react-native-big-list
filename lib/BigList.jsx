@@ -368,7 +368,8 @@ class BigList extends PureComponent {
    */
   onScroll(event) {
     const { nativeEvent } = event;
-    const { contentInset, batchSizeThreshold } = this.props;
+    const { contentInset, batchSizeThreshold, onViewableItemsChanged } =
+      this.props;
     this.containerHeight =
       nativeEvent.layoutMeasurement.height -
       (contentInset.top || 0) -
@@ -377,18 +378,61 @@ class BigList extends PureComponent {
       Math.max(0, nativeEvent.contentOffset.y),
       nativeEvent.contentSize.height - this.containerHeight,
     );
+
     const nextState = processBlock({
       containerHeight: this.containerHeight,
       scrollTop: this.scrollTop,
       batchSizeThreshold,
     });
+
     if (
       nextState.batchSize !== this.state.batchSize ||
       nextState.blockStart !== this.state.blockStart ||
       nextState.blockEnd !== this.state.blockEnd
     ) {
-      this.setState(nextState);
+      // On viewable items changes set current items to check
+      const currentItems = onViewableItemsChanged
+        ? this.state.items
+            .map(({ type, section, index, key }) => {
+              if (type === BigListItemType.ITEM) {
+                return {
+                  item: this.getItem({ section, index }),
+                  key: key,
+                  index: (section + 1) * index,
+                  isViewable: this.isVisible({ section, index }),
+                };
+              }
+              return false;
+            })
+            .filter(Boolean)
+        : [];
+      this.setState(nextState, () => {
+        // On viewable items changes
+        if (onViewableItemsChanged) {
+          const viewableItems = nextState.items
+            .map(({ type, key, section, index }) => {
+              if (type === BigListItemType.ITEM) {
+                return {
+                  item: this.getItem({ section, index }),
+                  key: key,
+                  index: (section + 1) * index,
+                  isViewable: this.isVisible({ section, index }),
+                };
+              }
+              return false;
+            })
+            .filter(Boolean);
+
+          if (currentItems !== viewableItems) {
+            const changed = viewableItems
+              .filter((x) => !currentItems.includes(x))
+              .concat(currentItems.filter((x) => !viewableItems.includes(x)));
+            onViewableItemsChanged({ viewableItems, changed });
+          }
+        }
+      });
     }
+
     const { onScroll, onEndReached, onEndReachedThreshold } = this.props;
     if (onScroll != null) {
       onScroll(event);
@@ -492,14 +536,19 @@ class BigList extends PureComponent {
       sectionHeaderHeight,
       sectionFooterHeight,
       itemHeight,
+      numColumns,
     } = this.props;
     const headers = this.hasSections() ? section + 1 : 1;
+
+    const roundedIndex =
+      index % numColumns ? index - (index % numColumns) + numColumns : index;
+
     return (
       insetTop +
       headerHeight +
       headers * sectionHeaderHeight +
       section * sectionFooterHeight +
-      index * itemHeight
+      roundedIndex * itemHeight
     );
   }
 
@@ -863,6 +912,7 @@ BigList.propTypes = {
   onRefresh: PropTypes.func,
   onScroll: PropTypes.func,
   onScrollEnd: PropTypes.func,
+  onViewableItemsChanged: PropTypes.func,
   removeClippedSubviews: PropTypes.bool,
   renderAccessory: PropTypes.func,
   renderScrollViewWrapper: PropTypes.func,

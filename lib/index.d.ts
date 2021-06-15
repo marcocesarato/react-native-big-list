@@ -46,6 +46,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   onEndReachedThreshold?: number | null | undefined;
   onLayout?: (event: LayoutChangeEvent) => void;
   onRefresh?: () => void | null | undefined;
+  onViewableItemsChanged: () => any;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   removeClippedSubviews?: boolean;

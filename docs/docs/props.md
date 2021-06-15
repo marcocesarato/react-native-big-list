@@ -261,7 +261,7 @@ Placeholder component on fast scrolling. This is component is placed at start fr
 
 :::caution
 
-This will replace the **placeholderImage** and need **disablePlaceholder** equal to *false*.
+This will replace the **placeholderImage** and need **disablePlaceholder** equal to _false_.
 
 :::
 
@@ -324,6 +324,14 @@ Set this true while waiting for new data from a refresh.
 | Type    | Required | Default |
 | ------- | -------- | ------- |
 | boolean | No       | `false` |
+
+### `onViewableItemsChanged`
+
+Called when the viewability of rows changes.
+
+| Type                                                                                                                                                                         | Required |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| (callback: { changed: array of [ViewTokens](https://reactnative.dev/docs/viewtoken), viewableItems: array of [ViewTokens](https://reactnative.dev/docs/viewtoken) }) => void | No       |
 
 ### `onRefresh`
 
