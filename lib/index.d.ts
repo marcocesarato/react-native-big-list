@@ -19,7 +19,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
     top?: number;
   };
   data?: ItemT[];
-  disablePlaceholder?: boolean;
+  placeholder?: boolean;
   placeholderImage?: any;
   placeholderComponent?: React.ReactNode;
   footerHeight?: string | number | (() => number);

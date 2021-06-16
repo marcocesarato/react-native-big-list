@@ -587,7 +587,7 @@ class BigList extends PureComponent {
   renderItems() {
     const {
       numColumns,
-      disablePlaceholder,
+      placeholder,
       placeholderComponent,
       placeholderImage,
       ListEmptyComponent,
@@ -676,15 +676,15 @@ class BigList extends PureComponent {
           break;
         case BigListItemType.SPACER:
           children.push(
-            disablePlaceholder ? (
-              <BigListItem key={itemKey} height={height} />
-            ) : (
+            placeholder ? (
               <BigListPlaceholder
                 key={itemKey}
                 height={height}
                 image={placeholderImage}
                 component={placeholderComponent}
               />
+            ) : (
+              <BigListItem key={itemKey} height={height} />
             ),
           );
           break;
@@ -757,7 +757,7 @@ class BigList extends PureComponent {
     // Reduce list properties
     const {
       data,
-      disablePlaceholder,
+      placeholder,
       sections,
       scrollTopValue,
       renderHeader,
@@ -862,7 +862,7 @@ BigList.propTypes = {
     top: PropTypes.number,
   }),
   data: PropTypes.array,
-  disablePlaceholder: PropTypes.bool,
+  placeholder: PropTypes.bool,
   placeholderImage: PropTypes.any,
   placeholderComponent: PropTypes.oneOfType([
     PropTypes.elementType,
@@ -952,7 +952,7 @@ BigList.defaultProps = {
   refreshing: false,
   batchSizeThreshold: 1,
   numColumns: 1,
-  disablePlaceholder: Platform.select({
+  placeholder: Platform.select({
     web: true,
     default: true /* TODO: default disabled until a solution for different screen sizes is found */,
   }),
