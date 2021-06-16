@@ -241,11 +241,11 @@ sectionFooterHeight(section: number)
 
 ### `disablePlaceholder`
 
-Disable placeholder on fast scrolling.
+Disable placeholder on fast scrolling. Disabled as default on web.
 
 | Type    | Required | Default |
 | ------- | -------- | ------- |
-| boolean | No       | `false` |
+| boolean | No       | `true` |
 
 ### `placeholderImage`
 

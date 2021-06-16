@@ -952,7 +952,10 @@ BigList.defaultProps = {
   refreshing: false,
   batchSizeThreshold: 1,
   numColumns: 1,
-  disablePlaceholder: Platform.select({ web: true, default: false }),
+  disablePlaceholder: Platform.select({
+    web: true,
+    default: true /* TODO: default disabled until a solution for different screen sizes is found */,
+  }),
   // Renders
   renderItem: () => null,
   renderHeader: () => null,
