@@ -28,6 +28,7 @@ class BigList extends PureComponent {
     this.scrollTopValue = this.props.scrollTopValue || new Animated.Value(0);
     this.scrollView = React.createRef();
     this.state = this.getListState();
+    this.viewableItems = [];
   }
 
   /**
@@ -363,6 +364,47 @@ class BigList extends PureComponent {
   }
 
   /**
+   * On viewable items changed.
+   */
+  onViewableItemsChanged() {
+    const { onViewableItemsChanged } = this.props;
+    if (onViewableItemsChanged) {
+      const prevItems = this.viewableItems;
+      const currentItems = this.state.items
+        .map(({ type, section, index, key }) => {
+          if (type === BigListItemType.ITEM) {
+            return {
+              item: this.getItem({ section, index }),
+              key: key,
+              index: (section + 1) * index,
+              isViewable: this.isVisible({ section, index }),
+            };
+          }
+          return false;
+        })
+        .filter(Boolean);
+      this.viewableItems = currentItems.filter((item) => item.isViewable);
+      const changed = prevItems
+        .filter(
+          ({ index: prevIndex }) =>
+            !this.viewableItems.some(
+              ({ index: nextIndex }) => nextIndex === prevIndex,
+            ),
+        )
+        .map((item) => {
+          item.isViewable = this.isVisible({
+            section: item.section,
+            index: item.index,
+          });
+          return item;
+        });
+      if (changed.length > 0) {
+        onViewableItemsChanged({ viewableItems: this.viewableItems, changed });
+      }
+    }
+  }
+
+  /**
    * Handle scroll.
    * @param event
    */
@@ -390,47 +432,11 @@ class BigList extends PureComponent {
       nextState.blockStart !== this.state.blockStart ||
       nextState.blockEnd !== this.state.blockEnd
     ) {
-      // On viewable items changes set current items to check
-      const currentItems = onViewableItemsChanged
-        ? this.state.items
-            .map(({ type, section, index, key }) => {
-              if (type === BigListItemType.ITEM) {
-                return {
-                  item: this.getItem({ section, index }),
-                  key: key,
-                  index: (section + 1) * index,
-                  isViewable: this.isVisible({ section, index }),
-                };
-              }
-              return false;
-            })
-            .filter(Boolean)
-        : [];
-      this.setState(nextState, () => {
-        // On viewable items changes
-        if (onViewableItemsChanged) {
-          const viewableItems = nextState.items
-            .map(({ type, key, section, index }) => {
-              if (type === BigListItemType.ITEM) {
-                return {
-                  item: this.getItem({ section, index }),
-                  key: key,
-                  index: (section + 1) * index,
-                  isViewable: this.isVisible({ section, index }),
-                };
-              }
-              return false;
-            })
-            .filter(Boolean);
+      this.setState(nextState);
+    }
 
-          if (currentItems !== viewableItems) {
-            const changed = viewableItems
-              .filter((x) => !currentItems.includes(x))
-              .concat(currentItems.filter((x) => !viewableItems.includes(x)));
-            onViewableItemsChanged({ viewableItems, changed });
-          }
-        }
-      });
+    if (onViewableItemsChanged) {
+      this.onViewableItemsChanged();
     }
 
     const { onScroll, onEndReached, onEndReachedThreshold } = this.props;
