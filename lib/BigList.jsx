@@ -671,14 +671,14 @@ class BigList extends PureComponent {
         case BigListItemType.SPACER:
           children.push(
             disablePlaceholder ? (
+              <BigListItem key={itemKey} height={height} />
+            ) : (
               <BigListPlaceholder
                 key={itemKey}
                 height={height}
                 image={placeholderImage}
                 component={placeholderComponent}
               />
-            ) : (
-              <BigListItem key={itemKey} height={height} />
             ),
           );
           break;
