@@ -953,8 +953,8 @@ BigList.defaultProps = {
   batchSizeThreshold: 1,
   numColumns: 1,
   placeholder: Platform.select({
-    web: true,
-    default: true /* TODO: default disabled until a solution for different screen sizes is found */,
+    web: false,
+    default: false /* TODO: default disabled until a solution for different screen sizes is found */,
   }),
   // Renders
   renderItem: () => null,
