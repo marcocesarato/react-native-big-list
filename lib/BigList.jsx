@@ -25,7 +25,8 @@ class BigList extends PureComponent {
     // Initialize properties and state
     this.containerHeight = 0;
     this.scrollTop = 0;
-    this.scrollTopValue = this.props.scrollTopValue || new Animated.Value(0);
+    this.scrollTopValue =
+      this.props.initialScrollIndex || new Animated.Value(0);
     this.scrollView = React.createRef();
     this.state = this.getListState();
     this.viewableItems = [];
@@ -587,6 +588,7 @@ class BigList extends PureComponent {
   renderItems() {
     const {
       numColumns,
+      columnWrapperStyle,
       placeholder,
       placeholderComponent,
       placeholderImage,
@@ -655,6 +657,7 @@ class BigList extends PureComponent {
         case BigListItemType.ITEM:
           if (type === BigListItemType.ITEM) {
             const item = this.getItem({ section, index });
+            style = numColumns > 1 ? columnWrapperStyle || {} : {};
             if (this.hasSections()) {
               child = renderItem({ item, section, index });
             } else {
@@ -735,7 +738,7 @@ class BigList extends PureComponent {
    * @param prevProps
    */
   componentDidUpdate(prevProps) {
-    if (prevProps.scrollTopValue !== this.props.scrollTopValue) {
+    if (prevProps.initialScrollIndex !== this.props.initialScrollIndex) {
       throw new Error("scrollTopValue cannot changed after mounting");
     }
   }
@@ -758,8 +761,11 @@ class BigList extends PureComponent {
     const {
       data,
       placeholder,
+      placeholderImage,
+      placeholderComponent,
       sections,
-      scrollTopValue,
+      initialScrollIndex,
+      columnWrapperStyle,
       renderHeader,
       renderFooter,
       renderSectionHeader,
@@ -781,6 +787,11 @@ class BigList extends PureComponent {
       onEndReachedThreshold,
       onRefresh,
       refreshing,
+      ListEmptyComponent,
+      ListFooterComponent,
+      ListFooterComponentStyle,
+      ListHeaderComponent,
+      ListHeaderComponentStyle,
       ...props
     } = this.props;
 
@@ -855,6 +866,7 @@ BigList.propTypes = {
   batchSizeThreshold: PropTypes.number,
   bottom: PropTypes.number,
   numColumns: PropTypes.number,
+  columnWrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   contentInset: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,
@@ -930,7 +942,7 @@ BigList.propTypes = {
   renderSectionFooter: PropTypes.func,
   refreshing: PropTypes.bool,
   scrollEventThrottle: PropTypes.number,
-  scrollTopValue: PropTypes.number,
+  initialScrollIndex: PropTypes.number,
   sectionFooterHeight: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

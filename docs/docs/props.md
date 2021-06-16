@@ -285,7 +285,7 @@ Format the list in column format by placing the elements side by side with x ele
 | ------ | -------- | ------- |
 | number | No       | `1`     |
 
-### `scrollTopValue`
+### `initialScrollIndex`
 
 Specify the initial scroll from the top of the list.
 
@@ -316,6 +316,14 @@ The amount by which the scroll view content is inset from the edges of the scrol
 | Type                                                               | Required | Default                                    |
 | ------------------------------------------------------------------ | -------- | ------------------------------------------ |
 | object: {top: number, left: number, bottom: number, right: number} | No       | `{ top: 0, right: 0, left: 0, bottom: 0 }` |
+
+### `columnWrapperStyle`
+
+Optional custom style for multi-item rows generated when [`numColumns`](#numcolumns) > 1.
+
+| Type                                                        | Required |
+| ----------------------------------------------------------- | -------- |
+| [View Style](https://reactnative.dev/docs/view-style-props) | No       |
 
 ### `refreshing`
 

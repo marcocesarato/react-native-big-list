@@ -39,6 +39,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   ListHeaderComponent?: React.ReactNode;
   ListHeaderComponentStyle?: ViewStyle | ViewStyle[];
   numColumns: number | null | undefined;
+  columnWrapperStyle?: ViewStyle | ViewStyle[];
   onEndReached?:
     | ((info: { distanceFromEnd: number }) => void)
     | null
@@ -60,7 +61,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   renderSectionFooter?: (section: number) => React.ReactNode | null | undefined;
   refreshing?: boolean | null | undefined;
   scrollEventThrottle?: number;
-  scrollTopValue?: number;
+  initialScrollIndex?: number;
   sectionFooterHeight?: string | number | ((section: number) => number);
   sectionHeaderHeight?: string | number | ((section: number) => number);
   sections?: ItemT[][] | null | undefined;
@@ -73,7 +74,9 @@ export default class BigList<ItemT = any> extends PureComponent<
 
 type BigListItemProps = {
   children?: React.ReactNode[] | React.ReactNode;
-  height?: number;
+  height?: number | string;
+  width?: number | string;
+  style?: ViewStyle | ViewStyle[];
 };
 
 export class BigListItem extends PureComponent<BigListItemProps> {}
@@ -83,7 +86,7 @@ type BigListSectionProps = {
   height?: number;
   nextSectionPosition?: number;
   position?: number;
-  scrollTopValue: string | number | Animated.Value;
+  initialScrollIndex: string | number | Animated.Value;
 };
 
 export class BigListSection extends PureComponent<BigListSectionProps> {}
