@@ -246,7 +246,7 @@ Enable placeholder on fast scrolling. Disabled as default on web.
 When list can't render your items fast enough the non-rendered components will appear as blank space.
 The placeholder so let you fill the blank spaces that usually can be seen scrolling fast. 
 The list has two main blank spaces.
-The first space start from the top of the scroll view area end to the first loaded item. 
+The first space starts from the top of the scroll view area end to the first loaded item. 
 The second space starts from the last loaded item to the end of the scroll area.
 
 This setting permit you to replace or add a repeated background to this two blank spaces and so to make the illusion of a shimmer scrolling fast.
