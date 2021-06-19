@@ -243,6 +243,14 @@ sectionFooterHeight(section: number)
 
 Enable placeholder on fast scrolling. Disabled as default on web.
 
+When list can't render your items fast enough the non-rendered components will appear as blank space.
+The placeholder so let you fill the blank spaces that usually can be seen scrolling fast. 
+The list has two main blank spaces.
+The first space starts from the top of the scroll view area end to the first loaded item. 
+The second space starts from the last loaded item to the end of the scroll area.
+
+This setting permit you to replace or add a repeated background to this two blank spaces and so to make the illusion of a shimmer scrolling fast.
+
 | Type    | Required | Default |
 | ------- | -------- | ------- |
 | boolean | No       | `false` |
@@ -251,17 +259,23 @@ Enable placeholder on fast scrolling. Disabled as default on web.
 
 Placeholder background repeated on fast scrolling.
 
+:::note
+
+Be careful to different screens resolutions, this solution could be no responsive if you use a single image per screen resolution.
+
+:::
+
 | Type                                                          | Required |
 | ------------------------------------------------------------- | -------- |
 | [ImageSource](https://reactnative.dev/docs/image#imagesource) | No       |
 
 ### `placeholderComponent`
 
-Placeholder component on fast scrolling. This is component is placed at start from the top to the first visible item and from the last visible item to the end of the scroll view.
+Placeholder component on fast scrolling. This item could be an SVG pattern or whatever you want to fill the blank space on fast scrolling. 
 
-:::caution
+:::note
 
-This will replace the **placeholderImage** and need **disablePlaceholder** equal to _false_.
+This will replace the **placeholderImage** and need **placeholder** equal to _true_.
 
 :::
 
