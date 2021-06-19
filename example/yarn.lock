@@ -5205,10 +5205,10 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-native-big-list@^1.3.4:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/react-native-big-list/-/react-native-big-list-1.3.4.tgz#6cb1f4f84f250372b1a02f8226aa8367ca5dea9b"
-  integrity sha512-nPFVsNwR5KthIqGxbDWuNFmQzWjaQic9LrhOUTeA3FTyhi842q+qbWo8twnijHJBVG0n/cRwzXKhHvTXqZmCHQ==
+react-native-big-list@^1.3.9:
+  version "1.3.9"
+  resolved "https://registry.yarnpkg.com/react-native-big-list/-/react-native-big-list-1.3.9.tgz#c862bc77c848a12a4aefebcc0d6dc9e7b08a27f0"
+  integrity sha512-/KAwcdpWX4FsS2r27lBxNUz8Is4woaDPNR5+zWM0x87hJw7nhizB8EXx82zqBUrfNjlf2MFRE416ZvNM2KGHbg==
   dependencies:
     prop-types "^15.7.2"
     yarpm "^1.1.1"

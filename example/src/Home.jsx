@@ -12,6 +12,7 @@ import ColumnsList from "./lists/ColumnsList";
 import CompareList from "./lists/CompareList";
 import List from "./lists/List";
 import SectionList from "./lists/SectionList";
+import SelectList from "./lists/SelectList";
 
 const Home = () => {
   const {
@@ -25,7 +26,7 @@ const Home = () => {
         styles.container,
         {
           backgroundColor: background,
-          paddingBottom: insetBottom + 205,
+          paddingBottom: insetBottom + 255,
         },
       ]}
     >
@@ -66,6 +67,14 @@ const Home = () => {
               </View>
             </View>
           </TouchableRipple>
+          <TouchableRipple onPress={() => setChecked("select")}>
+            <View style={styles.row}>
+              <Paragraph>Select List</Paragraph>
+              <View pointerEvents="none">
+                <RadioButton.Android value="select" />
+              </View>
+            </View>
+          </TouchableRipple>
           <TouchableRipple onPress={() => setChecked("compare")}>
             <View style={styles.row}>
               <Paragraph>Compare with FlatList</Paragraph>
@@ -82,6 +91,8 @@ const Home = () => {
         <ColumnsList />
       ) : checked === "section" ? (
         <SectionList />
+      ) : checked === "select" ? (
+        <SelectList />
       ) : checked === "compare" ? (
         <CompareList />
       ) : null}
