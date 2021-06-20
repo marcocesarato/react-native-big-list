@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import BigList from "react-native-big-list";
 import { Checkbox } from "react-native-paper";
 
-const SelectList = ({ data, onSelect }) => {
-  const [selected, setSelected] = useState();
+const SelectList = ({ data, value, onSelect }) => {
+  const [selected, setSelected] = useState(value);
   const renderItem = ({ item }) => {
     return (
       <Checkbox.Item

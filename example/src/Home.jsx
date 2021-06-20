@@ -89,6 +89,7 @@ const Home = () => {
           </Appbar.Header>
           <SelectList
             data={options}
+            value={selected}
             onSelect={(value) => {
               setSelected(value);
               setOpenSelector(false);
