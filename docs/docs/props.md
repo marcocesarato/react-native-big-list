@@ -396,6 +396,30 @@ How much threshold must be applied to the batch size to render the elements befo
 | ------ | -------- | ------- |
 | number | No       | `1`     |
 
+### `hideMarginalsOnEmpty`
+
+Hide header and footer on empty list.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `false` |
+
+### `hideHeaderOnEmpty`
+
+Hide header on empty list.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `false` |
+
+### `hideFooterOnEmpty`
+
+Hide footer on empty list.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `false` |
+
 ## <a name="flatlist"></a> FlatList Props
 
 :::caution Compatibility

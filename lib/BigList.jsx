@@ -588,6 +588,9 @@ class BigList extends PureComponent {
   renderItems() {
     const {
       numColumns,
+      hideMarginalsOnEmpty,
+      hideHeaderOnEmpty,
+      hideFooterOnEmpty,
       columnWrapperStyle,
       placeholder,
       placeholderComponent,
@@ -605,20 +608,50 @@ class BigList extends PureComponent {
       renderEmpty,
     } = this.props;
     const { items = [] } = this.state;
-    if (this.isEmpty()) {
-      if (ListEmptyComponent != null) {
-        return createElement(ListHeaderComponent);
-      }
-      if (renderEmpty != null) {
-        return renderEmpty();
+
+    // On empty list
+    const isEmptyList = this.isEmpty();
+    const emptyItem = ListEmptyComponent
+      ? createElement(ListHeaderComponent)
+      : renderEmpty
+      ? renderEmpty()
+      : null;
+    if (isEmptyList && (ListEmptyComponent || renderEmpty)) {
+      if (hideMarginalsOnEmpty || (hideHeaderOnEmpty && hideFooterOnEmpty)) {
+        // Render empty
+        return emptyItem;
+      } else {
+        // Add empty item
+        const headerIndex = items.findIndex(
+          (item) => item.type === BigListItemType.HEADER,
+        );
+        items.splice(headerIndex, 0, {
+          type: BigListItemType.EMPTY,
+          key: "empty",
+        });
+        if (hideHeaderOnEmpty) {
+          // Hide header
+          items.splice(headerIndex, 1);
+        }
+        if (hideFooterOnEmpty) {
+          // Hide footer
+          const footerIndex = items.findIndex(
+            (item) => item.type === BigListItemType.FOOTER,
+          );
+          items.splice(footerIndex, 1);
+        }
       }
     }
+
+    // Sections positions
     const sectionPositions = [];
     items.forEach(({ type, position }) => {
       if (type === BigListItemType.SECTION_HEADER) {
         sectionPositions.push(position);
       }
     });
+
+    // Render items
     const children = [];
     items.forEach(({ type, key, position, height, section, index }) => {
       let child;
@@ -650,6 +683,7 @@ class BigList extends PureComponent {
         // falls through
         case BigListItemType.SECTION_FOOTER:
           if (type === BigListItemType.SECTION_FOOTER) {
+            height = isEmptyList ? 0 : height; // Hide section footer on empty
             child = renderSectionFooter(section);
             style = { width: "100%" };
           }
@@ -677,6 +711,9 @@ class BigList extends PureComponent {
             );
           }
           break;
+        case BigListItemType.EMPTY:
+          children.push(<View key={itemKey}>{emptyItem}</View>);
+          break;
         case BigListItemType.SPACER:
           children.push(
             placeholder ? (
@@ -692,6 +729,7 @@ class BigList extends PureComponent {
           );
           break;
         case BigListItemType.SECTION_HEADER:
+          height = isEmptyList ? 0 : height; // Hide section header on empty
           sectionPositions.shift();
           child = renderSectionHeader(section);
           if (child != null) {
@@ -792,6 +830,9 @@ class BigList extends PureComponent {
       ListFooterComponentStyle,
       ListHeaderComponent,
       ListHeaderComponentStyle,
+      hideMarginalsOnEmpty,
+      hideFooterOnEmpty,
+      hideHeaderOnEmpty,
       ...props
     } = this.props;
 
@@ -943,6 +984,7 @@ BigList.propTypes = {
   refreshing: PropTypes.bool,
   scrollEventThrottle: PropTypes.number,
   initialScrollIndex: PropTypes.number,
+  hideMarginalsOnEmpty: PropTypes.bool,
   sectionFooterHeight: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -974,6 +1016,9 @@ BigList.defaultProps = {
   renderFooter: () => null,
   renderSectionHeader: () => null,
   renderSectionFooter: () => null,
+  hideMarginalsOnEmpty: false,
+  hideFooterOnEmpty: false,
+  hideHeaderOnEmpty: false,
   // Height
   itemHeight: 50,
   headerHeight: 0,

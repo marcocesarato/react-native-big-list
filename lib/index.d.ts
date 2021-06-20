@@ -25,6 +25,9 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   footerHeight?: string | number | (() => number);
   getItemLayout?: () => number;
   headerHeight?: string | number | (() => number);
+  hideMarginalsOnEmpty?: boolean | null | undefined;
+  hideHeaderOnEmpty?: boolean | null | undefined;
+  hideFooterOnEmpty?: boolean | null | undefined;
   insetBottom?: number;
   insetTop?: number;
   itemHeight?:

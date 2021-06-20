@@ -11,6 +11,7 @@ export const BigListItemType = {
   ITEM: "item",
   SECTION_FOOTER: "section_footer",
   FOOTER: "footer",
+  EMPTY: "empty",
 };
 
 /**
