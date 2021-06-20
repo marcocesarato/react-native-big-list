@@ -399,7 +399,11 @@ class BigList extends PureComponent {
           });
           return item;
         });
-      if (changed.length > 0) {
+
+      const prevViewableItem = prevItems.length;
+      const currentViewableItem = this.viewableItems.length;
+
+      if (changed.length > 0 || prevViewableItem !== currentViewableItem) {
         onViewableItemsChanged({ viewableItems: this.viewableItems, changed });
       }
     }
