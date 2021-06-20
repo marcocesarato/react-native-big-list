@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import { Platform, StyleSheet, View } from "react-native";
-import {
-  Appbar,
-  Paragraph,
-  RadioButton,
-  TouchableRipple,
-  useTheme,
-} from "react-native-paper";
+import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Appbar, TextInput, useTheme } from "react-native-paper";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import ColumnsList from "./lists/ColumnsList";
 import CompareList from "./lists/CompareList";
 import List from "./lists/List";
+import MultiSelectList from "./lists/MultiSelectList";
 import SectionList from "./lists/SectionList";
 import SelectList from "./lists/SelectList";
 
@@ -18,84 +14,88 @@ const Home = () => {
   const {
     colors: { background, surface },
   } = useTheme();
-  const [checked, setChecked] = useState("standard");
+  const [openSelector, setOpenSelector] = useState(false);
+  const [selected, setSelected] = useState("standard");
   const [insetBottom, setInsetBottom] = useState(0);
+  const insets = useSafeAreaInsets();
+  const options = [
+    { label: "Standard List", value: "standard" },
+    { label: "Columns List", value: "columns" },
+    { label: "Sections List", value: "sections" },
+    { label: "Multiselect List", value: "multiselect" },
+    { label: "Compare List", value: "compare" },
+  ];
+  const selectedOption = options.find((item) => item.value === selected);
   return (
     <View
       style={[
         styles.container,
         {
           backgroundColor: background,
-          paddingBottom: insetBottom + 255,
+          paddingBottom: insetBottom + insets.bottom + 64,
         },
       ]}
     >
       <Appbar.Header style={[styles.header, { height: 75 }]}>
         <Appbar.Content title="BigList Example" subtitle="10.000 items" />
       </Appbar.Header>
-      <View
-        style={[styles.containerBottom, { backgroundColor: surface }]}
+      <TouchableOpacity
+        style={[
+          styles.containerBottom,
+          { backgroundColor: surface, bottom: insets.bottom },
+        ]}
+        onPress={() => setOpenSelector(!openSelector)}
         onLayout={(event) => {
           setInsetBottom(event.height || 0);
         }}
       >
-        <RadioButton.Group
-          onValueChange={(newValue) => setChecked(newValue)}
-          value={checked}
-        >
-          <TouchableRipple onPress={() => setChecked("standard")}>
-            <View style={styles.row}>
-              <Paragraph>Standard List</Paragraph>
-              <View pointerEvents="none">
-                <RadioButton.Android value="standard" />
-              </View>
-            </View>
-          </TouchableRipple>
-          <TouchableRipple onPress={() => setChecked("columns")}>
-            <View style={styles.row}>
-              <Paragraph>Columns List</Paragraph>
-              <View pointerEvents="none">
-                <RadioButton.Android value="columns" />
-              </View>
-            </View>
-          </TouchableRipple>
-          <TouchableRipple onPress={() => setChecked("section")}>
-            <View style={styles.row}>
-              <Paragraph>Section List</Paragraph>
-              <View pointerEvents="none">
-                <RadioButton.Android value="section" />
-              </View>
-            </View>
-          </TouchableRipple>
-          <TouchableRipple onPress={() => setChecked("select")}>
-            <View style={styles.row}>
-              <Paragraph>Select List</Paragraph>
-              <View pointerEvents="none">
-                <RadioButton.Android value="select" />
-              </View>
-            </View>
-          </TouchableRipple>
-          <TouchableRipple onPress={() => setChecked("compare")}>
-            <View style={styles.row}>
-              <Paragraph>Compare with FlatList</Paragraph>
-              <View pointerEvents="none">
-                <RadioButton.Android value="compare" />
-              </View>
-            </View>
-          </TouchableRipple>
-        </RadioButton.Group>
-      </View>
-      {checked === "standard" ? (
+        <TextInput
+          label="View mode"
+          editable={false}
+          onTouchStart={() => setOpenSelector(true)}
+          value={selectedOption.label}
+          right={
+            <TextInput.Icon
+              name="chevron-down"
+              onPress={() => setOpenSelector(!openSelector)}
+            />
+          }
+        />
+      </TouchableOpacity>
+      {selected === "standard" ? (
         <List />
-      ) : checked === "columns" ? (
+      ) : selected === "columns" ? (
         <ColumnsList />
-      ) : checked === "section" ? (
+      ) : selected === "sections" ? (
         <SectionList />
-      ) : checked === "select" ? (
-        <SelectList />
-      ) : checked === "compare" ? (
+      ) : selected === "multiselect" ? (
+        <MultiSelectList />
+      ) : selected === "compare" ? (
         <CompareList />
       ) : null}
+
+      {openSelector && (
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            { flex: 1, backgroundColor: surface },
+          ]}
+        >
+          <Appbar.Header style={[styles.header, { height: 75 }]}>
+            <Appbar.Content
+              title="View mode"
+              subtitle="Select the list view mode example..."
+            />
+          </Appbar.Header>
+          <SelectList
+            data={options}
+            onSelect={(value) => {
+              setSelected(value);
+              setOpenSelector(false);
+            }}
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -117,13 +117,6 @@ const styles = StyleSheet.create({
   header: {
     elevation: 0,
     marginBottom: Platform.select({ web: 0, default: -5 }),
-  },
-  row: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 8,
   },
 });
 
