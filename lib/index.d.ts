@@ -10,8 +10,8 @@ import {
 } from "react-native";
 
 interface BigListProps<ItemT> extends ScrollViewProps {
-  actionSheetScrollRef?: unknown;
-  batchSizeThreshold?: number | null | unknown;
+  actionSheetScrollRef?: any | null | undefined;
+  batchSizeThreshold?: number | null | undefined;
   contentInset?: {
     bottom?: number;
     left?: number;
