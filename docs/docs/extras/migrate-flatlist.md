@@ -78,7 +78,7 @@ const ITEM_HEIGHT = 50;
     offset: ITEM_HEIGHT * index,
     index,
   })} // Replaceable with `itemHeight={ITEM_HEIGHT}`
-  keyExtractor={(item) => String(item.id)} // Removable
+  keyExtractor={(item) => item.value}
   //  New props
   headerHeight={100} // Default 0, need to specify the header height
   footerHeight={100} // Default 0, need to specify the foorer height
@@ -123,6 +123,7 @@ const ITEM_HEIGHT = 50;
 <BigList
   style={styles.list}
   data={data}
+  keyExtractor={(item) => item.value}
   renderItem={renderItem}
   renderHeader={renderHeader}
   renderFooter={renderFooter}
