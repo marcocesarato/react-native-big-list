@@ -36,6 +36,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
     | ((item: { index: number; section?: number }) => number);
   keyboardDismissMode?: "none" | "interactive" | "on-drag";
   keyboardShouldPersistTaps?: boolean | "always" | "never" | "handled";
+  keyExtractor?: (item: ItemT, index: number) => string | null | undefined;
   ListEmptyComponent?: React.ReactNode;
   ListFooterComponent?: React.ReactNode;
   ListFooterComponentStyle?: ViewStyle | ViewStyle[];

@@ -111,6 +111,18 @@ It's required if no _data_ is specified or if you want to use sticky headers/sec
 ];
 ```
 
+### `keyExtractor`
+
+```js
+(item: object, index: number) => string;
+```
+
+Used to extract a unique key for a given item at the specified index. Key is used for caching and as the react key to track item re-ordering. The default extractor checks item.key, then item.id, and then falls back to using the index, like React does.
+
+| Type     |
+| -------- |
+| function |
+
 ### `renderEmpty`
 
 Rendered when the list is empty.

@@ -16,6 +16,7 @@ export const BigListItemType = {
 
 /**
  * List item.
+ * @param {string} uniqueKey
  * @param {React.node} children
  * @param {array|object|null|undefined} style
  * @param {number} height
@@ -23,9 +24,16 @@ export const BigListItemType = {
  * @returns {JSX.Element}
  * @constructor
  */
-const BigListItem = ({ children, style, height, width = "100%" }) => {
+const BigListItem = ({
+  uniqueKey,
+  children,
+  style,
+  height,
+  width = "100%",
+}) => {
   return (
     <View
+      key={uniqueKey}
       style={mergeViewStyle(style, {
         height,
         width,
@@ -41,6 +49,7 @@ BigListItem.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  uniqueKey: PropTypes.string,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

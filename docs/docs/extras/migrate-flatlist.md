@@ -68,6 +68,7 @@ const ITEM_HEIGHT = 50;
   style={styles.list}
   data={data}
   renderItem={renderItem}
+  keyExtractor={(item) => item.value}
   ListHeaderComponent={renderHeader} // Replaceable with `renderHeader`
   ListFooterComponent={renderFooter} // Replaceable with `renderFooter`
   ListFooterComponentStyle={styles.footer} // This works only with `ListFooterComponent`
@@ -107,7 +108,6 @@ To have more details about props check the [Props list](props.md)
 
 #### Removing
 
-- Remove `keyExtractor`
 - Remove `ListFooterComponentStyle`
 - Remove `ListHeaderComponentStyle`
 

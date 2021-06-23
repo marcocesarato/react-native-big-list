@@ -591,6 +591,7 @@ class BigList extends PureComponent {
    */
   renderItems() {
     const {
+      keyExtractor,
       numColumns,
       hideMarginalsOnEmpty,
       hideHeaderOnEmpty,
@@ -658,9 +659,10 @@ class BigList extends PureComponent {
     // Render items
     const children = [];
     items.forEach(({ type, key, position, height, section, index }) => {
+      const itemKey = key || position; // Fallback fix
+      let uniqueKey = String((section + 1) * index);
       let child;
       let style;
-      const itemKey = key || position; // Fallback fix
       switch (type) {
         case BigListItemType.HEADER:
           if (ListHeaderComponent != null) {
@@ -695,6 +697,9 @@ class BigList extends PureComponent {
         case BigListItemType.ITEM:
           if (type === BigListItemType.ITEM) {
             const item = this.getItem({ section, index });
+            uniqueKey = keyExtractor
+              ? keyExtractor(item, uniqueKey)
+              : uniqueKey;
             style = numColumns > 1 ? columnWrapperStyle || {} : {};
             if (this.hasSections()) {
               child = renderItem({ item, section, index });
@@ -706,6 +711,7 @@ class BigList extends PureComponent {
             children.push(
               <BigListItem
                 key={itemKey}
+                uniqueKey={uniqueKey}
                 height={height}
                 width={100 / numColumns + "%"}
                 style={style}
@@ -802,6 +808,7 @@ class BigList extends PureComponent {
     // Reduce list properties
     const {
       data,
+      keyExtractor,
       placeholder,
       placeholderImage,
       placeholderComponent,
@@ -985,6 +992,7 @@ BigList.propTypes = {
   renderItem: PropTypes.func.isRequired,
   renderSectionHeader: PropTypes.func,
   renderSectionFooter: PropTypes.func,
+  keyExtractor: PropTypes.func,
   refreshing: PropTypes.bool,
   scrollEventThrottle: PropTypes.number,
   initialScrollIndex: PropTypes.number,
