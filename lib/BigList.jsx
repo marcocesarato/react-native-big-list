@@ -211,6 +211,7 @@ class BigList extends PureComponent {
         sectionFooterHeight,
         insetTop,
         insetBottom,
+        numColumns
       } = this.props;
       const itemHeight = this.getItemHeight();
       const sectionLengths = this.getSectionLengths();
@@ -224,6 +225,7 @@ class BigList extends PureComponent {
         insetTop,
         insetBottom,
         scrollView,
+        numColumns
       });
     }
     return null;
