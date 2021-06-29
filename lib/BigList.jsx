@@ -211,6 +211,7 @@ class BigList extends PureComponent {
         sectionFooterHeight,
         insetTop,
         insetBottom,
+        numColumns,
       } = this.props;
       const itemHeight = this.getItemHeight();
       const sectionLengths = this.getSectionLengths();
@@ -224,6 +225,7 @@ class BigList extends PureComponent {
         insetTop,
         insetBottom,
         scrollView,
+        numColumns,
       });
     }
     return null;
@@ -485,7 +487,7 @@ class BigList extends PureComponent {
       this.setState(nextState);
     }
     const { onLayout } = this.props;
-    if (onLayout != null) {
+    if (onLayout) {
       onLayout(event);
     }
   }
@@ -501,6 +503,18 @@ class BigList extends PureComponent {
     }
     if (onScrollEnd) {
       onScrollEnd(event);
+    }
+  }
+
+  /**
+   * Handle scroll end.
+   * @param event
+   */
+  onMomentumScrollEnd(event) {
+    const { onMomentumScrollEnd } = this.props;
+    this.onScrollEnd(event);
+    if (onMomentumScrollEnd) {
+      onMomentumScrollEnd(event);
     }
   }
 
@@ -880,7 +894,7 @@ class BigList extends PureComponent {
       },
       onScroll: handleScroll,
       onLayout: this.onLayout,
-      onMomentumScrollEnd: this.onScrollEnd,
+      onMomentumScrollEnd: this.onMomentumScrollEnd,
       onScrollEndDrag: this.onScrollEnd,
     };
 
