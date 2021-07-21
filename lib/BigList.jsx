@@ -644,7 +644,7 @@ class BigList extends PureComponent {
         const headerIndex = items.findIndex(
           (item) => item.type === BigListItemType.HEADER,
         );
-        items.splice(headerIndex, 0, {
+        items.splice(headerIndex + 1, 0, {
           type: BigListItemType.EMPTY,
           key: "empty",
         });
