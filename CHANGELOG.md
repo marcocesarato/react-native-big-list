@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.16](https://github.com/marcocesarato/react-native-big-list/compare/v1.3.15...v1.3.16) (2021-07-21)
+
+
+### Bug Fixes
+
+* empty item after header ([a7297ac](https://github.com/marcocesarato/react-native-big-list/commit/a7297acfd22849599a688c7cd5a26ed59b658473)), closes [#35](https://github.com/marcocesarato/react-native-big-list/issues/35)
+
 ## [1.3.15](https://github.com/marcocesarato/react-native-big-list/compare/v1.3.14...v1.3.15) (2021-06-29)
 
 
@@ -354,4 +361,3 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 ---
-
