@@ -11,6 +11,7 @@ import {
 
 interface BigListProps<ItemT> extends ScrollViewProps {
   inverted: bool | null | undefined;
+  horizontal: bool | null | undefined;
   actionSheetScrollRef?: any | null | undefined;
   batchSizeThreshold?: number | null | undefined;
   contentInset?: {

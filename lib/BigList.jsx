@@ -606,7 +606,6 @@ class BigList extends PureComponent {
   renderItems() {
     const {
       keyExtractor,
-      inverted,
       numColumns,
       hideMarginalsOnEmpty,
       hideHeaderOnEmpty,
@@ -629,15 +628,10 @@ class BigList extends PureComponent {
     } = this.props;
     const { items = [] } = this.state;
 
-    const defaultInvertedItemStyle = inverted
-      ? { transform: [{ scaleY: -1 }] }
-      : {};
-
-    const defaultFullItemStyle = inverted
-      ? mergeViewStyle(defaultInvertedItemStyle, { width: "100%" })
-      : { width: "100%" };
-
-    const defaultItemStyle = inverted ? defaultInvertedItemStyle : {};
+    const itemStyle = this.getBaseStyle();
+    const fullItemStyle = mergeViewStyle(itemStyle, {
+      width: "100%",
+    });
 
     // On empty list
     const isEmptyList = this.isEmpty();
@@ -692,26 +686,20 @@ class BigList extends PureComponent {
         case BigListItemType.HEADER:
           if (ListHeaderComponent != null) {
             child = createElement(ListHeaderComponent);
-            style = mergeViewStyle(
-              defaultFullItemStyle,
-              ListHeaderComponentStyle,
-            );
+            style = mergeViewStyle(fullItemStyle, ListHeaderComponentStyle);
           } else {
             child = renderHeader();
-            style = defaultFullItemStyle;
+            style = fullItemStyle;
           }
         // falls through
         case BigListItemType.FOOTER:
           if (type === BigListItemType.FOOTER) {
             if (ListFooterComponent != null) {
               child = createElement(ListFooterComponent);
-              style = mergeViewStyle(
-                defaultFullItemStyle,
-                ListFooterComponentStyle,
-              );
+              style = mergeViewStyle(fullItemStyle, ListFooterComponentStyle);
             } else {
               child = renderFooter();
-              style = defaultFullItemStyle;
+              style = fullItemStyle;
             }
           }
         // falls through
@@ -719,7 +707,7 @@ class BigList extends PureComponent {
           if (type === BigListItemType.SECTION_FOOTER) {
             height = isEmptyList ? 0 : height; // Hide section footer on empty
             child = renderSectionFooter(section);
-            style = defaultFullItemStyle;
+            style = fullItemStyle;
           }
         // falls through
         case BigListItemType.ITEM:
@@ -730,8 +718,8 @@ class BigList extends PureComponent {
               : uniqueKey;
             style =
               numColumns > 1
-                ? mergeViewStyle(defaultItemStyle, columnWrapperStyle || {})
-                : defaultItemStyle;
+                ? mergeViewStyle(itemStyle, columnWrapperStyle || {})
+                : itemStyle;
             if (this.hasSections()) {
               child = renderItem({ item, section, index });
             } else {
@@ -777,7 +765,7 @@ class BigList extends PureComponent {
             children.push(
               <BigListSection
                 key={itemKey}
-                style={defaultFullItemStyle}
+                style={fullItemStyle}
                 height={height}
                 position={position}
                 nextSectionPosition={sectionPositions[0]}
@@ -830,6 +818,26 @@ class BigList extends PureComponent {
     if (this.scrollTopValueAttachment != null) {
       this.scrollTopValueAttachment.detach();
     }
+  }
+
+  /**
+   * Get base style.
+   * @return {{transform: [{scaleX: number}]}|{transform: [{scaleY: number}]}}
+   */
+  getBaseStyle() {
+    const { inverted, horizontal } = this.props;
+    if (inverted) {
+      if (horizontal) {
+        return {
+          transform: [{ scaleX: -1 }],
+        };
+      } else {
+        return {
+          transform: [{ scaleY: -1 }],
+        };
+      }
+    }
+    return {};
   }
 
   /**
@@ -932,16 +940,17 @@ class BigList extends PureComponent {
     const scrollView = wrapper(
       <ScrollView {...scrollViewProps}>{this.renderItems()}</ScrollView>,
     );
+
+    const scrollStyle = mergeViewStyle(
+      {
+        flex: 1,
+        maxHeight: Platform.select({ web: "100vh", default: "100%" }),
+      },
+      this.getBaseStyle(),
+    );
+
     return (
-      <View
-        style={[
-          {
-            flex: 1,
-            maxHeight: Platform.select({ web: "100vh", default: "100%" }),
-          },
-          inverted ? { transform: [{ scaleY: -1 }] } : {},
-        ]}
-      >
+      <View style={scrollStyle}>
         {scrollView}
         {renderAccessory != null ? renderAccessory(this) : null}
       </View>
@@ -951,6 +960,7 @@ class BigList extends PureComponent {
 
 BigList.propTypes = {
   inverted: PropTypes.bool,
+  horizontal: PropTypes.bool,
   actionSheetScrollRef: PropTypes.any,
   batchSizeThreshold: PropTypes.number,
   bottom: PropTypes.number,
@@ -1052,6 +1062,7 @@ BigList.defaultProps = {
   // Data
   data: [],
   inverted: false,
+  horizontal: false,
   sections: null,
   refreshing: false,
   batchSizeThreshold: 1,
