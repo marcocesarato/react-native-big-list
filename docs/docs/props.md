@@ -311,6 +311,14 @@ Format the list in column format by placing the elements side by side with x ele
 | ------ | -------- | ------- |
 | number | No       | `1`     |
 
+### `inverted`
+
+Reverses the direction of scroll. Uses scale transforms of `-1`.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `false` |
+
 ### `initialScrollIndex`
 
 Specify the initial scroll from the top of the list.
