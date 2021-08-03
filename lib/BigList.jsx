@@ -606,6 +606,7 @@ class BigList extends PureComponent {
   renderItems() {
     const {
       keyExtractor,
+      inverted,
       numColumns,
       hideMarginalsOnEmpty,
       hideHeaderOnEmpty,
@@ -627,6 +628,16 @@ class BigList extends PureComponent {
       renderEmpty,
     } = this.props;
     const { items = [] } = this.state;
+
+    const defaultInvertedItemStyle = inverted
+      ? { transform: [{ scaleY: -1 }] }
+      : {};
+
+    const defaultFullItemStyle = inverted
+      ? mergeViewStyle(defaultInvertedItemStyle, { width: "100%" })
+      : { width: "100%" };
+
+    const defaultItemStyle = inverted ? defaultInvertedItemStyle : {};
 
     // On empty list
     const isEmptyList = this.isEmpty();
@@ -681,10 +692,13 @@ class BigList extends PureComponent {
         case BigListItemType.HEADER:
           if (ListHeaderComponent != null) {
             child = createElement(ListHeaderComponent);
-            style = mergeViewStyle({ width: "100%" }, ListHeaderComponentStyle);
+            style = mergeViewStyle(
+              defaultFullItemStyle,
+              ListHeaderComponentStyle,
+            );
           } else {
             child = renderHeader();
-            style = { width: "100%" };
+            style = defaultFullItemStyle;
           }
         // falls through
         case BigListItemType.FOOTER:
@@ -692,12 +706,12 @@ class BigList extends PureComponent {
             if (ListFooterComponent != null) {
               child = createElement(ListFooterComponent);
               style = mergeViewStyle(
-                { width: "100%" },
+                defaultFullItemStyle,
                 ListFooterComponentStyle,
               );
             } else {
               child = renderFooter();
-              style = { width: "100%" };
+              style = defaultFullItemStyle;
             }
           }
         // falls through
@@ -705,7 +719,7 @@ class BigList extends PureComponent {
           if (type === BigListItemType.SECTION_FOOTER) {
             height = isEmptyList ? 0 : height; // Hide section footer on empty
             child = renderSectionFooter(section);
-            style = { width: "100%" };
+            style = defaultFullItemStyle;
           }
         // falls through
         case BigListItemType.ITEM:
@@ -714,7 +728,10 @@ class BigList extends PureComponent {
             uniqueKey = keyExtractor
               ? keyExtractor(item, uniqueKey)
               : uniqueKey;
-            style = numColumns > 1 ? columnWrapperStyle || {} : {};
+            style =
+              numColumns > 1
+                ? mergeViewStyle(defaultItemStyle, columnWrapperStyle || {})
+                : defaultItemStyle;
             if (this.hasSections()) {
               child = renderItem({ item, section, index });
             } else {
@@ -760,6 +777,7 @@ class BigList extends PureComponent {
             children.push(
               <BigListSection
                 key={itemKey}
+                style={defaultFullItemStyle}
                 height={height}
                 position={position}
                 nextSectionPosition={sectionPositions[0]}
@@ -823,6 +841,7 @@ class BigList extends PureComponent {
     const {
       data,
       keyExtractor,
+      inverted,
       placeholder,
       placeholderImage,
       placeholderComponent,
@@ -915,10 +934,13 @@ class BigList extends PureComponent {
     );
     return (
       <View
-        style={{
-          flex: 1,
-          maxHeight: Platform.select({ web: "100vh", default: "100%" }),
-        }}
+        style={[
+          {
+            flex: 1,
+            maxHeight: Platform.select({ web: "100vh", default: "100%" }),
+          },
+          inverted ? { transform: [{ scaleY: -1 }] } : {},
+        ]}
       >
         {scrollView}
         {renderAccessory != null ? renderAccessory(this) : null}
@@ -928,6 +950,7 @@ class BigList extends PureComponent {
 }
 
 BigList.propTypes = {
+  inverted: PropTypes.bool,
   actionSheetScrollRef: PropTypes.any,
   batchSizeThreshold: PropTypes.number,
   bottom: PropTypes.number,
@@ -1028,6 +1051,7 @@ BigList.propTypes = {
 BigList.defaultProps = {
   // Data
   data: [],
+  inverted: false,
   sections: null,
   refreshing: false,
   batchSizeThreshold: 1,

@@ -2,8 +2,11 @@ import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { Animated } from "react-native";
 
+import { mergeViewStyle } from "./utils";
+
 /**
  * List section.
+ * @param {object|array} style
  * @param {number} position
  * @param {number} height
  * @param {number} nextSectionPosition
@@ -13,6 +16,7 @@ import { Animated } from "react-native";
  * @constructor
  */
 const BigListSection = ({
+  style,
   position,
   height,
   nextSectionPosition,
@@ -38,13 +42,16 @@ const BigListSection = ({
   const child = React.Children.only(children);
   const fillChildren =
     React.isValidElement(child) &&
-    React.cloneElement(child, {
-      style: { flex: 1 },
-    });
+    React.cloneElement(
+      child,
+      mergeViewStyle(style, {
+        style: { flex: 1 },
+      }),
+    );
   const viewStyle = [
     React.isValidElement(child) && child.props.style
       ? child.props.style
-      : undefined,
+      : style,
     {
       zIndex: 10,
       height: height,
@@ -64,6 +71,7 @@ BigListSection.propTypes = {
   nextSectionPosition: PropTypes.number,
   position: PropTypes.number,
   scrollTopValue: PropTypes.instanceOf(Animated.Value),
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 export default memo(BigListSection);
