@@ -53,6 +53,7 @@ const BigListSection = ({
       ? child.props.style
       : style,
     {
+      elevation: 10,
       zIndex: 10,
       height: height,
       width: "100%",
