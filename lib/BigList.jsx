@@ -850,6 +850,7 @@ class BigList extends PureComponent {
       data,
       keyExtractor,
       inverted,
+      horizontal, // Disabled
       placeholder,
       placeholderImage,
       placeholderComponent,
