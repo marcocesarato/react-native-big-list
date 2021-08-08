@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/marcocesarato/react-native-big-list/compare/v1.4.0...v1.4.1) (2021-08-08)
+
+
+### Bug Fixes
+
+* make style prop merge writable ([56d8a49](https://github.com/marcocesarato/react-native-big-list/commit/56d8a49a18170dd2d446bc41e434c9c11ceac905)), closes [#43](https://github.com/marcocesarato/react-native-big-list/issues/43)
+
 ## [1.4.0](https://github.com/marcocesarato/react-native-big-list/compare/v1.3.16...v1.4.0) (2021-08-03)
 
 
