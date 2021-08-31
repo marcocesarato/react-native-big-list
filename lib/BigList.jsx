@@ -253,7 +253,7 @@ class BigList extends PureComponent {
    * @param {int} y
    * @param {bool} animated
    */
-  scrollTo({ x = 0, y = 0, animated = true }) {
+  scrollTo({ x = 0, y = 0, animated = true } = {}) {
     const scrollView = this.getNativeScrollRef();
     if (scrollView != null) {
       scrollView.scrollTo({
@@ -340,7 +340,7 @@ class BigList extends PureComponent {
    * @param {bool} animated
    * @returns {bool}
    */
-  scrollToTop({ animated = true }) {
+  scrollToTop({ animated = true } = {}) {
     return this.scrollTo({ x: 0, y: 0, animated });
   }
 
@@ -349,7 +349,7 @@ class BigList extends PureComponent {
    * @param {bool} animated
    * @returns {bool}
    */
-  scrollToEnd({ animated = true }) {
+  scrollToEnd({ animated = true } = {}) {
     const { data } = this.props;
     let section = 0;
     let index = 0;
