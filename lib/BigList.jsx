@@ -566,53 +566,62 @@ class BigList extends PureComponent {
       headerHeight,
       sectionHeaderHeight,
       sectionFooterHeight,
-      itemHeight,
       numColumns,
+      itemHeight,
     } = this.props;
 
-    const headers = this.hasSections() ? section + 1 : 1;
+    // Header + inset
+    let offset =
+      insetTop + isNumeric(headerHeight)
+        ? Number(headerHeight)
+        : headerHeight();
 
-    const roundedIndex =
-      index % numColumns ? index - (index % numColumns) + numColumns : index;
+    const sections = this.getSectionLengths();
+    let foundIndex = false;
+    let s = 0;
 
-    let sectionHeadersHeight = 0;
-    let sectionFootersHeight = 0;
-    let itemsHeight = 0;
-
-    if (isNumeric(sectionHeaderHeight)) {
-      sectionHeadersHeight = headers * sectionHeaderHeight;
-    } else {
-      for (let i = 0; i < headers; i++) {
-        sectionHeadersHeight += sectionHeaderHeight(i);
+    while (s <= section) {
+      const rows = Math.ceil(sections[section] / numColumns);
+      if (rows === 0) {
+        s += 1;
+        continue;
       }
-    }
 
-    if (isNumeric(sectionFooterHeight)) {
-      sectionFootersHeight = section * sectionFooterHeight;
-    } else {
-      for (let i = 0; i < section; i++) {
-        sectionHeadersHeight += sectionHeaderHeight(i);
-      }
-    }
+      // Section header
+      offset += isNumeric(sectionHeaderHeight)
+        ? Number(sectionHeaderHeight)
+        : sectionHeaderHeight(s);
 
-    if (isNumeric(itemHeight)) {
-      itemsHeight = roundedIndex * itemHeight;
-    } else {
-      for (let s = 0; s <= section; s++) {
-        for (let i = 0; i <= roundedIndex; i++) {
-          itemsHeight += isNumeric(itemHeight)
-            ? Number(itemHeight)
-            : itemHeight(s, i);
+      // Items
+      if (isNumeric(itemHeight)) {
+        const uniformHeight = this.getItemHeight(section);
+        if (s === section) {
+          offset += uniformHeight * Math.ceil(index / numColumns);
+          foundIndex = true;
+        } else {
+          offset += uniformHeight * rows;
+        }
+      } else {
+        for (let i = 0; i < rows; i++) {
+          if (s < section || (s === section && i < index)) {
+            offset += itemHeight(s, Math.ceil(i / numColumns));
+          } else if (s === section && i === index) {
+            foundIndex = true;
+            break;
+          }
         }
       }
+
+      // Section footer
+      if (!foundIndex) {
+        offset += isNumeric(sectionFooterHeight)
+          ? Number(sectionFooterHeight)
+          : sectionFooterHeight(s);
+      }
+      s += 1;
     }
 
-    return insetTop + isNumeric(headerHeight)
-      ? Number(headerHeight)
-      : headerHeight() +
-          sectionHeadersHeight +
-          sectionFootersHeight +
-          itemsHeight;
+    return offset;
   }
 
   /**
