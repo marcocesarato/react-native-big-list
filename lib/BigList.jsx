@@ -313,7 +313,7 @@ class BigList extends PureComponent {
     } else {
       index = this.props.data.indexOf(item);
     }
-    return this.scrollTo({ index, animated });
+    return this.scrollToIndex({ index, animated });
   }
 
   /**
@@ -341,7 +341,7 @@ class BigList extends PureComponent {
    * @returns {bool}
    */
   scrollToTop({ animated = true }) {
-    return this.scrollTo({ section: 0, index: 0, animated });
+    return this.scrollTo({ x: 0, y: 0, animated });
   }
 
   /**
@@ -359,7 +359,7 @@ class BigList extends PureComponent {
     } else {
       index = data.length;
     }
-    return this.scrollTo({ section, index, animated });
+    return this.scrollToIndex({ section, index, animated });
   }
 
   /**
@@ -369,7 +369,7 @@ class BigList extends PureComponent {
    * @returns {bool}
    */
   scrollToSection({ section, animated = true }) {
-    return this.scrollTo({ index: 0, section, animated });
+    return this.scrollToIndex({ index: 0, section, animated });
   }
 
   /**
