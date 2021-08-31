@@ -12,7 +12,13 @@ import BigListItem, { BigListItemType } from "./BigListItem";
 import BigListPlaceholder from "./BigListPlaceholder";
 import BigListProcessor from "./BigListProcessor";
 import BigListSection from "./BigListSection";
-import { autobind, createElement, mergeViewStyle, processBlock } from "./utils";
+import {
+  autobind,
+  createElement,
+  isNumeric,
+  mergeViewStyle,
+  processBlock,
+} from "./utils";
 
 class BigList extends PureComponent {
   /**
@@ -563,18 +569,50 @@ class BigList extends PureComponent {
       itemHeight,
       numColumns,
     } = this.props;
+
     const headers = this.hasSections() ? section + 1 : 1;
 
     const roundedIndex =
       index % numColumns ? index - (index % numColumns) + numColumns : index;
 
-    return (
-      insetTop +
-      headerHeight +
-      headers * sectionHeaderHeight +
-      section * sectionFooterHeight +
-      roundedIndex * itemHeight
-    );
+    let sectionHeadersHeight = 0;
+    let sectionFootersHeight = 0;
+    let itemsHeight = 0;
+
+    if (isNumeric(sectionHeaderHeight)) {
+      sectionHeadersHeight = headers * sectionHeaderHeight;
+    } else {
+      for (let i = 0; i < headers; i++) {
+        sectionHeadersHeight += sectionHeaderHeight(i);
+      }
+    }
+
+    if (isNumeric(sectionFooterHeight)) {
+      sectionFootersHeight = section * sectionFooterHeight;
+    } else {
+      for (let i = 0; i < section; i++) {
+        sectionHeadersHeight += sectionHeaderHeight(i);
+      }
+    }
+
+    if (isNumeric(itemHeight)) {
+      itemsHeight = roundedIndex * itemHeight;
+    } else {
+      for (let s = 0; s <= section; s++) {
+        for (let i = 0; i <= roundedIndex; i++) {
+          itemsHeight += isNumeric(itemHeight)
+            ? Number(itemHeight)
+            : itemHeight(s, i);
+        }
+      }
+    }
+
+    return insetTop + isNumeric(headerHeight)
+      ? Number(headerHeight)
+      : headerHeight() +
+          sectionHeadersHeight +
+          sectionFootersHeight +
+          itemsHeight;
   }
 
   /**
