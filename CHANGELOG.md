@@ -1,25 +1,34 @@
+<!--- BEGIN HEADER -->
+
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file.
+
+<!--- END HEADER -->
+
+## [1.4.2](https://github.com/marcocesarato/react-native-big-list/compare/v1.4.1...v1.4.2) (2021-09-02)
+
+### Bug Fixes
+
+- Get item offset with height as function [#47](https://github.com/marcocesarato/react-native-big-list/issues/47) ([435fe4](https://github.com/marcocesarato/react-native-big-list/commit/435fe489d3b3a445ef81a6abd9d63353703681f5))
+- Get item offset with height as function on sections [#47](https://github.com/marcocesarato/react-native-big-list/issues/47) ([048b5a](https://github.com/marcocesarato/react-native-big-list/commit/048b5a6a76a302c62b9c792bbab702916f1b8e73))
+- Scroll to methods [#57](https://github.com/marcocesarato/react-native-big-list/issues/57) ([5bc699](https://github.com/marcocesarato/react-native-big-list/commit/5bc699573521319136254d39d69b42c7643c754c))
 
 ### [1.4.1](https://github.com/marcocesarato/react-native-big-list/compare/v1.4.0...v1.4.1) (2021-08-08)
 
-
 ### Bug Fixes
 
-* make style prop merge writable ([56d8a49](https://github.com/marcocesarato/react-native-big-list/commit/56d8a49a18170dd2d446bc41e434c9c11ceac905)), closes [#43](https://github.com/marcocesarato/react-native-big-list/issues/43)
+- make style prop merge writable ([56d8a49](https://github.com/marcocesarato/react-native-big-list/commit/56d8a49a18170dd2d446bc41e434c9c11ceac905)), closes [#43](https://github.com/marcocesarato/react-native-big-list/issues/43)
 
 ## [1.4.0](https://github.com/marcocesarato/react-native-big-list/compare/v1.3.16...v1.4.0) (2021-08-03)
 
-
 ### Features
 
-* add inverted property ([a26f5c9](https://github.com/marcocesarato/react-native-big-list/commit/a26f5c92ece71d57322334bd3f2b64c313f2fea5)), closes [#31](https://github.com/marcocesarato/react-native-big-list/issues/31)
-
+- add inverted property ([a26f5c9](https://github.com/marcocesarato/react-native-big-list/commit/a26f5c92ece71d57322334bd3f2b64c313f2fea5)), closes [#31](https://github.com/marcocesarato/react-native-big-list/issues/31)
 
 ### Bug Fixes
 
-* section elevation on android ([114a831](https://github.com/marcocesarato/react-native-big-list/commit/114a8316b8d4cc6c919e48b7983c048430e27fb0)), closes [#38](https://github.com/marcocesarato/react-native-big-list/issues/38)
+- section elevation on android ([114a831](https://github.com/marcocesarato/react-native-big-list/commit/114a8316b8d4cc6c919e48b7983c048430e27fb0)), closes [#38](https://github.com/marcocesarato/react-native-big-list/issues/38)
 
 ### [1.3.16](https://github.com/marcocesarato/react-native-big-list/compare/v1.3.15...v1.3.16) (2021-07-21)
 
