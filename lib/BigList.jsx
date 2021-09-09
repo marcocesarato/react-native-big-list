@@ -770,28 +770,25 @@ class BigList extends PureComponent {
                 : itemStyle;
             const width = 100 / numColumns + "%";
 
+            const renderArguments = {
+              item,
+              index,
+              section: undefined,
+              key: undefined,
+              style: undefined,
+            };
+
             if (this.hasSections()) {
-              child = renderItem({
-                item,
-                section,
-                index,
-                key: uniqueKey,
-                style: mergeViewStyle(style, {
-                  height,
-                  width,
-                }),
-              });
-            } else {
-              child = renderItem({
-                item,
-                index,
-                key: uniqueKey,
-                style: mergeViewStyle(style, {
-                  height,
-                  width,
-                }),
+              renderArguments.section = section;
+            }
+            if (controlItemRender) {
+              renderArguments.key = uniqueKey;
+              renderArguments.style = mergeViewStyle(style, {
+                height,
+                width,
               });
             }
+            child = renderItem(renderArguments);
           }
           if (child != null) {
             children.push(

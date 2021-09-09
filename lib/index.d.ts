@@ -2,12 +2,20 @@ import React, { PureComponent } from "react";
 import {
   Animated,
   LayoutChangeEvent,
-  ListRenderItem,
+  ListRenderItemInfo,
   NativeScrollEvent,
   NativeSyntheticEvent,
   ScrollViewProps,
   ViewStyle,
 } from "react-native";
+
+export type BigListRenderItem<ItemT> = (
+  info: ListRenderItemInfo<ItemT> & {
+    section?: number;
+    key?: string;
+    style?: ViewStyle | ViewStyle[];
+  },
+) => React.ReactElement | null;
 
 interface BigListProps<ItemT> extends ScrollViewProps {
   inverted: bool | null | undefined;
@@ -62,7 +70,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   renderEmpty?: () => React.ReactNode | null | undefined;
   renderFooter?: () => React.ReactNode | null | undefined;
   renderHeader?: () => React.ReactNode | null | undefined;
-  renderItem: ListRenderItem<ItemT> | null | undefined;
+  renderItem: BigListRenderItem<ItemT> | null | undefined;
   renderSectionHeader?: (section: number) => React.ReactNode | null | undefined;
   renderSectionFooter?: (section: number) => React.ReactNode | null | undefined;
   refreshing?: boolean | null | undefined;
