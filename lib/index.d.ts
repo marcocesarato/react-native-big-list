@@ -18,8 +18,8 @@ export type BigListRenderItem<ItemT> = (
 ) => React.ReactElement | null;
 
 interface BigListProps<ItemT> extends ScrollViewProps {
-  inverted: bool | null | undefined;
-  horizontal: bool | null | undefined;
+  inverted?: bool | null | undefined;
+  horizontal?: bool | null | undefined;
   actionSheetScrollRef?: any | null | undefined;
   batchSizeThreshold?: number | null | undefined;
   contentInset?: {
@@ -40,7 +40,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   hideFooterOnEmpty?: boolean | null | undefined;
   insetBottom?: number;
   insetTop?: number;
-  itemHeight?:
+  itemHeight:
     | string
     | number
     | ((item: { index: number; section?: number }) => number);
@@ -79,7 +79,7 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   sectionFooterHeight?: string | number | ((section: number) => number);
   sectionHeaderHeight?: string | number | ((section: number) => number);
   sections?: ItemT[][] | null | undefined;
-  stickySectionHeadersEnabled: boolean;
+  stickySectionHeadersEnabled?: boolean;
   children?: null | undefined;
 }
 export default class BigList<ItemT = any> extends PureComponent<
