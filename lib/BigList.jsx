@@ -768,7 +768,6 @@ class BigList extends PureComponent {
               numColumns > 1
                 ? mergeViewStyle(itemStyle, columnWrapperStyle || {})
                 : itemStyle;
-            const width = 100 / numColumns + "%";
 
             const renderArguments = {
               item,
@@ -785,7 +784,7 @@ class BigList extends PureComponent {
               renderArguments.key = uniqueKey;
               renderArguments.style = mergeViewStyle(style, {
                 height,
-                width,
+                width: 100 / numColumns + "%",
               });
             }
             child = renderItem(renderArguments);
