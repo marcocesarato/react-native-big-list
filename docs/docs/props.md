@@ -54,6 +54,25 @@ You need also to specify the height using [**itemHeight**](#required-itemheight)
 | -------- | -------- |
 | function | Yes      |
 
+### `controlItemRender`
+
+Removes the wrapping view component that is added by BigList.
+
+Using `controlItemRender` will add more arguments to `renderItem`.
+
+
+```ts
+renderItem({ item: unknown, index: number, section: number, key: string, style: object });
+```
+
+:::note
+You will need to apply `style` to your rendered `View` for this to work properly.
+:::
+
+| Type     | Required | Default |
+| -------- | -------- | ------- |
+| boolean  | No       | `false` |
+
 ### <small class="required">Required</small> `itemHeight`
 
 Specify the item height.

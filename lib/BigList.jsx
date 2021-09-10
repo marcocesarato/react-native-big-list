@@ -658,6 +658,7 @@ class BigList extends PureComponent {
       hideHeaderOnEmpty,
       hideFooterOnEmpty,
       columnWrapperStyle,
+      controlItemRender,
       placeholder,
       placeholderComponent,
       placeholderImage,
@@ -767,23 +768,42 @@ class BigList extends PureComponent {
               numColumns > 1
                 ? mergeViewStyle(itemStyle, columnWrapperStyle || {})
                 : itemStyle;
+
+            const renderArguments = {
+              item,
+              index,
+              section: undefined,
+              key: undefined,
+              style: undefined,
+            };
+
             if (this.hasSections()) {
-              child = renderItem({ item, section, index });
-            } else {
-              child = renderItem({ item, index });
+              renderArguments.section = section;
             }
+            if (controlItemRender) {
+              renderArguments.key = uniqueKey;
+              renderArguments.style = mergeViewStyle(style, {
+                height,
+                width: 100 / numColumns + "%",
+              });
+            }
+            child = renderItem(renderArguments);
           }
           if (child != null) {
             children.push(
-              <BigListItem
-                key={itemKey}
-                uniqueKey={uniqueKey}
-                height={height}
-                width={100 / numColumns + "%"}
-                style={style}
-              >
-                {child}
-              </BigListItem>,
+              type === BigListItemType.ITEM && controlItemRender ? (
+                child
+              ) : (
+                <BigListItem
+                  key={itemKey}
+                  uniqueKey={uniqueKey}
+                  height={height}
+                  width={100 / numColumns + "%"}
+                  style={style}
+                >
+                  {child}
+                </BigListItem>
+              ),
             );
           }
           break;
@@ -1020,6 +1040,7 @@ BigList.propTypes = {
     right: PropTypes.number,
     top: PropTypes.number,
   }),
+  controlItemRender: PropTypes.bool,
   data: PropTypes.array,
   placeholder: PropTypes.bool,
   placeholderImage: PropTypes.any,
@@ -1128,6 +1149,7 @@ BigList.defaultProps = {
   hideMarginalsOnEmpty: false,
   hideFooterOnEmpty: false,
   hideHeaderOnEmpty: false,
+  controlItemRender: false,
   // Height
   itemHeight: 50,
   headerHeight: 0,
