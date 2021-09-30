@@ -60,7 +60,6 @@ Removes the wrapping view component that is added by BigList.
 
 Using `controlItemRender` will add more arguments to `renderItem`.
 
-
 ```ts
 renderItem({ item: unknown, index: number, section: number, key: string, style: object });
 ```
@@ -69,9 +68,9 @@ renderItem({ item: unknown, index: number, section: number, key: string, style: 
 You will need to apply `style` to your rendered `View` for this to work properly.
 :::
 
-| Type     | Required | Default |
-| -------- | -------- | ------- |
-| boolean  | No       | `false` |
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `false` |
 
 ### <small class="required">Required</small> `itemHeight`
 
