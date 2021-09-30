@@ -1,7 +1,10 @@
+/* eslint-disable no-undef */
 import React, { PureComponent } from "react";
 import {
   Animated,
+  FlatListProps,
   ListRenderItemInfo,
+  ListViewProps,
   NativeScrollEvent,
   NativeSyntheticEvent,
   ScrollViewProps,
@@ -16,7 +19,31 @@ export type BigListRenderItem<ItemT> = (
   },
 ) => React.ReactElement | null;
 
-interface BigListProps<ItemT> extends ScrollViewProps {
+interface BigListProps<ItemT>
+  extends ScrollViewProps,
+    Pick<
+      FlatListProps<ItemT>,
+      | "ListEmptyComponent"
+      | "ListFooterComponent"
+      | "ListFooterComponentStyle"
+      | "ListHeaderComponent"
+      | "ListHeaderComponentStyle"
+      | "getItemLayout"
+      | "numColumns"
+      | "keyExtractor"
+      | "onEndReached"
+      | "onEndReachedThreshold"
+      | "onRefresh"
+      | "onViewableItemsChanged"
+      | "columnWrapperStyle"
+      | "refreshing"
+      | "initialScrollIndex"
+      | "removeClippedSubviews"
+    >,
+    Pick<
+      ListViewProps,
+      "renderFooter" | "renderHeader" | "stickySectionHeadersEnabled"
+    > {
   inverted?: boolean | null | undefined;
   actionSheetScrollRef?: any | null | undefined;
   batchSizeThreshold?: number | null | undefined;
@@ -25,7 +52,6 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   placeholderImage?: any;
   placeholderComponent?: React.ReactNode;
   footerHeight?: string | number | (() => number);
-  getItemLayout?: () => number;
   headerHeight?: string | number | (() => number);
   hideMarginalsOnEmpty?: boolean | null | undefined;
   hideHeaderOnEmpty?: boolean | null | undefined;
@@ -36,33 +62,13 @@ interface BigListProps<ItemT> extends ScrollViewProps {
     | string
     | number
     | ((item: { index: number; section?: number }) => number);
-  keyExtractor?: (item: ItemT, index: number) => string | null | undefined;
-  ListEmptyComponent?: React.ReactNode;
-  ListFooterComponent?: React.ReactNode;
-  ListFooterComponentStyle?: ViewStyle | ViewStyle[];
-  ListHeaderComponent?: React.ReactNode;
-  ListHeaderComponentStyle?: ViewStyle | ViewStyle[];
-  numColumns?: number | null | undefined;
-  columnWrapperStyle?: ViewStyle | ViewStyle[];
-  onEndReached?:
-    | ((info: { distanceFromEnd: number }) => void)
-    | null
-    | undefined;
-  onEndReachedThreshold?: number | null | undefined;
-  onRefresh?: () => void | null | undefined;
-  onViewableItemsChanged?: () => any;
   onScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  removeClippedSubviews?: boolean;
   renderAccessory?: (list: React.ReactNode) => React.ReactNode;
   renderScrollViewWrapper?: (element: React.ReactNode) => React.ReactNode;
   renderEmpty?: () => React.ReactNode | null | undefined;
-  renderFooter?: () => React.ReactNode | null | undefined;
-  renderHeader?: () => React.ReactNode | null | undefined;
   renderItem: BigListRenderItem<ItemT> | null | undefined;
   renderSectionHeader?: (section: number) => React.ReactNode | null | undefined;
   renderSectionFooter?: (section: number) => React.ReactNode | null | undefined;
-  refreshing?: boolean | null | undefined;
-  initialScrollIndex?: number;
   sectionFooterHeight?: string | number | ((section: number) => number);
   sectionHeaderHeight?: string | number | ((section: number) => number);
   sections?: ItemT[][] | null | undefined;
