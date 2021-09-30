@@ -67,6 +67,7 @@ interface BigListProps<ItemT>
   renderScrollViewWrapper?: (element: React.ReactNode) => React.ReactNode;
   renderEmpty?: () => React.ReactNode | null | undefined;
   renderItem: BigListRenderItem<ItemT> | null | undefined;
+  controlItemRender?: boolean;
   renderSectionHeader?: (section: number) => React.ReactNode | null | undefined;
   renderSectionFooter?: (section: number) => React.ReactNode | null | undefined;
   sectionFooterHeight?: string | number | ((section: number) => number);
