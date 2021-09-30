@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import {
   Animated,
-  LayoutChangeEvent,
   ListRenderItemInfo,
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -18,16 +17,9 @@ export type BigListRenderItem<ItemT> = (
 ) => React.ReactElement | null;
 
 interface BigListProps<ItemT> extends ScrollViewProps {
-  inverted?: bool | null | undefined;
-  horizontal?: bool | null | undefined;
+  inverted?: boolean | null | undefined;
   actionSheetScrollRef?: any | null | undefined;
   batchSizeThreshold?: number | null | undefined;
-  contentInset?: {
-    bottom?: number;
-    left?: number;
-    right?: number;
-    top?: number;
-  };
   data?: ItemT[];
   placeholder?: boolean;
   placeholderImage?: any;
@@ -44,8 +36,6 @@ interface BigListProps<ItemT> extends ScrollViewProps {
     | string
     | number
     | ((item: { index: number; section?: number }) => number);
-  keyboardDismissMode?: "none" | "interactive" | "on-drag";
-  keyboardShouldPersistTaps?: boolean | "always" | "never" | "handled";
   keyExtractor?: (item: ItemT, index: number) => string | null | undefined;
   ListEmptyComponent?: React.ReactNode;
   ListFooterComponent?: React.ReactNode;
@@ -59,10 +49,8 @@ interface BigListProps<ItemT> extends ScrollViewProps {
     | null
     | undefined;
   onEndReachedThreshold?: number | null | undefined;
-  onLayout?: (event: LayoutChangeEvent) => void;
   onRefresh?: () => void | null | undefined;
   onViewableItemsChanged?: () => any;
-  onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   removeClippedSubviews?: boolean;
   renderAccessory?: (list: React.ReactNode) => React.ReactNode;
@@ -74,7 +62,6 @@ interface BigListProps<ItemT> extends ScrollViewProps {
   renderSectionHeader?: (section: number) => React.ReactNode | null | undefined;
   renderSectionFooter?: (section: number) => React.ReactNode | null | undefined;
   refreshing?: boolean | null | undefined;
-  scrollEventThrottle?: number;
   initialScrollIndex?: number;
   sectionFooterHeight?: string | number | ((section: number) => number);
   sectionHeaderHeight?: string | number | ((section: number) => number);
