@@ -11,12 +11,14 @@ import {
   ViewStyle,
 } from "react-native";
 
+export type BigListRenderItemInfo<ItemT> = ListRenderItemInfo<ItemT> & {
+  section?: number;
+  key?: string;
+  style?: ViewStyle | ViewStyle[];
+};
+
 export type BigListRenderItem<ItemT> = (
-  info: ListRenderItemInfo<ItemT> & {
-    section?: number;
-    key?: string;
-    style?: ViewStyle | ViewStyle[];
-  },
+  info: BigListRenderItemInfo<ItemT>,
 ) => React.ReactElement | null;
 
 interface BigListProps<ItemT>
