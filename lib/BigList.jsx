@@ -684,11 +684,11 @@ class BigList extends PureComponent {
     // On empty list
     const isEmptyList = this.isEmpty();
     const emptyItem = ListEmptyComponent
-      ? createElement(ListHeaderComponent)
+      ? createElement(ListEmptyComponent)
       : renderEmpty
       ? renderEmpty()
       : null;
-    if (isEmptyList && (ListEmptyComponent || renderEmpty)) {
+    if (isEmptyList && emptyItem) {
       if (hideMarginalsOnEmpty || (hideHeaderOnEmpty && hideFooterOnEmpty)) {
         // Render empty
         return emptyItem;
