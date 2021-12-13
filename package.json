@@ -56,7 +56,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^5.1.1",
     "eslint-plugin-react": "^7.27.1",
-    "eslint-plugin-react-native": "^3.11.0",
+    "eslint-plugin-react-native": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "glob": "^7.2.0",
     "husky": "^7.0.4",
