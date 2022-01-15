@@ -953,6 +953,7 @@ class BigList extends PureComponent {
       hideMarginalsOnEmpty,
       hideFooterOnEmpty,
       hideHeaderOnEmpty,
+      ScrollViewComponent,
       ...props
     } = this.props;
 
@@ -1006,7 +1007,9 @@ class BigList extends PureComponent {
     );
 
     const scrollView = wrapper(
-      <ScrollView {...scrollViewProps}>{this.renderItems()}</ScrollView>,
+      <ScrollViewComponent {...scrollViewProps}>
+        {this.renderItems()}
+      </ScrollViewComponent>,
     );
 
     const scrollStyle = mergeViewStyle(
@@ -1125,6 +1128,7 @@ BigList.propTypes = {
   ]),
   sections: PropTypes.array,
   stickySectionHeadersEnabled: PropTypes.bool,
+  ScrollViewComponent: PropTypes.func,
 };
 
 BigList.defaultProps = {
@@ -1168,6 +1172,7 @@ BigList.defaultProps = {
   insetBottom: 0,
   contentInset: { top: 0, right: 0, left: 0, bottom: 0 },
   onEndReachedThreshold: 0,
+  ScrollViewComponent: ScrollView,
 };
 
 export default BigList;
