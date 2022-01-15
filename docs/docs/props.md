@@ -61,7 +61,13 @@ Removes the wrapping view component that is added by BigList.
 Using `controlItemRender` will add more arguments to `renderItem`.
 
 ```ts
-renderItem({ item: unknown, index: number, section: number, key: string, style: object });
+renderItem({
+  item: unknown,
+  index: number,
+  section: number,
+  key: string,
+  style: object,
+});
 ```
 
 :::note
@@ -212,6 +218,14 @@ Wrap the entire list into an accessory component.
 | Type     | Required |
 | -------- | -------- |
 | function | No       |
+
+### `ScrollViewComponent`
+
+Custom component to use instead of react-native's `ScrollView` (e.g. `ScrollView` from `react-native-gesture-handler`)
+
+| Type      | Required | Default                     |
+| --------- | -------- | --------------------------- |
+| component | No       | react-native's `ScrollView` |
 
 ### `renderAccessory`
 
