@@ -63,7 +63,8 @@ interface BigListProps<ItemT>
   itemHeight:
     | string
     | number
-    | ((item: { index: number; section?: number }) => number);
+    | ((section: number) => number)
+    | ((section: number, index: number) => number);
   onScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   renderAccessory?: (list: React.ReactNode) => React.ReactNode;
   renderScrollViewWrapper?: (element: React.ReactNode) => React.ReactNode;
