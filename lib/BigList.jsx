@@ -1128,7 +1128,7 @@ BigList.propTypes = {
   ]),
   sections: PropTypes.array,
   stickySectionHeadersEnabled: PropTypes.bool,
-  ScrollViewComponent: PropTypes.func,
+  ScrollViewComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.elementType]),
 };
 
 BigList.defaultProps = {

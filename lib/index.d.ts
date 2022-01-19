@@ -78,7 +78,7 @@ interface BigListProps<ItemT>
   sections?: ItemT[][] | null | undefined;
   stickySectionHeadersEnabled?: boolean;
   children?: null | undefined;
-  ScrollViewComponent?: React.ComponentType<ScrollViewProps>;
+  ScrollViewComponent?: React.ComponentType<ScrollViewProps> | React.Component<ScrollViewProps>;
 }
 export default class BigList<ItemT = any> extends PureComponent<
   BigListProps<ItemT>
