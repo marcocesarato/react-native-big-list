@@ -1006,10 +1006,12 @@ class BigList extends PureComponent {
       defaultProps.contentContainerStyle,
     );
 
+    const ListScrollView = ScrollViewComponent || ScrollView;
+
     const scrollView = wrapper(
-      <ScrollViewComponent {...scrollViewProps}>
+      <ListScrollView {...scrollViewProps}>
         {this.renderItems()}
-      </ScrollViewComponent>,
+      </ListScrollView>,
     );
 
     const scrollStyle = mergeViewStyle(
