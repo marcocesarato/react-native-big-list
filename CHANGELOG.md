@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.2](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.1...v1.5.2) (2022-01-20)
+
+
+### Bug Fixes
+
+* fallback scroll view component ([76719a7](https://github.com/marcocesarato/react-native-big-list/commit/76719a7af578c2db3ef3028d88777e635fda969f))
+
 ### [1.5.1](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.0...v1.5.1) (2022-01-19)
 
 
