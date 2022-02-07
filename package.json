@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^3.0.1",
-    "eslint": "^7.27.1",
+    "eslint": "^8.8.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^26.0.0",
