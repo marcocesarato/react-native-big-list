@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [1.5.3](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.2...v1.5.3) (2022-02-23)
 
+### Bug Fixes
+
+* onViewableItemsChanged function issues ([7c67cb](https://github.com/marcocesarato/react-native-big-list/commit/7c67cbd0e09461e9e8025f08932a5053723e43a4)), closes [#120](https://github.com/marcocesarato/react-native-big-list/issues/141)
+
+
 ### [1.5.2](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.1...v1.5.2) (2022-01-20)
 
 
