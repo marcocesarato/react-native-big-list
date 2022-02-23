@@ -384,6 +384,7 @@ class BigList extends PureComponent {
           if (type === BigListItemType.ITEM) {
             return {
               item: this.getItem({ section, index }),
+              section: section,
               key: key,
               index: (section + 1) * index,
               isViewable: this.isVisible({ section, index }),
@@ -581,7 +582,7 @@ class BigList extends PureComponent {
     let s = 0;
 
     while (s <= section) {
-      const rows = Math.ceil(sections[section] / numColumns);
+      const rows = Math.ceil(sections[s] / numColumns);
       if (rows === 0) {
         s += 1;
         continue;
