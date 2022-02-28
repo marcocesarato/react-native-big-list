@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.4](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.3...v1.5.4) (2022-02-28)
+
+
+### Bug Fixes
+
+* regex-ify UNSAFE_ autobind ([b9205ec](https://github.com/marcocesarato/react-native-big-list/commit/b9205ec608f7ddd8977f0a2afc3b42e19bc68260))
+
 ### [1.5.3](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.2...v1.5.3) (2022-02-23)
 
 ### Bug Fixes
