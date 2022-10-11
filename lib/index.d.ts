@@ -7,6 +7,7 @@ import {
   ListViewProps,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  ScrollView,
   ScrollViewProps,
   ViewStyle,
 } from "react-native";
@@ -82,7 +83,23 @@ interface BigListProps<ItemT>
 }
 export default class BigList<ItemT = any> extends PureComponent<
   BigListProps<ItemT>
-> {}
+> {
+  scrollTo({ x = 0, y = 0, animated = true }: { x?: number; y?: number; animated?: boolean }): void;
+  scrollToTop({ animated = true }: { animated?: boolean }): void;
+  scrollToEnd({ animated = true }: { animated?: boolean }): void;
+  scrollToIndex({ index, section = 0, animated = true }: { index: number, section?: number, animated?: boolean }): void;
+  scrollToItem({ item: ItemT, animated = false }: { item: ItemT, animated?: boolean }): void;
+  scrollToOffset({ offset, animated = false }: { offset: number, animated?: boolean }): void;
+  scrollToLocation({ section, index, animated = true }: { section: number, index: number, animated?: boolean }): void;
+  scrollToSection({ section, animated = true }: { section: number, animated?: boolean }): void;
+  flashScrollIndicators(): void;
+  getNativeScrollRef(): ScrollView | null;
+  getItemOffset({ index, section = 0 }: { index: number; section?: number }): number;
+  getItem({index, section = 0 }: {index: number, section?: number }): ItemT;
+  getItems(): ItemT[];
+  isVisible({ index, section = 0 }: { index: number, section?: number }): boolean;
+  isEmpty(): boolean;
+}
 
 type BigListItemProps = {
   children?: React.ReactNode[] | React.ReactNode;
