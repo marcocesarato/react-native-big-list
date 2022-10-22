@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.6](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.5...v1.5.6) (2022-10-22)
+
+
+### Bug Fixes
+
+* allow overwriting elevation in style of section header ([be68fb1](https://github.com/marcocesarato/react-native-big-list/commit/be68fb16382bc2a10dd0728059e4726f81d1a4eb))
+
 ### [1.5.5](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.4...v1.5.5) (2022-10-12)
 
 ### [1.5.4](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.3...v1.5.4) (2022-02-28)
