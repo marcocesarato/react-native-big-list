@@ -49,11 +49,13 @@ const BigListSection = ({
       }),
     );
   const viewStyle = [
+    {
+      elevation: 10,
+    },
     React.isValidElement(child) && child.props.style
       ? child.props.style
       : style,
     {
-      elevation: 10,
       zIndex: 10,
       height: height,
       width: "100%",
