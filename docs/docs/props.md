@@ -472,6 +472,18 @@ Hide footer on empty list.
 | ------- | -------- | ------- |
 | boolean | No       | `false` |
 
+### `nativeOffsetValues`
+
+Cast the content offset to animated values using the native driver on scroll.
+
+```ts
+nativeOffsetValues={{x?: Animated.Value, y?: Animated.Value}}
+```
+
+| Type                                             | Required | Default     |
+| ------------------------------------------------ | -------- | ----------- |
+| object: { x: Animated.Value, y: Animated.Value } | No       | `undefined` |
+
 ## <a name="flatlist"></a> FlatList Props
 
 :::caution Compatibility
