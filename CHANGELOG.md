@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.6...v1.6.0) (2022-11-06)
+
+
+### Features
+
+* add support for native animation on scroll ([2a84fb7](https://github.com/marcocesarato/react-native-big-list/commit/2a84fb7a0ff59e3482d3fc3ba97b517989ad9751))
+
+
+### Bug Fixes
+
+* rename animatedOffsetValues to nativeOffsetValues in index.d.ts ([06e3f66](https://github.com/marcocesarato/react-native-big-list/commit/06e3f66914e846e65791d0cca9e1df00ebf87b88))
+
 ### [1.5.6](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.5...v1.5.6) (2022-10-22)
 
 
