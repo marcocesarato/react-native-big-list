@@ -853,7 +853,7 @@ class BigList extends PureComponent {
    * Component did mount.
    */
   componentDidMount() {
-    const { stickySectionHeadersEnabled } = this.props;
+    const { stickySectionHeadersEnabled, nativeOffsetValues } = this.props;
     const scrollView = this.getNativeScrollRef();
     if (
       stickySectionHeadersEnabled &&
@@ -866,6 +866,15 @@ class BigList extends PureComponent {
         "onScroll",
         [{ nativeEvent: { contentOffset: { y: this.scrollTopValue } } }],
       );
+    }
+    if (nativeOffsetValues && scrollView != null && Platform.OS !== "web") {
+      Animated.attachNativeEvent(scrollView, "onScroll", [
+        {
+          nativeEvent: {
+            contentOffset: nativeOffsetValues,
+          },
+        },
+      ]);
     }
   }
 
@@ -1007,7 +1016,7 @@ class BigList extends PureComponent {
       defaultProps.contentContainerStyle,
     );
 
-    const ListScrollView = ScrollViewComponent || ScrollView;
+    const ListScrollView = ScrollViewComponent || Animated.ScrollView;
 
     const scrollView = wrapper(
       <ListScrollView {...scrollViewProps}>
@@ -1131,7 +1140,14 @@ BigList.propTypes = {
   ]),
   sections: PropTypes.array,
   stickySectionHeadersEnabled: PropTypes.bool,
-  ScrollViewComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.elementType]),
+  nativeOffsetValues: PropTypes.shape({
+    x: PropTypes.instanceOf(Animated.Value),
+    y: PropTypes.instanceOf(Animated.Value),
+  }),
+  ScrollViewComponent: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.elementType,
+  ]),
 };
 
 BigList.defaultProps = {
@@ -1175,7 +1191,8 @@ BigList.defaultProps = {
   insetBottom: 0,
   contentInset: { top: 0, right: 0, left: 0, bottom: 0 },
   onEndReachedThreshold: 0,
-  ScrollViewComponent: ScrollView,
+  nativeOffsetValues: undefined,
+  ScrollViewComponent: Animated.ScrollView,
 };
 
 export default BigList;
