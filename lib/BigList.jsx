@@ -682,19 +682,14 @@ class BigList extends PureComponent {
       width: "100%",
     });
 
-    const getEmpty = () => {
-      const props = {style: fullItemStyle};
-
-      return ListEmptyComponent
-        ? createElement(ListEmptyComponent, props)
-        : renderEmpty
-        ? createElement(renderEmpty(), props)
-        : null;
-    }
-
     // On empty list
     const isEmptyList = this.isEmpty();
-    const emptyItem = getEmpty();
+    const emptyItem = ListEmptyComponent
+      ? createElement(ListEmptyComponent, {style: fullItemStyle})
+      : renderEmpty
+      ? createElement(renderEmpty(), {style: fullItemStyle})
+      : null;
+
     if (isEmptyList && emptyItem) {
       if (hideMarginalsOnEmpty || (hideHeaderOnEmpty && hideFooterOnEmpty)) {
         // Render empty
@@ -817,7 +812,7 @@ class BigList extends PureComponent {
         case BigListItemType.EMPTY:
           children.push(
             <React.Fragment key={itemKey}>
-              {getEmpty()}
+              {emptyItem}
             </React.Fragment>
           );
           break;
