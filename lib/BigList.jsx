@@ -683,10 +683,7 @@ class BigList extends PureComponent {
     });
 
     const getEmpty = () => {
-      const props = {
-        key: 'empty',
-        style: fullItemStyle
-      };
+      const props = {style: fullItemStyle};
 
       return ListEmptyComponent
         ? createElement(ListEmptyComponent, props)
@@ -709,6 +706,7 @@ class BigList extends PureComponent {
         );
         items.splice(headerIndex + 1, 0, {
           type: BigListItemType.EMPTY,
+          key: 'empty',
         });
         if (hideHeaderOnEmpty) {
           // Hide header
@@ -817,7 +815,11 @@ class BigList extends PureComponent {
           }
           break;
         case BigListItemType.EMPTY:
-          children.push(getEmpty());
+          children.push(
+            <React.Fragment key={itemKey}>
+              {getEmpty()}
+            </React.Fragment>
+          );
           break;
         case BigListItemType.SPACER:
           children.push(
