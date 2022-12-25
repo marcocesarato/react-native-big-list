@@ -682,13 +682,22 @@ class BigList extends PureComponent {
       width: "100%",
     });
 
+    const getEmpty = () => {
+      const props = {
+        key: 'empty',
+        style: fullItemStyle
+      };
+
+      return ListEmptyComponent
+        ? createElement(ListEmptyComponent, props)
+        : renderEmpty
+        ? createElement(renderEmpty(), props)
+        : null;
+    }
+
     // On empty list
     const isEmptyList = this.isEmpty();
-    const emptyItem = ListEmptyComponent
-      ? createElement(ListEmptyComponent)
-      : renderEmpty
-      ? renderEmpty()
-      : null;
+    const emptyItem = getEmpty();
     if (isEmptyList && emptyItem) {
       if (hideMarginalsOnEmpty || (hideHeaderOnEmpty && hideFooterOnEmpty)) {
         // Render empty
@@ -700,7 +709,6 @@ class BigList extends PureComponent {
         );
         items.splice(headerIndex + 1, 0, {
           type: BigListItemType.EMPTY,
-          key: "empty",
         });
         if (hideHeaderOnEmpty) {
           // Hide header
@@ -809,7 +817,7 @@ class BigList extends PureComponent {
           }
           break;
         case BigListItemType.EMPTY:
-          children.push(<View key={itemKey}>{emptyItem}</View>);
+          children.push(getEmpty());
           break;
         case BigListItemType.SPACER:
           children.push(
@@ -985,8 +993,6 @@ class BigList extends PureComponent {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         ) : null,
       contentContainerStyle: {
-        flexDirection: "row",
-        flexWrap: "wrap",
         maxWidth: "100%",
       },
     };
