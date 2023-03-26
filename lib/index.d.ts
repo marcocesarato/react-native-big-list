@@ -22,7 +22,7 @@ export type BigListRenderItem<ItemT> = (
   info: BigListRenderItemInfo<ItemT>,
 ) => React.ReactElement | null;
 
-interface BigListProps<ItemT>
+export interface BigListProps<ItemT>
   extends ScrollViewProps,
     Pick<
       FlatListProps<ItemT>,
