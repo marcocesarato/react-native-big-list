@@ -38,7 +38,7 @@
     "url": "https://github.com/marcocesarato/react-native-big-list/issues"
   },
   "homepage": "https://marcocesarato.github.io/react-native-big-list-docs/",
-  "license": "GPL-3.0-or-later",
+  "license": "Apache-2.0",
   "scripts": {
     "prepare": "bob build && node scripts/dist.js",
     "lint": "eslint --ignore-path .gitignore \"./lib/*.{js,jsx}\"",
