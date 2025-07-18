@@ -43,8 +43,4 @@ BigListPlaceholder.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
-BigListPlaceholder.defaultProps = {
-  width: "100%",
-};
-
 export default memo(BigListPlaceholder);

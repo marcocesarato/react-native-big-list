@@ -55,8 +55,4 @@ BigListItem.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
-BigListItem.defaultProps = {
-  width: "100%",
-};
-
 export default memo(BigListItem);
