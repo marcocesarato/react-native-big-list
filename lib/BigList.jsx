@@ -85,7 +85,7 @@ class BigList extends PureComponent {
       };
     }
     const self = BigList;
-    const layoutItemHeight = self.getItemHeight(itemHeight, getItemLayout);
+    const layoutItemHeight = self.getItemHeight(itemHeight, getItemLayout, data, sections);
     const sectionLengths = self.getSectionLengths(sections, data);
     const processor = new BigListProcessor({
       sections: sectionLengths,
@@ -160,11 +160,15 @@ class BigList extends PureComponent {
    * Get item height.
    * @param {number} itemHeight
    * @param {function|null|undefined} getItemLayout
+   * @param {array|null|undefined} data
+   * @param {array[]|object|null|undefined} sections
    * @return {null|*}
    */
-  static getItemHeight(itemHeight, getItemLayout) {
+  static getItemHeight(itemHeight, getItemLayout, data = null, sections = null) {
     if (getItemLayout) {
-      const itemLayout = getItemLayout([], 0);
+      // Pass the actual data array to getItemLayout (sections takes precedence over data)
+      const dataArray = sections || data || [];
+      const itemLayout = getItemLayout(dataArray, 0);
       return itemLayout.length;
     }
     if (itemHeight) {
@@ -178,8 +182,8 @@ class BigList extends PureComponent {
    * @return {null|*}
    */
   getItemHeight() {
-    const { itemHeight, getItemLayout } = this.props;
-    return this.constructor.getItemHeight(itemHeight, getItemLayout);
+    const { itemHeight, getItemLayout, data, sections } = this.props;
+    return this.constructor.getItemHeight(itemHeight, getItemLayout, data, sections);
   }
 
   /**
