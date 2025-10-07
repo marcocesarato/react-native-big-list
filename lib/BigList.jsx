@@ -31,11 +31,11 @@ class BigList extends PureComponent {
     // Initialize properties and state
     this.containerHeight = 0;
     this.scrollTop = 0;
-    this.scrollTopValue =
-      this.props.initialScrollIndex || new Animated.Value(0);
+    this.scrollTopValue = new Animated.Value(0);
     this.scrollView = React.createRef();
     this.state = this.getListState();
     this.viewableItems = [];
+    this.hasScrolledToInitialIndex = false;
   }
 
   /**
@@ -490,7 +490,8 @@ class BigList extends PureComponent {
    */
   onLayout(event) {
     const { nativeEvent } = event;
-    const { contentInset, batchSizeThreshold, horizontal } = this.props;
+    const { contentInset, batchSizeThreshold, horizontal, initialScrollIndex } =
+      this.props;
     const axis = horizontal ? "width" : "height";
     const insetStart = horizontal
       ? contentInset.left || 0
@@ -512,6 +513,21 @@ class BigList extends PureComponent {
     ) {
       this.setState(nextState);
     }
+    
+    // Scroll to initial index after layout is complete
+    if (
+      !this.hasScrolledToInitialIndex &&
+      initialScrollIndex != null &&
+      initialScrollIndex > 0 &&
+      this.containerHeight > 0
+    ) {
+      this.hasScrolledToInitialIndex = true;
+      // Use setTimeout to ensure the list is fully rendered
+      setTimeout(() => {
+        this.scrollToIndex({ index: initialScrollIndex, animated: false });
+      }, 0);
+    }
+    
     const { onLayout } = this.props;
     if (onLayout) {
       onLayout(event);
@@ -948,7 +964,7 @@ class BigList extends PureComponent {
    */
   componentDidUpdate(prevProps) {
     if (prevProps.initialScrollIndex !== this.props.initialScrollIndex) {
-      throw new Error("scrollTopValue cannot changed after mounting");
+      throw new Error("initialScrollIndex cannot be changed after mounting");
     }
   }
 
