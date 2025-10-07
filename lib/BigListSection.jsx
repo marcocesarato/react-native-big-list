@@ -42,19 +42,14 @@ const BigListSection = ({
   const child = React.Children.only(children);
   const fillChildren =
     React.isValidElement(child) &&
-    React.cloneElement(
-      child,
-      mergeViewStyle(style, {
-        style: { flex: 1 },
-      }),
-    );
+    React.cloneElement(child, {
+      style: [child.props.style, { flex: 1 }],
+    });
   const viewStyle = [
     {
       elevation: 10,
     },
-    React.isValidElement(child) && child.props.style
-      ? child.props.style
-      : style,
+    style,
     {
       zIndex: 10,
       height: height,
