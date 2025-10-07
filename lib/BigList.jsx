@@ -526,6 +526,29 @@ class BigList extends PureComponent {
   }
 
   /**
+   * Handle scroll begin drag.
+   * @param event
+   */
+  onScrollBeginDrag(event) {
+    const { onScrollBeginDrag } = this.props;
+    if (onScrollBeginDrag) {
+      onScrollBeginDrag(event);
+    }
+  }
+
+  /**
+   * Handle scroll end drag.
+   * @param event
+   */
+  onScrollEndDrag(event) {
+    const { onScrollEndDrag } = this.props;
+    this.onScrollEnd(event);
+    if (onScrollEndDrag) {
+      onScrollEndDrag(event);
+    }
+  }
+
+  /**
    * Is empty
    * @returns {boolean}
    */
@@ -1004,7 +1027,8 @@ class BigList extends PureComponent {
       onScroll: handleScroll,
       onLayout: this.onLayout,
       onMomentumScrollEnd: this.onMomentumScrollEnd,
-      onScrollEndDrag: this.onScrollEnd,
+      onScrollBeginDrag: this.onScrollBeginDrag,
+      onScrollEndDrag: this.onScrollEndDrag,
     };
 
     const scrollViewProps = {
@@ -1116,6 +1140,8 @@ BigList.propTypes = {
   onRefresh: PropTypes.func,
   onScroll: PropTypes.func,
   onScrollEnd: PropTypes.func,
+  onScrollBeginDrag: PropTypes.func,
+  onScrollEndDrag: PropTypes.func,
   onViewableItemsChanged: PropTypes.func,
   removeClippedSubviews: PropTypes.bool,
   renderAccessory: PropTypes.func,
