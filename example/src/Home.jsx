@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import ColumnsList from "./lists/ColumnsList";
 import CompareList from "./lists/CompareList";
+import HorizontalList from "./lists/HorizontalList";
 import List from "./lists/List";
 import MultiSelectList from "./lists/MultiSelectList";
 import SectionList from "./lists/SectionList";
@@ -21,6 +22,7 @@ const Home = () => {
   const options = [
     { label: "Standard List", value: "standard" },
     { label: "Columns List", value: "columns" },
+    { label: "Horizontal List", value: "horizontal" },
     { label: "Sections List", value: "sections" },
     { label: "Multiselect List", value: "multiselect" },
     { label: "Compare List", value: "compare" },
@@ -66,6 +68,8 @@ const Home = () => {
         <List />
       ) : selected === "columns" ? (
         <ColumnsList />
+      ) : selected === "horizontal" ? (
+        <HorizontalList />
       ) : selected === "sections" ? (
         <SectionList />
       ) : selected === "multiselect" ? (

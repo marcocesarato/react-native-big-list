@@ -357,6 +357,14 @@ Reverses the direction of scroll. Uses scale transforms of `-1`.
 | ------- | -------- | ------- |
 | boolean | No       | `false` |
 
+### `horizontal`
+
+If `true`, the list will scroll horizontally instead of vertically.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `false` |
+
 ### `initialScrollIndex`
 
 Specify the initial scroll from the top of the list.
