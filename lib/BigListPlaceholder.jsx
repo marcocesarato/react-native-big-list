@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Animated, Image } from "react-native";
 
@@ -11,6 +11,31 @@ const BigListPlaceholder = ({
   height,
   width = "100%",
 }) => {
+  const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
+  // Create stable callbacks that safely handle events even after unmount
+  const handleLoadStart = useCallback(() => {
+    if (!isMountedRef.current) return;
+    // Image load started - no-op
+  }, []);
+
+  const handleLoadEnd = useCallback(() => {
+    if (!isMountedRef.current) return;
+    // Image load ended - no-op
+  }, []);
+
+  const handleError = useCallback(() => {
+    if (!isMountedRef.current) return;
+    // Image load error - no-op
+  }, []);
+
   const bgStyles = {
     position: "absolute",
     resizeMode: "repeat",
@@ -20,6 +45,7 @@ const BigListPlaceholder = ({
     height: "100%",
     width: "100%",
   };
+
   return (
     <Animated.View
       style={mergeViewStyle(style, {
@@ -31,6 +57,10 @@ const BigListPlaceholder = ({
         <Image
           source={image || require("./assets/placeholder.png")}
           style={bgStyles}
+          fadeDuration={0}
+          onLoadStart={handleLoadStart}
+          onLoadEnd={handleLoadEnd}
+          onError={handleError}
         />
       )}
     </Animated.View>
@@ -43,4 +73,4 @@ BigListPlaceholder.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
-export default memo(BigListPlaceholder);
+export default BigListPlaceholder;
