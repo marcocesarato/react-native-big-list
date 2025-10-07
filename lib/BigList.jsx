@@ -687,6 +687,7 @@ class BigList extends PureComponent {
       hideMarginalsOnEmpty,
       hideHeaderOnEmpty,
       hideFooterOnEmpty,
+      renderEmptySections,
       columnWrapperStyle,
       controlItemRender,
       placeholder,
@@ -746,6 +747,9 @@ class BigList extends PureComponent {
       }
     }
 
+    // Get section lengths to check if individual sections are empty
+    const sectionLengths = this.getSectionLengths();
+
     // Sections positions
     const sectionPositions = [];
     items.forEach(({ type, position }) => {
@@ -784,7 +788,9 @@ class BigList extends PureComponent {
         // falls through
         case BigListItemType.SECTION_FOOTER:
           if (type === BigListItemType.SECTION_FOOTER) {
-            height = isEmptyList ? 0 : height; // Hide section footer on empty
+            const isSectionEmpty = sectionLengths[section] === 0;
+            // Hide section footer on empty list or when section is empty and renderEmptySections is false
+            height = isEmptyList ? 0 : (isSectionEmpty && !renderEmptySections ? 0 : height);
             const sectionDataForFooter = this.hasSections()
               ? this.props.sections[section]
               : null;
@@ -863,7 +869,9 @@ class BigList extends PureComponent {
           );
           break;
         case BigListItemType.SECTION_HEADER:
-          height = isEmptyList ? 0 : height; // Hide section header on empty
+          const isSectionEmpty = sectionLengths[section] === 0;
+          // Hide section header on empty list or when section is empty and renderEmptySections is false
+          height = isEmptyList ? 0 : (isSectionEmpty && !renderEmptySections ? 0 : height);
           sectionPositions.shift();
           const sectionDataForHeader = this.hasSections()
             ? this.props.sections[section]
@@ -1170,6 +1178,9 @@ BigList.propTypes = {
   scrollEventThrottle: PropTypes.number,
   initialScrollIndex: PropTypes.number,
   hideMarginalsOnEmpty: PropTypes.bool,
+  hideHeaderOnEmpty: PropTypes.bool,
+  hideFooterOnEmpty: PropTypes.bool,
+  renderEmptySections: PropTypes.bool,
   sectionFooterHeight: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -1214,6 +1225,7 @@ BigList.defaultProps = {
   hideMarginalsOnEmpty: false,
   hideFooterOnEmpty: false,
   hideHeaderOnEmpty: false,
+  renderEmptySections: false,
   controlItemRender: false,
   // Height
   itemHeight: 50,

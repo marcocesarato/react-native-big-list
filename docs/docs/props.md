@@ -478,6 +478,18 @@ Hide footer on empty list.
 | ------- | -------- | ------- |
 | boolean | No       | `false` |
 
+### `renderEmptySections`
+
+Show or hide section headers and footers for empty sections (sections with no items).
+
+When set to `true`, section headers and footers will be displayed even when the section has no items. This is useful when you want users to be aware of empty sections so they can create new items or remove the section entirely.
+
+When set to `false` (default), section headers and footers for empty sections will be hidden to maintain a clean UI.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `false` |
+
 ### `nativeOffsetValues`
 
 Cast the content offset to animated values using the native driver on scroll.
