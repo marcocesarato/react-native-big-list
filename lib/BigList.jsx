@@ -1128,6 +1128,7 @@ BigList.propTypes = {
   renderSectionFooter: PropTypes.func,
   keyExtractor: PropTypes.func,
   refreshing: PropTypes.bool,
+  refreshControl: PropTypes.element,
   scrollEventThrottle: PropTypes.number,
   initialScrollIndex: PropTypes.number,
   hideMarginalsOnEmpty: PropTypes.bool,
