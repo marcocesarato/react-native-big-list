@@ -67,10 +67,15 @@
     "test:coverage": "jest --coverage"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.4",
+    "@babel/eslint-parser": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
     "@react-native-community/eslint-config": "^3.2.0",
     "@react-native/metro-config": "^0.81.1",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^13.3.3",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^30.2.0",
     "eslint": "^8.36.0",
     "eslint-config-standard": "^17.0.0",
