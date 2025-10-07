@@ -467,10 +467,9 @@ class BigList extends PureComponent {
       this.onViewableItemsChanged();
     }
 
-    const { onScroll, onEndReached, onEndReachedThreshold } = this.props;
-    if (onScroll != null) {
-      onScroll(event);
-    }
+    // Note: User's onScroll is called in the handleScroll wrapper in render()
+    // to properly support Reanimated worklets
+    const { onEndReached, onEndReachedThreshold } = this.props;
     const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
     const distanceFromEnd =
       contentSize[axis] - (layoutMeasurement[axis] + contentOffset[offset]);
@@ -1049,22 +1048,44 @@ class BigList extends PureComponent {
 
     const wrapper = renderScrollViewWrapper || ((val) => val);
     const offset = horizontal ? "x" : "y";
-    const handleScroll =
-      stickySectionHeadersEnabled && Platform.OS === "web"
-        ? Animated.event(
-            [
-              {
-                nativeEvent: {
-                  contentOffset: { [offset]: this.scrollTopValue },
-                },
-              },
-            ],
-            {
-              listener: (event) => this.onScroll(event),
-              useNativeDriver: false,
+    
+    // Handle scroll events - support both regular callbacks and Reanimated worklets
+    // The key is to call both the internal handler and the user's handler
+    const userOnScroll = props.onScroll;
+    let handleScroll;
+    
+    if (stickySectionHeadersEnabled && Platform.OS === "web") {
+      // Web platform with sticky headers - use Animated.event with listener
+      handleScroll = Animated.event(
+        [
+          {
+            nativeEvent: {
+              contentOffset: { [offset]: this.scrollTopValue },
             },
-          )
-        : this.onScroll;
+          },
+        ],
+        {
+          listener: (event) => {
+            this.onScroll(event);
+            // Call user's onScroll if provided (after internal handling)
+            if (userOnScroll) {
+              userOnScroll(event);
+            }
+          },
+          useNativeDriver: false,
+        },
+      );
+    } else if (userOnScroll) {
+      // Combine internal and user scroll handlers
+      // This works for both regular callbacks and Reanimated worklets
+      handleScroll = (event) => {
+        this.onScroll(event);
+        userOnScroll(event);
+      };
+    } else {
+      // No user onScroll, just use internal handler
+      handleScroll = this.onScroll;
+    }
 
     const defaultProps = {
       refreshControl:
