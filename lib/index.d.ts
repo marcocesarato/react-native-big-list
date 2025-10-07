@@ -65,15 +65,16 @@ export interface BigListProps<ItemT>
     | string
     | number
     | ((section: number) => number)
-    | ((section: number, index: number) => number);
+    | ((section: number, index: number) => number)
+    | ((section: number, index: number, sectionData?: ItemT[]) => number);
   onScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   renderAccessory?: (list: React.ReactNode) => React.ReactNode;
   renderScrollViewWrapper?: (element: React.ReactNode) => React.ReactNode;
   renderEmpty?: () => React.ReactNode | null | undefined;
   renderItem: BigListRenderItem<ItemT> | null | undefined;
   controlItemRender?: boolean;
-  renderSectionHeader?: (section: number) => React.ReactNode | null | undefined;
-  renderSectionFooter?: (section: number) => React.ReactNode | null | undefined;
+  renderSectionHeader?: (section: number, sectionData?: ItemT[]) => React.ReactNode | null | undefined;
+  renderSectionFooter?: (section: number, sectionData?: ItemT[]) => React.ReactNode | null | undefined;
   sectionFooterHeight?: string | number | ((section: number) => number);
   sectionHeaderHeight?: string | number | ((section: number) => number);
   sections?: ItemT[][] | null | undefined;

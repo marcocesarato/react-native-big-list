@@ -89,6 +89,7 @@ class BigList extends PureComponent {
     const sectionLengths = self.getSectionLengths(sections, data);
     const processor = new BigListProcessor({
       sections: sectionLengths,
+      sectionsData: sections,
       itemHeight: layoutItemHeight,
       headerHeight,
       footerHeight,
@@ -218,11 +219,13 @@ class BigList extends PureComponent {
         insetTop,
         insetBottom,
         numColumns,
+        sections,
       } = this.props;
       const itemHeight = this.getItemHeight();
       const sectionLengths = this.getSectionLengths();
       return new BigListProcessor({
         sections: sectionLengths,
+        sectionsData: sections,
         headerHeight,
         footerHeight,
         sectionHeaderHeight,
@@ -605,7 +608,10 @@ class BigList extends PureComponent {
       } else {
         for (let i = 0; i < rows; i++) {
           if (s < section || (s === section && i < index)) {
-            offset += itemHeight(s, Math.ceil(i / numColumns));
+            const sectionDataForHeight = this.hasSections()
+              ? this.props.sections[s]
+              : null;
+            offset += itemHeight(s, Math.ceil(i / numColumns), sectionDataForHeight);
           } else if (s === section && i === index) {
             foundIndex = true;
             break;
@@ -756,7 +762,10 @@ class BigList extends PureComponent {
         case BigListItemType.SECTION_FOOTER:
           if (type === BigListItemType.SECTION_FOOTER) {
             height = isEmptyList ? 0 : height; // Hide section footer on empty
-            child = renderSectionFooter(section);
+            const sectionDataForFooter = this.hasSections()
+              ? this.props.sections[section]
+              : null;
+            child = renderSectionFooter(section, sectionDataForFooter);
             style = fullItemStyle;
           }
         // falls through
@@ -833,7 +842,10 @@ class BigList extends PureComponent {
         case BigListItemType.SECTION_HEADER:
           height = isEmptyList ? 0 : height; // Hide section header on empty
           sectionPositions.shift();
-          child = renderSectionHeader(section);
+          const sectionDataForHeader = this.hasSections()
+            ? this.props.sections[section]
+            : null;
+          child = renderSectionHeader(section, sectionDataForHeader);
           if (child != null) {
             children.push(
               <BigListSection

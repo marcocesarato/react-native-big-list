@@ -32,18 +32,18 @@ export default function SectionList() {
       <Subheading>No more items available...</Subheading>
     </Block>
   );
-  const renderSectionHeader = (section) => (
+  const renderSectionHeader = (section, sectionData) => (
     <Appbar style={styles.header}>
       <Appbar.Content
         style={styles.headerContent}
         title={"Section " + (section + 1)}
-        subtitle="Below are listed all section items"
+        subtitle={`Below are listed ${sectionData?.length || 0} section items`}
       />
     </Appbar>
   );
-  const renderSectionFooter = (section) => (
+  const renderSectionFooter = (section, sectionData) => (
     <Block>
-      <Subheading>Footer Section {section}</Subheading>
+      <Subheading>Footer Section {section} ({sectionData?.length || 0} items)</Subheading>
     </Block>
   );
   return (
