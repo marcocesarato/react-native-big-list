@@ -70,8 +70,15 @@ const renderItem = ({ item, index }) => (
 );
 const renderHeader = () => <MyHeader />;
 const renderFooter = () => <MyFooter />;
-const renderSectionHeader = () => <MySectionHeader />;
-const renderSectionFooter = () => <MySectionFooter />;
+const renderSectionHeader = (section, sectionData) => (
+  <MySectionHeader 
+    title={`Section ${section + 1}`}
+    itemCount={sectionData?.length || 0}
+  />
+);
+const renderSectionFooter = (section, sectionData) => (
+  <MySectionFooter count={sectionData?.length || 0} />
+);
 
 return (
   <BigList
@@ -86,6 +93,43 @@ return (
     footerHeight={100}
     sectionHeaderHeight={90} // Required to show section header
     sectionFooterHeight={100} // Required to show section footer
+  />
+);
+```
+
+## Dynamic Item Heights
+
+You can also use dynamic item heights based on section data:
+
+```javascript
+const sections = [
+  [
+    { label: "Short", value: 1 },
+    { label: "Also short", value: 2 },
+  ],
+  [
+    { label: "This is a longer item", value: 3 },
+    { label: "Another longer item", value: 4 },
+  ],
+];
+
+// Calculate item height based on section data
+const getItemHeight = (section, index, sectionData) => {
+  // Base height for items in small sections
+  if (sectionData && sectionData.length < 3) {
+    return 50;
+  }
+  // Taller height for items in larger sections
+  return 80;
+};
+
+return (
+  <BigList
+    sections={sections}
+    renderItem={renderItem}
+    itemHeight={getItemHeight}
+    renderSectionHeader={renderSectionHeader}
+    sectionHeaderHeight={90}
   />
 );
 ```

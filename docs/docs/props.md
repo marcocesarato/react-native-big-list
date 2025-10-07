@@ -87,8 +87,10 @@ This is needed to have a great performance boost for lists of several thousands 
 **Function example:**
 
 ```ts
-itemHeight(section: number, index: number)
+itemHeight(section: number, index: number, sectionData?: array)
 ```
+
+The optional `sectionData` parameter provides access to the section's data array, which is useful for calculating dynamic heights based on section properties (e.g., `sectionData.length`).
 
 | Type             | Required | Default |
 | ---------------- | -------- | ------- |
@@ -182,10 +184,12 @@ You need also to specify the height using [**footerHeight**](#footerheight).
 ### `renderSectionHeader`
 
 ```ts
-renderSectionHeader(section: number)
+renderSectionHeader(section: number, sectionData?: array)
 ```
 
 Rendered at the top of all the section's items.
+
+The optional `sectionData` parameter provides access to the section's data array, which is useful for rendering dynamic content based on section properties (e.g., section title, item count).
 
 :::note
 You need also to specify the height using [**sectionHeaderHeight**](#sectionheaderheight).
@@ -198,10 +202,12 @@ You need also to specify the height using [**sectionHeaderHeight**](#sectionhead
 ### `renderSectionFooter`
 
 ```ts
-renderSectionFooter(section: number)
+renderSectionFooter(section: number, sectionData?: array)
 ```
 
 Rendered at the bottom of all the section's items.
+
+The optional `sectionData` parameter provides access to the section's data array, which is useful for rendering dynamic content based on section properties (e.g., section summary, item count).
 
 :::note
 You need also to specify the height using [**sectionFooterHeight**](#sectionfooterheight).
