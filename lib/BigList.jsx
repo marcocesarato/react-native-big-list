@@ -427,15 +427,26 @@ class BigList extends PureComponent {
    */
   onScroll(event) {
     const { nativeEvent } = event;
-    const { contentInset, batchSizeThreshold, onViewableItemsChanged } =
-      this.props;
+    const {
+      contentInset,
+      batchSizeThreshold,
+      onViewableItemsChanged,
+      horizontal,
+    } = this.props;
+    const axis = horizontal ? "width" : "height";
+    const offset = horizontal ? "x" : "y";
+    const insetStart = horizontal
+      ? contentInset.left || 0
+      : contentInset.top || 0;
+    const insetEnd = horizontal
+      ? contentInset.right || 0
+      : contentInset.bottom || 0;
+
     this.containerHeight =
-      nativeEvent.layoutMeasurement.height -
-      (contentInset.top || 0) -
-      (contentInset.bottom || 0);
+      nativeEvent.layoutMeasurement[axis] - insetStart - insetEnd;
     this.scrollTop = Math.min(
-      Math.max(0, nativeEvent.contentOffset.y),
-      nativeEvent.contentSize.height - this.containerHeight,
+      Math.max(0, nativeEvent.contentOffset[offset]),
+      nativeEvent.contentSize[axis] - this.containerHeight,
     );
 
     const nextState = processBlock({
@@ -462,8 +473,8 @@ class BigList extends PureComponent {
     }
     const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
     const distanceFromEnd =
-      contentSize.height - (layoutMeasurement.height + contentOffset.y);
-    if (distanceFromEnd <= layoutMeasurement.height * onEndReachedThreshold) {
+      contentSize[axis] - (layoutMeasurement[axis] + contentOffset[offset]);
+    if (distanceFromEnd <= layoutMeasurement[axis] * onEndReachedThreshold) {
       if (!this.endReached) {
         this.endReached = true;
         onEndReached && onEndReached({ distanceFromEnd });
@@ -479,11 +490,16 @@ class BigList extends PureComponent {
    */
   onLayout(event) {
     const { nativeEvent } = event;
-    const { contentInset, batchSizeThreshold } = this.props;
-    this.containerHeight =
-      nativeEvent.layout.height -
-      (contentInset.top || 0) -
-      (contentInset.bottom || 0);
+    const { contentInset, batchSizeThreshold, horizontal } = this.props;
+    const axis = horizontal ? "width" : "height";
+    const insetStart = horizontal
+      ? contentInset.left || 0
+      : contentInset.top || 0;
+    const insetEnd = horizontal
+      ? contentInset.right || 0
+      : contentInset.bottom || 0;
+
+    this.containerHeight = nativeEvent.layout[axis] - insetStart - insetEnd;
     const nextState = processBlock({
       containerHeight: this.containerHeight,
       scrollTop: this.scrollTop,
@@ -967,7 +983,7 @@ class BigList extends PureComponent {
       data,
       keyExtractor,
       inverted,
-      horizontal, // Disabled
+      horizontal,
       placeholder,
       placeholderImage,
       placeholderComponent,
@@ -1008,10 +1024,17 @@ class BigList extends PureComponent {
     } = this.props;
 
     const wrapper = renderScrollViewWrapper || ((val) => val);
+    const offset = horizontal ? "x" : "y";
     const handleScroll =
       stickySectionHeadersEnabled && Platform.OS === "web"
         ? Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.scrollTopValue } } }],
+            [
+              {
+                nativeEvent: {
+                  contentOffset: { [offset]: this.scrollTopValue },
+                },
+              },
+            ],
             {
               listener: (event) => this.onScroll(event),
               useNativeDriver: false,
@@ -1030,6 +1053,7 @@ class BigList extends PureComponent {
     };
 
     const overwriteProps = {
+      horizontal,
       ref: (ref) => {
         this.scrollView.current = ref;
         if (actionSheetScrollRef) {
