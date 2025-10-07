@@ -59,6 +59,7 @@ export interface BigListProps<ItemT>
   hideMarginalsOnEmpty?: boolean | null | undefined;
   hideHeaderOnEmpty?: boolean | null | undefined;
   hideFooterOnEmpty?: boolean | null | undefined;
+  renderEmptySections?: boolean | null | undefined;
   insetBottom?: number;
   insetTop?: number;
   itemHeight:
