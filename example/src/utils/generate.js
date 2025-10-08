@@ -1,11 +1,11 @@
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 
 const generate = (num) => {
   const result = [];
   for (let i = 0; i <= num; i++) {
     result.push({
       id: i,
-      title: faker.name.findName(),
+      title: faker.person.fullName(),
       description: faker.lorem.sentence(),
     });
   }
@@ -16,9 +16,9 @@ const generateSection = (num, sections) => {
   for (let i = 0; i <= sections; i++) {
     const section = [];
     for (let y = 0; y <= num / sections; y++) {
-      section.puLsh({
+      section.push({
         id: (i + 1) * y,
-        title: faker.name.findName(),
+        title: faker.person.fullName(),
         description: faker.lorem.sentence(),
       });
     }

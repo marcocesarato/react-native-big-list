@@ -52,12 +52,14 @@ const Home = () => {
         }}
       >
         <TextInput
+          key="selector"
           label="View mode"
           editable={false}
           onTouchStart={() => setOpenSelector(true)}
           value={selectedOption.label}
           right={
             <TextInput.Icon
+              key="selector-icon"
               name="chevron-down"
               onPress={() => setOpenSelector(!openSelector)}
             />

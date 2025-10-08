@@ -122,8 +122,6 @@ yarn test --coverage
 cd example/
 
 # Install dependencies
-yarn install
-# or
 npm install
 
 # Start Expo development server
@@ -140,15 +138,15 @@ expo start --web
 <commands>
 ```bash
 # Build package for distribution
-yarn prepare
+npm run prepare
 
 # This runs:
 # 1. bob build (creates dist files)
 # 2. node scripts/dist.js (finalizes distribution)
 
 # Lint and format code
-yarn prettify  # Prettier formatting
-yarn lint      # ESLint checking
+npm run prettify  # Prettier formatting
+npm run lint      # ESLint checking
 
 # Pre-commit hooks run lint-staged automatically
 ```
