@@ -389,11 +389,14 @@ class BigList extends PureComponent {
       const currentItems = this.state.items
         .map(({ type, section, index, key }) => {
           if (type === BigListItemType.ITEM) {
+            // Ensure section and index are valid numbers to prevent NaN in calculations
+            const validSection = typeof section === 'number' ? section : 0;
+            const validIndex = typeof index === 'number' ? index : 0;
             return {
               item: this.getItem({ section, index }),
               section: section,
               key: key,
-              index: (section + 1) * index,
+              index: (validSection + 1) * validIndex,
               isViewable: this.isVisible({ section, index }),
             };
           }
@@ -752,13 +755,13 @@ class BigList extends PureComponent {
     const emptyItem = ListEmptyComponent
       ? createElement(ListEmptyComponent, {style: fullItemStyle})
       : renderEmpty
-      ? createElement(renderEmpty(), {style: fullItemStyle})
+      ? renderEmpty()
       : null;
 
     if (isEmptyList && emptyItem) {
       if (hideMarginalsOnEmpty || (hideHeaderOnEmpty && hideFooterOnEmpty)) {
-        // Render empty
-        return emptyItem;
+        // Render empty - return as array since renderItems should return array of children
+        return [emptyItem];
       } else {
         // Add empty item
         const headerIndex = items.findIndex(
@@ -797,7 +800,10 @@ class BigList extends PureComponent {
     const children = [];
     items.forEach(({ type, key, position, height, section, index }) => {
       const itemKey = key || position; // Fallback fix
-      let uniqueKey = String((section + 1) * index);
+      // Ensure section and index are valid numbers to prevent NaN in calculations
+      const validSection = typeof section === 'number' ? section : 0;
+      const validIndex = typeof index === 'number' ? index : 0;
+      let uniqueKey = String((validSection + 1) * validIndex);
       let child;
       let style;
       switch (type) {
@@ -809,29 +815,80 @@ class BigList extends PureComponent {
             child = renderHeader();
             style = fullItemStyle;
           }
-        // falls through
-        case BigListItemType.FOOTER:
-          if (type === BigListItemType.FOOTER) {
-            if (ListFooterComponent != null) {
-              child = createElement(ListFooterComponent);
-              style = mergeViewStyle(fullItemStyle, ListFooterComponentStyle);
+          if (child != null) {
+            // Validate that child is a valid React child before rendering
+            if (typeof child === 'object' && child !== null && !React.isValidElement(child)) {
+              console.warn('BigList: Invalid header child object detected. Child should be a valid React element, string, or number.', child);
             } else {
-              child = renderFooter();
-              style = fullItemStyle;
+              children.push(
+                <BigListItem
+                  key={itemKey}
+                  uniqueKey={uniqueKey}
+                  height={height}
+                  width="100%"
+                  style={style}
+                >
+                  {child}
+                </BigListItem>
+              );
             }
           }
-        // falls through
-        case BigListItemType.SECTION_FOOTER:
-          if (type === BigListItemType.SECTION_FOOTER) {
-            const isSectionEmpty = sectionLengths[section] === 0;
-            // Hide section footer on empty list or when section is empty and renderEmptySections is false
-            height = isEmptyList ? 0 : (isSectionEmpty && !renderEmptySections ? 0 : height);
-            const sectionDataForFooter = this.hasSections()
-              ? this.props.sections[section]
-              : null;
-            child = renderSectionFooter(section, sectionDataForFooter);
+          break;
+        case BigListItemType.FOOTER:
+          if (ListFooterComponent != null) {
+            child = createElement(ListFooterComponent);
+            style = mergeViewStyle(fullItemStyle, ListFooterComponentStyle);
+          } else {
+            child = renderFooter();
             style = fullItemStyle;
           }
+          if (child != null) {
+            // Validate that child is a valid React child before rendering
+            if (typeof child === 'object' && child !== null && !React.isValidElement(child)) {
+              console.warn('BigList: Invalid footer child object detected. Child should be a valid React element, string, or number.', child);
+            } else {
+              children.push(
+                <BigListItem
+                  key={itemKey}
+                  uniqueKey={uniqueKey}
+                  height={height}
+                  width="100%"
+                  style={style}
+                >
+                  {child}
+                </BigListItem>
+              );
+            }
+          }
+          break;
+        case BigListItemType.SECTION_FOOTER:
+          const isSectionEmptyForFooter = sectionLengths[section] === 0;
+          // Hide section footer on empty list or when section is empty and renderEmptySections is false
+          height = isEmptyList ? 0 : (isSectionEmptyForFooter && !renderEmptySections ? 0 : height);
+          const sectionDataForFooter = this.hasSections()
+            ? this.props.sections[section]
+            : null;
+          child = renderSectionFooter(section, sectionDataForFooter);
+          style = fullItemStyle;
+          if (child != null) {
+            // Validate that child is a valid React child before rendering
+            if (typeof child === 'object' && child !== null && !React.isValidElement(child)) {
+              console.warn('BigList: Invalid section footer child object detected. Child should be a valid React element, string, or number.', child);
+            } else {
+              children.push(
+                <BigListItem
+                  key={itemKey}
+                  uniqueKey={uniqueKey}
+                  height={height}
+                  width="100%"
+                  style={style}
+                >
+                  {child}
+                </BigListItem>
+              );
+            }
+          }
+          break;
         // falls through
         case BigListItemType.ITEM:
           if (type === BigListItemType.ITEM) {
@@ -865,6 +922,12 @@ class BigList extends PureComponent {
             child = renderItem(renderArguments);
           }
           if (child != null) {
+            // Validate that child is a valid React child before rendering
+            if (typeof child === 'object' && child !== null && !React.isValidElement(child)) {
+              console.warn('BigList: Invalid child object detected. Child should be a valid React element, string, or number.', child);
+              return; // Skip rendering this invalid child
+            }
+            
             if (type === BigListItemType.ITEM && controlItemRender) {
               // When users control item rendering we must still ensure a key is
               // supplied to each child when we insert it into the children array.
@@ -923,18 +986,23 @@ class BigList extends PureComponent {
             : null;
           child = renderSectionHeader(section, sectionDataForHeader);
           if (child != null) {
-            children.push(
-              <BigListSection
-                key={itemKey}
-                style={fullItemStyle}
-                height={height}
-                position={position}
-                nextSectionPosition={sectionPositions[0]}
-                scrollTopValue={this.scrollTopValue}
-              >
-                {child}
-              </BigListSection>,
-            );
+            // Validate that child is a valid React child before rendering
+            if (typeof child === 'object' && child !== null && !React.isValidElement(child)) {
+              console.warn('BigList: Invalid section header child object detected. Child should be a valid React element, string, or number.', child);
+            } else {
+              children.push(
+                <BigListSection
+                  key={itemKey}
+                  style={fullItemStyle}
+                  height={height}
+                  position={position}
+                  nextSectionPosition={sectionPositions[0]}
+                  scrollTopValue={this.scrollTopValue}
+                >
+                  {child}
+                </BigListSection>,
+              );
+            }
           }
           break;
       }
