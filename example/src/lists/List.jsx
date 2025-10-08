@@ -8,7 +8,7 @@ import {
 import { List, Subheading } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 
-import BigList from "react-native-big-list";
+import BigList from "../../../lib";
 import data from "../data/data.json";
 import Block from "./components/Block";
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { KeyboardAvoidingView, SafeAreaView, StyleSheet } from "react-native";
-import BigList from "react-native-big-list";
+import BigList from "../../../lib";
 import { Checkbox } from "react-native-paper";
 
 import data from "../data/data.json";

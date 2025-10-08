@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, SafeAreaView, StyleSheet } from "react-native";
 import { Appbar, List, Subheading } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 
-import BigList from "react-native-big-list";
+import BigList from "../../../lib";
 import sections from "../data/sections.json";
 import Block from "./components/Block";
 

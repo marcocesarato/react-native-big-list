@@ -5,7 +5,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import BigList from "react-native-big-list";
+import BigList from "../../../lib";
 import { List, Subheading, TextInput } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 

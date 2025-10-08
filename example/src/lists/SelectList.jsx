@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BigList from "react-native-big-list";
+import BigList from "../../../lib";
 import { Checkbox } from "react-native-paper";
 
 const SelectList = ({ data, value, onSelect }) => {
