@@ -1017,6 +1017,7 @@ class BigList extends PureComponent {
       sections,
       initialScrollIndex,
       columnWrapperStyle,
+      numColumns,
       renderHeader,
       renderFooter,
       renderSectionHeader,
@@ -1098,6 +1099,12 @@ class BigList extends PureComponent {
         ) : null,
       contentContainerStyle: {
         maxWidth: "100%",
+        ...(numColumns > 1 && !horizontal
+          ? {
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }
+          : {}),
       },
     };
 
