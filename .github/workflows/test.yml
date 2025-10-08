@@ -21,16 +21,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
 
       - name: Run tests
-        run: npm test
+        run: yarn test
 
       - name: Generate coverage report
-        run: npm run test:coverage
+        run: yarn test:coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
