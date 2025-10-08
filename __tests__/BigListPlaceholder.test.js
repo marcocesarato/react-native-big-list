@@ -58,4 +58,17 @@ describe('BigListPlaceholder', () => {
     );
     expect(getByTestId('custom-style-placeholder')).toBeTruthy();
   });
+
+  test('renders with string height and width', () => {
+    const CustomComponent = () => (
+      <View testID="string-dimensions-placeholder">
+        <Text>String Dimensions</Text>
+      </View>
+    );
+
+    const { getByTestId } = render(
+      <BigListPlaceholder height="100px" width="200px" component={<CustomComponent />} />
+    );
+    expect(getByTestId('string-dimensions-placeholder')).toBeTruthy();
+  });
 });
