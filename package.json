@@ -1,6 +1,6 @@
 {
   "name": "react-native-big-list",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "High-performance, virtualized list for React Native. Efficiently renders large datasets with recycler API for smooth scrolling and low memory usage. Ideal for fast, scalable, customizable lists on Android, iOS, and web.",
   "keywords": [
     "react-native-big-list",
@@ -93,11 +93,11 @@
     "lint-staged": "^13.2.0",
     "metro-react-native-babel-preset": "^0.77.0",
     "prettier": "^2.8.7",
-  "react": "^19.2.0",
+    "react": "^19.2.0",
     "react-native": "^0.81.4",
     "react-native-builder-bob": "^0.20.4",
     "react-native-svg-mock": "^2.0.0",
-  "react-test-renderer": "^19.2.0",
+    "react-test-renderer": "^19.2.0",
     "standard-version": "^9.5.0",
     "typescript": "^4.5.2",
     "yarpm": "^1.2.0"

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.4](https://github.com/marcocesarato/react-native-big-list/compare/v1.6.2...v1.6.4) (2025-10-08)
+
+
+### Bug Fixes
+
+* enhance BigList item rendering by ensuring valid keys for controlled items and suppress specific deprecation warnings in Jest setup ([d911ffc](https://github.com/marcocesarato/react-native-big-list/commit/d911ffcf4691cb51f0b5cd184171f07da14058f6))
+
 ### [1.6.3](https://github.com/marcocesarato/react-native-big-list/compare/v1.6.2...v1.6.3) (2025-10-08)
 
 ### Features
