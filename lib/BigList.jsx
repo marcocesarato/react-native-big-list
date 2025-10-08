@@ -865,10 +865,20 @@ class BigList extends PureComponent {
             child = renderItem(renderArguments);
           }
           if (child != null) {
-            children.push(
-              type === BigListItemType.ITEM && controlItemRender ? (
-                child
-              ) : (
+            if (type === BigListItemType.ITEM && controlItemRender) {
+              // When users control item rendering we must still ensure a key is
+              // supplied to each child when we insert it into the children array.
+              // If the rendered child is a valid React element, clone it with
+              // the key. Otherwise wrap it in a keyed fragment.
+              if (React.isValidElement(child)) {
+                children.push(React.cloneElement(child, { key: itemKey }));
+              } else {
+                children.push(
+                  <React.Fragment key={itemKey}>{child}</React.Fragment>,
+                );
+              }
+            } else {
+              children.push(
                 <BigListItem
                   key={itemKey}
                   uniqueKey={uniqueKey}
@@ -877,9 +887,9 @@ class BigList extends PureComponent {
                   style={style}
                 >
                   {child}
-                </BigListItem>
-              ),
-            );
+                </BigListItem>,
+              );
+            }
           }
           break;
         case BigListItemType.EMPTY:
