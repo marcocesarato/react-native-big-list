@@ -357,6 +357,14 @@ Reverses the direction of scroll. Uses scale transforms of `-1`.
 | ------- | -------- | ------- |
 | boolean | No       | `false` |
 
+### `horizontal`
+
+If `true`, the list will scroll horizontally instead of vertically.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `false` |
+
 ### `initialScrollIndex`
 
 Specify the initial scroll from the top of the list.
@@ -473,6 +481,18 @@ Hide header on empty list.
 ### `hideFooterOnEmpty`
 
 Hide footer on empty list.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | `false` |
+
+### `renderEmptySections`
+
+Show or hide section headers and footers for empty sections (sections with no items).
+
+When set to `true`, section headers and footers will be displayed even when the section has no items. This is useful when you want users to be aware of empty sections so they can create new items or remove the section entirely.
+
+When set to `false` (default), section headers and footers for empty sections will be hidden to maintain a clean UI.
 
 | Type    | Required | Default |
 | ------- | -------- | ------- |

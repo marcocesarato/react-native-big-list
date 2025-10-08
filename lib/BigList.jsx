@@ -31,11 +31,11 @@ class BigList extends PureComponent {
     // Initialize properties and state
     this.containerHeight = 0;
     this.scrollTop = 0;
-    this.scrollTopValue =
-      this.props.initialScrollIndex || new Animated.Value(0);
+    this.scrollTopValue = new Animated.Value(0);
     this.scrollView = React.createRef();
     this.state = this.getListState();
     this.viewableItems = [];
+    this.hasScrolledToInitialIndex = false;
   }
 
   /**
@@ -85,7 +85,7 @@ class BigList extends PureComponent {
       };
     }
     const self = BigList;
-    const layoutItemHeight = self.getItemHeight(itemHeight, getItemLayout);
+    const layoutItemHeight = self.getItemHeight(itemHeight, getItemLayout, data, sections);
     const sectionLengths = self.getSectionLengths(sections, data);
     const processor = new BigListProcessor({
       sections: sectionLengths,
@@ -160,11 +160,15 @@ class BigList extends PureComponent {
    * Get item height.
    * @param {number} itemHeight
    * @param {function|null|undefined} getItemLayout
+   * @param {array|null|undefined} data
+   * @param {array[]|object|null|undefined} sections
    * @return {null|*}
    */
-  static getItemHeight(itemHeight, getItemLayout) {
+  static getItemHeight(itemHeight, getItemLayout, data = null, sections = null) {
     if (getItemLayout) {
-      const itemLayout = getItemLayout([], 0);
+      // Pass the actual data array to getItemLayout (sections takes precedence over data)
+      const dataArray = sections || data || [];
+      const itemLayout = getItemLayout(dataArray, 0);
       return itemLayout.length;
     }
     if (itemHeight) {
@@ -178,8 +182,8 @@ class BigList extends PureComponent {
    * @return {null|*}
    */
   getItemHeight() {
-    const { itemHeight, getItemLayout } = this.props;
-    return this.constructor.getItemHeight(itemHeight, getItemLayout);
+    const { itemHeight, getItemLayout, data, sections } = this.props;
+    return this.constructor.getItemHeight(itemHeight, getItemLayout, data, sections);
   }
 
   /**
@@ -427,15 +431,26 @@ class BigList extends PureComponent {
    */
   onScroll(event) {
     const { nativeEvent } = event;
-    const { contentInset, batchSizeThreshold, onViewableItemsChanged } =
-      this.props;
+    const {
+      contentInset,
+      batchSizeThreshold,
+      onViewableItemsChanged,
+      horizontal,
+    } = this.props;
+    const axis = horizontal ? "width" : "height";
+    const offset = horizontal ? "x" : "y";
+    const insetStart = horizontal
+      ? contentInset.left || 0
+      : contentInset.top || 0;
+    const insetEnd = horizontal
+      ? contentInset.right || 0
+      : contentInset.bottom || 0;
+
     this.containerHeight =
-      nativeEvent.layoutMeasurement.height -
-      (contentInset.top || 0) -
-      (contentInset.bottom || 0);
+      nativeEvent.layoutMeasurement[axis] - insetStart - insetEnd;
     this.scrollTop = Math.min(
-      Math.max(0, nativeEvent.contentOffset.y),
-      nativeEvent.contentSize.height - this.containerHeight,
+      Math.max(0, nativeEvent.contentOffset[offset]),
+      nativeEvent.contentSize[axis] - this.containerHeight,
     );
 
     const nextState = processBlock({
@@ -456,14 +471,13 @@ class BigList extends PureComponent {
       this.onViewableItemsChanged();
     }
 
-    const { onScroll, onEndReached, onEndReachedThreshold } = this.props;
-    if (onScroll != null) {
-      onScroll(event);
-    }
+    // Note: User's onScroll is called in the handleScroll wrapper in render()
+    // to properly support Reanimated worklets
+    const { onEndReached, onEndReachedThreshold } = this.props;
     const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
     const distanceFromEnd =
-      contentSize.height - (layoutMeasurement.height + contentOffset.y);
-    if (distanceFromEnd <= layoutMeasurement.height * onEndReachedThreshold) {
+      contentSize[axis] - (layoutMeasurement[axis] + contentOffset[offset]);
+    if (distanceFromEnd <= layoutMeasurement[axis] * onEndReachedThreshold) {
       if (!this.endReached) {
         this.endReached = true;
         onEndReached && onEndReached({ distanceFromEnd });
@@ -479,11 +493,17 @@ class BigList extends PureComponent {
    */
   onLayout(event) {
     const { nativeEvent } = event;
-    const { contentInset, batchSizeThreshold } = this.props;
-    this.containerHeight =
-      nativeEvent.layout.height -
-      (contentInset.top || 0) -
-      (contentInset.bottom || 0);
+    const { contentInset, batchSizeThreshold, horizontal, initialScrollIndex } =
+      this.props;
+    const axis = horizontal ? "width" : "height";
+    const insetStart = horizontal
+      ? contentInset.left || 0
+      : contentInset.top || 0;
+    const insetEnd = horizontal
+      ? contentInset.right || 0
+      : contentInset.bottom || 0;
+
+    this.containerHeight = nativeEvent.layout[axis] - insetStart - insetEnd;
     const nextState = processBlock({
       containerHeight: this.containerHeight,
       scrollTop: this.scrollTop,
@@ -496,6 +516,21 @@ class BigList extends PureComponent {
     ) {
       this.setState(nextState);
     }
+    
+    // Scroll to initial index after layout is complete
+    if (
+      !this.hasScrolledToInitialIndex &&
+      initialScrollIndex != null &&
+      initialScrollIndex > 0 &&
+      this.containerHeight > 0
+    ) {
+      this.hasScrolledToInitialIndex = true;
+      // Use setTimeout to ensure the list is fully rendered
+      setTimeout(() => {
+        this.scrollToIndex({ index: initialScrollIndex, animated: false });
+      }, 0);
+    }
+    
     const { onLayout } = this.props;
     if (onLayout) {
       onLayout(event);
@@ -687,6 +722,7 @@ class BigList extends PureComponent {
       hideMarginalsOnEmpty,
       hideHeaderOnEmpty,
       hideFooterOnEmpty,
+      renderEmptySections,
       columnWrapperStyle,
       controlItemRender,
       placeholder,
@@ -746,6 +782,9 @@ class BigList extends PureComponent {
       }
     }
 
+    // Get section lengths to check if individual sections are empty
+    const sectionLengths = this.getSectionLengths();
+
     // Sections positions
     const sectionPositions = [];
     items.forEach(({ type, position }) => {
@@ -784,7 +823,9 @@ class BigList extends PureComponent {
         // falls through
         case BigListItemType.SECTION_FOOTER:
           if (type === BigListItemType.SECTION_FOOTER) {
-            height = isEmptyList ? 0 : height; // Hide section footer on empty
+            const isSectionEmpty = sectionLengths[section] === 0;
+            // Hide section footer on empty list or when section is empty and renderEmptySections is false
+            height = isEmptyList ? 0 : (isSectionEmpty && !renderEmptySections ? 0 : height);
             const sectionDataForFooter = this.hasSections()
               ? this.props.sections[section]
               : null;
@@ -863,7 +904,9 @@ class BigList extends PureComponent {
           );
           break;
         case BigListItemType.SECTION_HEADER:
-          height = isEmptyList ? 0 : height; // Hide section header on empty
+          const isSectionEmpty = sectionLengths[section] === 0;
+          // Hide section header on empty list or when section is empty and renderEmptySections is false
+          height = isEmptyList ? 0 : (isSectionEmpty && !renderEmptySections ? 0 : height);
           sectionPositions.shift();
           const sectionDataForHeader = this.hasSections()
             ? this.props.sections[section]
@@ -924,7 +967,7 @@ class BigList extends PureComponent {
    */
   componentDidUpdate(prevProps) {
     if (prevProps.initialScrollIndex !== this.props.initialScrollIndex) {
-      throw new Error("scrollTopValue cannot changed after mounting");
+      throw new Error("initialScrollIndex cannot be changed after mounting");
     }
   }
 
@@ -967,7 +1010,7 @@ class BigList extends PureComponent {
       data,
       keyExtractor,
       inverted,
-      horizontal, // Disabled
+      horizontal,
       placeholder,
       placeholderImage,
       placeholderComponent,
@@ -1008,16 +1051,45 @@ class BigList extends PureComponent {
     } = this.props;
 
     const wrapper = renderScrollViewWrapper || ((val) => val);
-    const handleScroll =
-      stickySectionHeadersEnabled && Platform.OS === "web"
-        ? Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.scrollTopValue } } }],
-            {
-              listener: (event) => this.onScroll(event),
-              useNativeDriver: false,
+    const offset = horizontal ? "x" : "y";
+    
+    // Handle scroll events - support both regular callbacks and Reanimated worklets
+    // The key is to call both the internal handler and the user's handler
+    const userOnScroll = props.onScroll;
+    let handleScroll;
+    
+    if (stickySectionHeadersEnabled && Platform.OS === "web") {
+      // Web platform with sticky headers - use Animated.event with listener
+      handleScroll = Animated.event(
+        [
+          {
+            nativeEvent: {
+              contentOffset: { [offset]: this.scrollTopValue },
             },
-          )
-        : this.onScroll;
+          },
+        ],
+        {
+          listener: (event) => {
+            this.onScroll(event);
+            // Call user's onScroll if provided (after internal handling)
+            if (userOnScroll) {
+              userOnScroll(event);
+            }
+          },
+          useNativeDriver: false,
+        },
+      );
+    } else if (userOnScroll) {
+      // Combine internal and user scroll handlers
+      // This works for both regular callbacks and Reanimated worklets
+      handleScroll = (event) => {
+        this.onScroll(event);
+        userOnScroll(event);
+      };
+    } else {
+      // No user onScroll, just use internal handler
+      handleScroll = this.onScroll;
+    }
 
     const defaultProps = {
       refreshControl:
@@ -1030,6 +1102,7 @@ class BigList extends PureComponent {
     };
 
     const overwriteProps = {
+      horizontal,
       ref: (ref) => {
         this.scrollView.current = ref;
         if (actionSheetScrollRef) {
@@ -1170,6 +1243,9 @@ BigList.propTypes = {
   scrollEventThrottle: PropTypes.number,
   initialScrollIndex: PropTypes.number,
   hideMarginalsOnEmpty: PropTypes.bool,
+  hideHeaderOnEmpty: PropTypes.bool,
+  hideFooterOnEmpty: PropTypes.bool,
+  renderEmptySections: PropTypes.bool,
   sectionFooterHeight: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -1214,6 +1290,7 @@ BigList.defaultProps = {
   hideMarginalsOnEmpty: false,
   hideFooterOnEmpty: false,
   hideHeaderOnEmpty: false,
+  renderEmptySections: false,
   controlItemRender: false,
   // Height
   itemHeight: 50,
