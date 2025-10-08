@@ -1,6 +1,6 @@
 {
   "name": "react-native-big-list",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "High-performance, virtualized list for React Native. Efficiently renders large datasets with recycler API for smooth scrolling and low memory usage. Ideal for fast, scalable, customizable lists on Android, iOS, and web.",
   "keywords": [
     "react-native-big-list",

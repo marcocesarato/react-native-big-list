@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.3](https://github.com/marcocesarato/react-native-big-list/compare/v1.6.2...v1.6.3) (2025-10-08)
+
+### Features
+
+* Support for Reanimated 2 onScroll worklets: user onScroll handlers are properly forwarded so Reanimated 2 worklets run correctly. (see: Reanimated docs/examples added)
+* Horizontal lists: implement horizontal scrolling support and add a horizontal-list example and documentation.
+* Testing and CI: add a comprehensive test suite (Jest + React Native Testing Library) covering placeholders, advanced features and horizontal lists; add CI/CD workflow and testing documentation.
+* New prop `renderEmptySections`: control visibility of empty section headers/footers.
+
+### Bug Fixes
+
+* enhance BigList item rendering by ensuring valid keys for controlled items and suppress specific deprecation warnings in Jest setup ([d911ffc](https://github.com/marcocesarato/react-native-big-list/commit/d911ffcf4691cb51f0b5cd184171f07da14058f6))
+* Fix numColumns in section lists: ensure column layout works correctly by setting flexDirection/flexWrap on the content container and handling undefined `numColumns`.
+* Fix getItemLayout: ensure `getItemLayout` receives the actual data array (instead of an empty array) so calculated offsets are correct.
+* Fix initialScrollIndex: correctly honor the `initialScrollIndex` parameter so the list initially scrolls to the desired item.
+* Fix renderSectionHeader style doubling issue when rendering section headers.
+* Fix memory leak warning in `BigListPlaceholder` and related memory-leak fixes surfaced in tests.
+* Fix BigList rendering in test environments (preventing the list from appearing always empty in tests).
+* Add support for onScrollBeginDrag / onScrollEndDrag and other scroll drag events; add `refreshControl` propType and fix related refresh-control issues.
+* Fix various horizontal-list rendering and dynamic item height issues.
+
+### Documentation
+
+* Add Reanimated 2 documentation and examples showing how to use native onScroll worklets with BigList.
+* Add horizontal list documentation and examples.
+* Add testing documentation describing the new Jest + RNTL test suite and CI setup.
+
+### Chores
+
+* CI: fix Node version compatibility and switch CI to use Yarn; other CI pipeline fixes.
+* Refactor: remove defaultProps for width in `BigListItem` and `BigListPlaceholder`.
+
+
 ### [1.6.2](https://github.com/marcocesarato/react-native-big-list/compare/v1.6.1...v1.6.2) (2025-07-19)
 
 ## [1.6.0](https://github.com/marcocesarato/react-native-big-list/compare/v1.5.6...v1.6.0) (2022-11-06)
